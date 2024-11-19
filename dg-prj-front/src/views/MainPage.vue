@@ -19,7 +19,7 @@
         <!-- 로그인 창 -->
         <div class="login-container" v-else>
             <button class="afterlogin-btn" @click="console.log(store.userId)">Profile</button>
-            <button class="afterlogin-btn">Create Room</button>
+            <button class="afterlogin-btn" @click="CreateRoom">Create Room</button>
             <button class="afterlogin-btn">Enter Room</button>
             <br>
             <br>
@@ -28,9 +28,6 @@
 
             {{ store.token }}
         </div>
-
-
-
 
         <div class="howtoplay-container" @click="testFunc">
             how to play
@@ -41,10 +38,14 @@
 <script setup>
 import { useUserStore } from '@/stores/counter';
 import { ref } from 'vue';
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
+
+import {v4 as uuidv4} from 'uuid'
 const email = ref(null)
 const password = ref(null)
 const store = useUserStore()
+
+const router = useRouter()
 
 const testFunc = function () {
     console.log(email.value)    
@@ -59,6 +60,15 @@ const loginFunc = function () {
         password : password.value,
     }
     store.logIn(payload)
+}
+
+const CreateRoom = function () {
+    // 방 번호가 랜덤으로 들어가야함. 이지만 나중에 해보자잇.
+
+    const roomId = uuidv4()
+    router.push({name:'LoungeView', params: {roomId}})
+    
+    
 }
 
 </script>
