@@ -32,9 +32,19 @@ ALLOWED_HOSTS = []
 AUTH_USER_MODEL = 'accounts.CustomUser' # Custom User 모델
 
 INSTALLED_APPS = [
-    'rest_framework',
     'accounts',
     'gameApp',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+    'corsheaders',
+
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,7 +53,46 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
+
+ACCOUNT_ADAPTER = 'accounts.adapter.CustomAccountAdapter'
+
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_REQUIRED = True
+
+# settings.py
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'accounts.serializers.CustomUserRegisterSerializer',  # CustomUserRegisterSerializer를 등록합니다.
+}
+
+
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    # 추가적으로 허용할 도메인이 있다면 여기에 추가
+]
+
+SITE_ID = 1
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES' : [        
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES' : [
+        # 'rest_framework.permissions.AllowAny',
+        'rest_framework.permissions.IsAuthenticated',  # 권한 클래스
+
+    ]
+}
+
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  # 이 줄을 맨 위에 추가
+    'django.middleware.common.CommonMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

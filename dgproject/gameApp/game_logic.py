@@ -1,4 +1,4 @@
-from langchain_openai import ChatOpenAI
+from langchain.chat_models import ChatOpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 import os
@@ -135,7 +135,7 @@ def generate_summary(history):
 
 #####################################################################
 ############################## 메인 루프 #############################
-def game_loop():
+# def game_loop():
     # 첫 시나리오 설정
     current_situation = {
         "id": 1,
