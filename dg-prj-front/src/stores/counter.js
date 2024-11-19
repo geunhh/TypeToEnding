@@ -8,6 +8,7 @@ export const useUserStore = defineStore('user', () => {
   const token = ref(null)
   const userId = ref(null)
   const router = useRouter()
+  const movieId = ref()
 
   const signUp = function (payload) {    
     const email = payload.email
@@ -67,5 +68,5 @@ export const useUserStore = defineStore('user', () => {
     
   }
 
-  return {  signUp , logIn, token, getUserInfo, userId}
+  return {  signUp , logIn, token, getUserInfo, userId, movieId}
 },{persist:true})
