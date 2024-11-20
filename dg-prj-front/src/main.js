@@ -20,4 +20,6 @@ app.use(pinia);
 app.use(router);
 app.use(BootstrapVue3)
 
+// npm install bootstrap-vue-3
+
 app.mount('#app');
