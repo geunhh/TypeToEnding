@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,4 +28,4 @@ urlpatterns = [
         # 회원가입, 로그인, 로그아웃, 비밀번호 변경 등의 기능을 RESTful API로 쉽게 제공.
         # 회원가입은 따로 고고
     path('accounts/signup/', include('dj_rest_auth.registration.urls')),
-]
+] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

@@ -14,16 +14,16 @@
             </form>                
             <button>
             <RouterLink :to="{name:'SignUpView'}">회원가입</RouterLink>     </button>
-            {{ store.token }}
         </div>
         <!-- 로그인 창 -->
         <div class="login-container" v-else>
-            <button class="afterlogin-btn" @click="console.log(store.userId)">Profile</button>
+            <button class="afterlogin-btn" @click="moveToProfilePage">Profile</button>
             <button class="afterlogin-btn" @click="CreateRoom">Create Room</button>
             <button class="afterlogin-btn">Enter Room</button>
             <br>
             <br>
-            <button class="afterlogin-btn" style="background-color: gray;">Log Out</button>
+            <button class="afterlogin-btn" style="background-color: gray;"
+                    @click.prevent=logOutFunc>Log Out</button>
             <button class="afterlogin-btn" style="background-color: gray;">Sign Out</button>
 
             {{ store.token }}
@@ -36,20 +36,42 @@
 </template>
 
 <script setup>
-import { useUserStore } from '@/stores/counter';
-import { ref } from 'vue';
+import { useMovieStore, useUserStore } from '@/stores/counter';
+import { ref, onMounted } from 'vue';
 import { RouterLink, useRouter } from 'vue-router';
 
 import {v4 as uuidv4} from 'uuid'
 const email = ref(null)
 const password = ref(null)
 const store = useUserStore()
-
+const moviestore = useMovieStore()
 const router = useRouter()
+
+onMounted(() => {
+    moviestore.movie_name = null
+    moviestore.description = null
+    moviestore.context = null
+    moviestore.poster_path = null
+    moviestore.movieId = null
+
+})
+
+const moveToProfilePage = () => {
+    console.log(store.userId)
+    router.push({
+        name: 'ProfilePageView',
+        params: { userId: store.userId }
+    })
+}
 
 const testFunc = function () {
     console.log(email.value)    
     console.log(password.value)    
+}
+
+const logOutFunc = function () {
+    console.log('button clicked!!!')
+    store.logOut()
 }
 
 const loginFunc = function () {
@@ -66,9 +88,9 @@ const CreateRoom = function () {
     // 방 번호가 랜덤으로 들어가야함. 이지만 나중에 해보자잇.
 
     const roomId = uuidv4()
+    moviestore.roomId = roomId
+    console.log(moviestore.roomId)
     router.push({name:'LoungeView', params: {roomId}})
-    
-    
 }
 
 </script>
@@ -104,8 +126,6 @@ const CreateRoom = function () {
     font-size: x-large;
     border-radius: 15px;
     margin-top: 30px;
-
-
 }
 
 </style>

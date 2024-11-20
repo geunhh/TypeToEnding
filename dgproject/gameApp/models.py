@@ -27,7 +27,7 @@ class GameRecord(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, 
                              related_name='game_records')
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='game_records')
-    history = models.TextField()
+    history = models.JSONField(default=list)
     total_score = models.IntegerField(default=0, null=True, blank=True)
     start_time = models.DateTimeField(auto_now_add=True)
     end_time = models.DateTimeField(blank=True, null=True)

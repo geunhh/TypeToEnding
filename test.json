@@ -1,0 +1,156 @@
+{
+  "currentRoute": {
+    "fullPath": "/roundresult",
+    "path": "/roundresult",
+    "query": {},
+    "hash": "",
+    "name": "roundresult",
+    "params": {},
+    "matched": [
+      {
+        "path": "/roundresult",
+        "name": "roundresult",
+        "meta": {},
+        "props": {
+          "default": false
+        },
+        "children": [],
+        "instances": {
+          "default": null
+        },
+        "leaveGuards": {
+          "Set(0)": []
+        },
+        "updateGuards": {
+          "Set(0)": []
+        },
+        "enterCallbacks": {},
+        "components": {
+          "default": {
+            "__name": "RoundResult",
+            "__hmrId": "8856dc69",
+            "__scopeId": "data-v-8856dc69",
+            "__file": "C:/Users/SSAFY/Desktop/DG_prj/dg-prj-front/src/views/RoundResult.vue"
+          }
+        }
+      }
+    ],
+    "meta": {},
+    "href": "/roundresult"
+  },
+  "listening": true,
+  "options": {
+    "history": {
+      "location": "/roundresult",
+      "base": "",
+      "state": {
+        "back": "/evaluation",
+        "current": "/roundresult",
+        "forward": null,
+        "replaced": true,
+        "position": 150,
+        "scroll": {
+          "left": 0,
+          "top": 0
+        },
+        "result": {
+          "next_problem": "해리는 퀴렐 교수의 추격을 피해 숲 속에서 숨어있지만, 갑자기 숲 속에서 떠오르는 빛과 소리를 느낍니다. 그 빛과 소리는 호그와트에서 금지된 마법 중 하나인 '무언의 저주'를 시전하는 것으로, 해리는 이 저주를 풀기 위해 어떤 마법을 사용해야 할지 고민하게 됩니다. 해리는 주변에 있는 자연의 힘을 활용하여 이 무언의 저주를 해제하고, 퀴렐 교수로부터 탈출해야 합니다. 해리는 숲 속에서 어떤 마법을 사용하여 무언의 저주를 해제할 수 있을지 고민해야 합니다.",
+          "is_game_over": false,
+          "total_score": 0,
+          "reason": "유저가 단순히 키보드를 두드리는 무의미한 문자열을 입력했기 때문에, 상황에 대처하거나 행동을 취하지 않고 있습니다.",
+          "is_valid": false
+        }
+      }
+    },
+    "routes": [
+      {
+        "path": "/test",
+        "name": "test",
+        "component": {
+          "__name": "recordtest",
+          "__hmrId": "e13a7004",
+          "__file": "C:/Users/SSAFY/Desktop/DG_prj/dg-prj-front/src/components/recordtest.vue"
+        }
+      }, {
+        "path": "/",
+        "name": "main",
+        "component": {
+          "__name": "MainPage",
+          "__hmrId": "7fc90d69",
+          "__scopeId": "data-v-7fc90d69",
+          "__file": "C:/Users/SSAFY/Desktop/DG_prj/dg-prj-front/src/views/MainPage.vue"
+        }
+      }, {
+        "path": "/signup",
+        "name": "SignUpView",
+        "component": {
+          "__name": "SignUpView",
+          "__hmrId": "33d48dbc",
+          "__file": "C:/Users/SSAFY/Desktop/DG_prj/dg-prj-front/src/views/SignUpView.vue"
+        }
+      }, {
+        "path": "/profile=:userId",
+        "name": "ProfilePageView",
+        "component": {
+          "__name": "ProfilePageView",
+          "__hmrId": "bcdc7105",
+          "__file": "C:/Users/SSAFY/Desktop/DG_prj/dg-prj-front/src/views/ProfilePageView.vue"
+        }
+      }, {
+        "path": "/lounge/:roomId",
+        "name": "LoungeView",
+        "component": {
+          "__name": "LoungeView",
+          "__hmrId": "5607e576",
+          "__scopeId": "data-v-5607e576",
+          "__file": "C:/Users/SSAFY/Desktop/DG_prj/dg-prj-front/src/views/LoungeView.vue"
+        },
+        "props": true
+      }, {
+        "path": "/movieselect",
+        "name": "SelectMovie",
+        "component": {
+          "__name": "SelectMovie",
+          "__hmrId": "3d9909b0",
+          "__scopeId": "data-v-3d9909b0",
+          "__file": "C:/Users/SSAFY/Desktop/DG_prj/dg-prj-front/src/views/SelectMovie.vue"
+        }
+      }, {
+        "path": "/loading",
+        "name": "loading",
+        "component": {
+          "__name": "ComeScenario",
+          "__hmrId": "a7e8eccd",
+          "__file": "C:/Users/SSAFY/Desktop/DG_prj/dg-prj-front/src/components/ComeScenario.vue"
+        }
+      }, {
+        "path": "/typetoend/:roomId",
+        "name": "GamePlayView",
+        "component": {
+          "__name": "GamePlayView",
+          "__hmrId": "f7d75dc5",
+          "__scopeId": "data-v-f7d75dc5",
+          "__file": "C:/Users/SSAFY/Desktop/DG_prj/dg-prj-front/src/views/GamePlayView.vue"
+        }
+      }, {
+        "path": "/evaluation",
+        "name": "evaluation",
+        "component": {
+          "__name": "EvaluationView",
+          "__hmrId": "87be3491",
+          "__file": "C:/Users/SSAFY/Desktop/DG_prj/dg-prj-front/src/components/EvaluationView.vue"
+        }
+      }, {
+        "path": "/roundresult",
+        "name": "roundresult",
+        "component": {
+          "__name": "RoundResult",
+          "__hmrId": "8856dc69",
+          "__scopeId": "data-v-8856dc69",
+          "__file": "C:/Users/SSAFY/Desktop/DG_prj/dg-prj-front/src/views/RoundResult.vue"
+        }
+      }
+    ]
+  },
+  "__hasDevtools": true
+}

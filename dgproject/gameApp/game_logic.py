@@ -14,7 +14,7 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 def get_movie_context(movie_id):
     #movie = Movie.objects.get(id=movie_id)
-    movie = Movie.objects.get(id=1) # 일단 1로..
+    movie = Movie.objects.get(id=movie_id) # 일단 1로..
     return movie.context
 
 ## 해리포터 세계관. 정보
@@ -61,7 +61,7 @@ harry_potter_context = """
 """
 
 # OpenAI 모델 초기화
-chat = ChatOpenAI(temperature=0.5)
+chat = ChatOpenAI(temperature=0.5, openai_api_key=OPENAI_API_KEY)
 
 
 game_record = [  # 각 라운드의 기록
@@ -135,7 +135,7 @@ def generate_summary(history):
 
 #####################################################################
 ############################## 메인 루프 #############################
-# def game_loop():
+def game_loop():
     # 첫 시나리오 설정
     current_situation = {
         "id": 1,
@@ -220,13 +220,15 @@ def generate_summary(history):
 
     game_record.append({"summary":summary})
 
-def play_game_round(game_record, user_action):
+def play_game_round1(game_record, user_action):
     context = get_movie_context(game_record.movie.id)
+
     # 이전 라운드 데이터 or 첫 질문 가져오기
     if game_record.history:
         history = json.loads(game_record.history)
         current_situation = history[-1]['next_situation']
     else :
+        history = []
         current_situation = game_record.movie.initial_questions.order_by('?').first().question
     
     evaluation_result = evaluate_and_generate_next(
@@ -264,6 +266,52 @@ def play_game_round(game_record, user_action):
     game_record.save()
 
     return next_problem, is_game_over
+
+def play_game_round(game_record, user_action):
+    # history가 이미 Python 객체로 변환되어 있으므로 그대로 사용
+    history = game_record.history
+
+    # 현재 상황 가져오기
+    if history:
+        current_situation = history[-1]['next_situation']
+    else:
+        current_situation = game_record.movie.initial_questions.order_by('?').first().question
+
+    # 행동 평가 및 다음 상황 생성
+    evaluation_result = evaluate_and_generate_next(
+        situation=current_situation,
+        user_action=user_action,
+        context=get_movie_context(game_record.movie.id),
+    )
+
+    score, is_valid, reason, next_problem = process_evaluation_and_next(evaluation_result)
+
+    # 새로운 라운드 데이터 추가
+    round_data = {
+        "round": len(history) + 1,
+        "situation": current_situation,
+        "user_action": user_action,
+        "score": score,
+        "evaluation": "적절함" if is_valid else "부적절함",
+        "reason": reason,
+        "next_situation": next_problem
+    }
+    history.append(round_data)
+
+    # 기록 업데이트
+    game_record.history = history  # JSONField에 바로 저장
+    game_record.total_score += score
+
+    # 게임 종료 조건
+    is_game_over = len(history) >= 5
+    if is_game_over:
+        game_record.end_time = timezone.now()
+        game_record.end_status = 'COMPLETED'
+
+    game_record.save()
+
+    return next_problem, is_game_over, reason, is_valid
+
 
 def generate_game_summary(game_record):
     history = json.loads(game_record.history)
