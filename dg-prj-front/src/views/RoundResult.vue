@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class>
         <h1> Round : {{ gamestore.game_round }}</h1>
         <div class="playgame-container">
         <!-- <p>{{ moviestore.movie_name }}</p>
@@ -45,7 +45,7 @@ const gamestore = useGameStore()
 const result = ref(router.options.history.state.result)
 const nextStage = function () {
     gamestore.game_round ++;
-    if (gamestore.game_round > 5) {
+    if (gamestore.game_round > 4) {
         router.push({ name: 'ResultPage' }); // 여기에 결과 페이지의 라우트 이름을 사용하세요.
     }
     else {

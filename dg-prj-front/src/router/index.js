@@ -15,66 +15,64 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path :'/test',
-      name : 'test',
-      component:Recordtest
+      path: '/test',
+      name: 'test',
+      component: Recordtest
     },
     {
-      path : '/',
-      name : 'main',
-      component : MainPage
+      path: '/',
+      name: 'main',
+      component: MainPage
     },
     {
-      path : '/signup',
-      name : 'SignUpView',
-      component : SignUpView
+      path: '/signup',
+      name: 'SignUpView',
+      component: SignUpView
     },
-
     {
       path: '/profile=:userId',
       name: 'ProfilePageView',
       component: ProfilePageView
     },
     {
-      path : '/lounge/:roomId', 
-      name : 'LoungeView',
-      component :LoungeView,
-      props:true,
+      path: '/lounge/:roomId',
+      name: 'LoungeView',
+      component: LoungeView,
+      props: true,
     },
     {
-      path : '/movieselect',
-      name : 'SelectMovie',
-      component :SelectMovie
+      path: '/movieselect',
+      name: 'SelectMovie',
+      component: SelectMovie
     },
     {
-      path : '/loading',
-      name : 'loading',
-      component : ComeScenario
+      path: '/loading',
+      name: 'loading',
+      component: ComeScenario
     },
     {
-      path : '/typetoend/:roomId', 
-      name : 'GamePlayView',
-      component : GamePlayView,
+      path: '/typetoend/:roomId',
+      name: 'GamePlayView',
+      component: GamePlayView,
     },
     {
-      path : '/evaluation',
-      name : 'evaluation',
-      component : EvaluationView,
+      path: '/evaluation',
+      name: 'evaluation',
+      component: EvaluationView,
     },
     {
-      path : '/roundresult',
-      name : 'roundresult',
-      component : RoundResult,
+      path: '/roundresult',
+      name: 'roundresult',
+      component: RoundResult,
     },
     {
       path : '/ResultPage',
       name : 'ResultPage',
       component : ResultView,
     },
-  
 
   ],
-  
+
 })
 
 

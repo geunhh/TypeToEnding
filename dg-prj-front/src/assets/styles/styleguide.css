@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@400&display=swap');
+
+
+.font-inknut {
+    font-family: 'Inknut Antiqua', serif !important; /* Inknut Antiqua 폰트 */
+}
+
+.container-center-horizontal--main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+  
+
+.red-button {
+    background-color: #E50000;
+}
+.gray-button {
+    background-color: #808080;
+}
+.input-cell {
+    background-color: #262626;
+}
+.container-background {
+    background-color: #0F0F0F;
+}
+
+.background-style {
+    background-color: #1a1a1a;
+    margin: 0
+}
+
+/* 테스트용 */
+.btn-primary {
+    background-color: rgb(8, 8, 24);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.text-large {
+    font-size: 20px;
+    font-weight: bold;
+}

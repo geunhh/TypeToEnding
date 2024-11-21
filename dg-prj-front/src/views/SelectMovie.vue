@@ -17,6 +17,7 @@
         <hr>
     </div>
     <button type="submit">영화 선택</button>
+    {{ store.token }}
 
     </form>
     </div>

@@ -2,6 +2,7 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
+import { useAccountStore } from './accountStore'
 
 // 유저 정보 및 함수 관리 스토어
 export const useUserStore = defineStore('user', () => {
@@ -84,15 +85,13 @@ export const useUserStore = defineStore('user', () => {
 
   return {  signUp , logIn, token, getUserInfo, userId, movieId,logOut}
 },{persist:true})
-/////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////
 
 // 영화 정보 및 함수 관리 스토어
 export const useMovieStore = defineStore('movie', () => {
   
   const movies = ref(null) // 영화 전체 목록 -> 영화 선택에서 사용.
   const userstore = useUserStore() 
-  
+  const accountstore = useAccountStore()
   // 선택한 영화 정보
   const movieId = ref(null)
   const movie_name = ref(null)
@@ -107,7 +106,7 @@ export const useMovieStore = defineStore('movie', () => {
       method:'get',
       url:'http://127.0.0.1:8000/gameApp/movielist/',
       headers : {
-        Authorization: `Token ${userstore.token}`
+        Authorization: `Token ${accountstore.token}`
       },
     })    .then(res => {
       console.log('영화 정보 가져오기 성공')
@@ -121,7 +120,7 @@ export const useMovieStore = defineStore('movie', () => {
 export const useGameStore = defineStore('game', () => {
   const userstore = useUserStore()
   const moviestore = useMovieStore()
-
+  const accountstore = useAccountStore()
   const game_id = ref(null)
   const game_round = ref(0)
   const initial_question = ref(null)
@@ -135,7 +134,7 @@ export const useGameStore = defineStore('game', () => {
       method:'post',
       url:"http://127.0.0.1:8000/gameApp/start_game/",
       headers : {
-        Authorization: `Token ${userstore.token}`
+        Authorization: `Token ${accountstore.token}`
       },
       data: {movie_id: moviestore.movieId,} // 선택된 영화 ID를 이 변수에 담아 전송}
     })

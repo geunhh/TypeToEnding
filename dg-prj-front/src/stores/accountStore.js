@@ -4,7 +4,7 @@ import axios from 'axios'
 import { useRouter } from 'vue-router'
 
 
-export const useAccountStore = defineStore('user', () => {
+export const useAccountStore = defineStore('account', () => {
   const token = ref(null)
   const userInfo = ref(null)
   const userId = ref(null)

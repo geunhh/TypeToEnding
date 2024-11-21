@@ -12,10 +12,12 @@
 </template>
 
 <script setup>
+import { useAccountStore } from '@/stores/accountStore';
 import { useUserStore } from '@/stores/counter';
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
 const userstore = useUserStore()
+const accountstore = useAccountStore()
 
 const records = ref()
 
@@ -24,7 +26,7 @@ axios({
     method : 'get',
     url:' http://127.0.0.1:8000/gameApp/test/',
     headers : {
-        Authorization: `Token ${userstore.token}`
+        Authorization: `Token ${accountstore.token}`
     },
 }).then(res => {
     console.log(res)

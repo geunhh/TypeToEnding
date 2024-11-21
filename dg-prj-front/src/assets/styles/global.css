@@ -1,0 +1,77 @@
+/* global.css */
+body {
+    background-color: #1a1a1a; /* 원하는 배경 색상 */
+    color: #ffffff; /* 기본 글자 색상 */
+    font-family: Arial, sans-serif; /* 기본 폰트 설정 */
+}
+
+/* 기본 스타일 초기화 및 오버라이드 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* h1~h6 태그 스타일 오버라이드 */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal; /* 기본 글자 굵기 초기화 */
+    margin-bottom: 0.5rem; /* 원하는 여백 설정 */
+}
+
+/* 버튼 스타일 오버라이드 */
+.btn {
+    all: unset; /* 기본 스타일 제거 */
+    display: inline-block; /* 기본 블록 설정 */
+    background-color: #e50000; /* 원하는 배경색 */
+    color: #ffffff; /* 글자색 */
+    border-radius: 8px; /* 모서리 둥글기 */
+    padding: 10px 20px; /* 여백 설정 */
+    cursor: pointer; /* 커서 변경 */
+}
+
+/* 입력 필드 스타일 오버라이드 */
+input, textarea {
+    background-color: #141414; /* 원하는 배경색 */
+    border: 1px solid #262626; /* 테두리 색상 */
+    color: #ffffff; /* 글자색 */
+    padding: 10px; /* 패딩 설정 */
+    border-radius: 4px; /* 모서리 둥글기 */
+}
+
+
+:root {
+    --absolutewhite: #ffffff;
+    --black: #000000;
+    --black06: #0f0f0f;
+    --black08: #141414;
+    --black10: #1a1a1a;
+    --black12: #1e1e1e;
+    --black15: #262626;
+    --eerie-black: #1a1a1a;
+    --grey60: #999999;
+    --red45: #e50000;
+    --abbey: #4e4e4e;
+
+    --font-size-s: 13px;
+    --font-size-m: 18px;
+    --font-size-l: 32px;
+    --font-size-xl: 36px;
+    --font-size-xxl: 96px;
+  
+    --font-family-inknut_antiqua: "Inknut Antiqua", Helvetica;
+    --font-family-inter: "Inter", Helvetica;
+    --font-family-manrope: "Manrope", Helvetica;
+
+    --profile-font-size-l: 20px;
+    --profile-font-size-m: 18px;
+    --profile-font-size-s: 16px;
+    --profile-font-size-xl: 24px;
+    --profile-font-size-xs: 14px;
+    --profile-font-size-xxl: 32px;
+    --profile-font-size-xxxl: 96px;   
+
+    --profile-font-family-inknut_antiqua-regular: "Inknut Antiqua-Regular", Helvetica;
+    --profile-font-family-inter-regular: "Inter-Regular", Helvetica;
+    --profile-font-family-manrope: "Manrope", Helvetica;
+    --profile-font-family-manrope-bold: "Manrope-Bold", Helvetica;
+  }
