@@ -5,11 +5,14 @@
         <hr>
         <button @click="recommend_toggle" :disabled="!recommend">영화 추천 받기 토글</button><br>
         <div v-if="isRecommend">
-            <p> 스토리 요약</p>
+            {{ recommend_info.results[0].poster_path }}
+            <h3> 스토리 요약</h3>
             <p> {{ recommend.story_summary }}</p><hr>
-            <h2>감정 분석</h2>
+            <h3>감정 분석</h3>
             <p>{{ recommend.psychological_analysis }}</p><hr>
-            <h2>영화 추천</h2>
+            <h3>영화 추천</h3>
+            <img :src="`https://image.tmdb.org/t/p/w400${recommend_info.results[0].poster_path}`" alt="추천 영화 포스터">
+            <!-- <img :src="`https://image.tmdb.org/t/p/w$400/z7ilT5rNN9kDo8JZmgyhM6ej2xv.jpg/`" alt=""> -->
             <p>제목 : {{ recommend.recommended_movie.title }}</p>
             <p>추천 이유 : {{ recommend.recommended_movie.reason }}</p>
             <p>테마 : {{ recommend.recommended_movie.theme }}</p>
@@ -43,6 +46,7 @@ const gamestore = useGameStore()
 const userstore= useUserStore()
 const isRecommend = ref(false)
 const recommend = ref(null)
+const recommend_info = ref(null)
 
 
 
@@ -88,9 +92,27 @@ onMounted(() => {
             console.log(res)
             recommend.value = res.data.result
         })
-    }).then({
+    .then(res =>{
         // 추천 받은 영화 정보를 받아와야 함. 그래서 TMDB에 axios 보낼거임.
-    })
+        axios({
+            method:'get',
+            url: `https://api.themoviedb.org/3/search/movie`,
+            headers: {
+                accept: 'application/json',
+                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNmFmOGIwNGUyZTI0MTgwZGQ5NTgxMTFhOWIwMzVkOCIsIm5iZiI6MTczMjE3NDI2Ny45MTU4ODEsInN1YiI6IjY3MjEwNWE2NGJlMTU0NjllNzBlNzhkMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Hn679BEcxrEDiQhMZmHkI0oJlM93CpNmgDVxNlUwBWM'
+            },
+            params:{
+                include_adult:true,
+                language:"ko-KR",
+                page:1,
+                query: recommend.value.recommended_movie.title,
+            }
+        }).then(res =>{
+            console.log('ggg',res)
+            recommend_info.value = res.data
+
+        })
+    })})
     .catch(err=> console.log(err))
 })
 
