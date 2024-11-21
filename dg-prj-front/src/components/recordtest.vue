@@ -2,6 +2,11 @@
     <div>
 
         <h1>test</h1>
+        <div v-for="record in records">
+            <div v-for=" in record"></div>
+            <p style="font-size: small;">{{ record.history }}</p>
+        </div>
+        
 
     </div>
 </template>
@@ -9,8 +14,10 @@
 <script setup>
 import { useUserStore } from '@/stores/counter';
 import axios from 'axios';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 const userstore = useUserStore()
+
+const records = ref()
 
 onMounted(() => {
 axios({
@@ -19,7 +26,11 @@ axios({
     headers : {
         Authorization: `Token ${userstore.token}`
     },
-}).then(res => console.log(res))
+}).then(res => {
+    console.log(res)
+    records.value = res.data
+})
+
 .catch(err => console.log(err))
 })
 

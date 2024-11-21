@@ -8,21 +8,23 @@
         <div class="high-bar">
             구현 예정 
         </div>
-        <div class="description-game"> {{router}}</div>
+        <div class="description-game"> 시나리오를 
+            <span v-if="result.is_valid" style="color: blue; font-weight: 800;">채택</span>
+            <span v-else style="color: red; font-weight: 800;">폐기</span>합니다. </div>
         <div class="scenario-container">
-            <div class="scenario-box">시나리오 설명창
-                <p>{{    router.options.history.state.result }}</p>
+            <div class="scenario-box">유저 시나리오
+                <p>{{   gamestore.user_action1 }}</p>
             </div>
 
-            <div class="prompt-box">시나리오 작성창 
-                <textarea name="" id="" style="width: 100%; height: 90%;"
-                            v-model="useraction">
-                </textarea>
+            <div class="prompt-box"> 평가 결과
+                <p>{{ result.reason }}</p>
+
+                <p> </p>
             </div>
             
         </div>
-        <button class="submit-btn" @click="goEval">
-        시나리오 제출 {{ gamestore.game_id }}
+        <button class="submit-btn" @click="nextStage">
+        다음으로
     </button>
 
     </div>
@@ -30,6 +32,7 @@
 </template>
 
 <script setup>
+import ComeScenario from '@/components/ComeScenario.vue';
 import { useGameStore, useMovieStore, useUserStore } from '@/stores/counter';
 import axios from 'axios';
 import { ref } from 'vue';
@@ -39,7 +42,19 @@ const useraction = ref(null)
 const moviestore = useMovieStore()
 const gamestore = useGameStore()
 
-const prop = ref(router.currentRoute.value.state?.result)
+const result = ref(router.options.history.state.result)
+const nextStage = function () {
+    gamestore.game_round ++;
+    if (gamestore.game_round > 5) {
+        router.push({ name: 'ResultPage' }); // 여기에 결과 페이지의 라우트 이름을 사용하세요.
+    }
+    else {
+        // game round 번째 시나리오가 오는 중입니다.
+        router.push({name:'loading', query:{next_problem : result.value.next_problem}})
+
+    }
+    // 여기에 넣을겨
+}
 
 
 

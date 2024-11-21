@@ -28,10 +28,15 @@ class GameRecord(models.Model):
                              related_name='game_records')
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='game_records')
     history = models.JSONField(default=list)
+    total_summary = models.TextField(null=True,blank=True)
     total_score = models.IntegerField(default=0, null=True, blank=True)
     start_time = models.DateTimeField(auto_now_add=True)
     end_time = models.DateTimeField(blank=True, null=True)
     end_status = models.CharField(max_length=20, choices=COMPLETION_CHOICES, default='INCOMPLETE')
     recommend_movie = models.TextField(max_length=50)
+    recommend_movie_reason = models.TextField(null=True, blank=True)
+    recommend_movie_theme = models.TextField(null=True, blank=True)
+    emotion = models.TextField(null=True, blank=True)
+
 
     

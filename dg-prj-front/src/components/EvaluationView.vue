@@ -20,13 +20,6 @@ const moviestore = useMovieStore()
 const userstore = useUserStore()
 const router = useRouter()
 const gamestore = useGameStore()
-// const gonextStage = function () {
-//     router.push({
-//         name:'roundresult',
-//         state : {result :res.data},
-//     })
-
-// }
     
 onMounted(() => {
     // 3초 후에 이동
@@ -43,7 +36,9 @@ onMounted(() => {
     .then(res => {
       console.log(res)
       isComplete.value = true
+      gamestore.next_situation = res.data.next_problem
       console.log(res.data)
+      console.log(gamestore.next_situation)
       router.push({
         name: 'roundresult',
         state: { result: res.data }, // 데이터 상태로 전달

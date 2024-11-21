@@ -11,11 +11,13 @@
         <div class="description-game"> 주어진 상황에 이어질 시나리오를 작성하시오</div>
         <div class="scenario-container">
             <div class="scenario-box">시나리오 설명창
-                <p>{{ gamestore.initial_question      }}</p>
+                <p v-if="gamestore.next_situation">{{ gamestore.next_situation }}</p> 
+                <p v-else>{{ gamestore.initial_question }}</p> 
+                <!-- 이거 고쳐야 함 -->
             </div>
 
             <div class="prompt-box">시나리오 작성창 
-                <textarea name="" id="" style="width: 100%; height: 90%;"
+                <textarea name="" id="" style="width: 100%; height: 90%; background-color: darkgray;"
                             v-model="useraction">
                 </textarea>
             </div>

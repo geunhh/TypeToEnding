@@ -96,6 +96,7 @@ export const useMovieStore = defineStore('movie', () => {
   // 선택한 영화 정보
   const movieId = ref(null)
   const movie_name = ref(null)
+  const roomId = ref(null)
   const description = ref(null)
   const context = ref(null)
   const poster_path = ref(null)
@@ -114,7 +115,7 @@ export const useMovieStore = defineStore('movie', () => {
       movies.value = res.data
     })    .catch(err => console.log(err))
   }
-  return { getMovies, movies,movie_name,movieId,description,context,poster_path }
+  return { getMovies, movies,movie_name,movieId,description,context,poster_path,roomId }
 },{persist:true})
 
 export const useGameStore = defineStore('game', () => {
@@ -125,10 +126,7 @@ export const useGameStore = defineStore('game', () => {
   const game_round = ref(0)
   const initial_question = ref(null)
   const user_action1 = ref(null)
-  const user_action2 = ref(null)
-  const user_action3 = ref(null)
-  const user_action4 = ref(null)
-  const user_action5 = ref(null)
+  const next_situation = ref(null)
 
   const getInitial = function () {
     console.log(moviestore.movieId.value)
@@ -157,7 +155,7 @@ export const useGameStore = defineStore('game', () => {
     
   }
   return { getInitial, initial_question, game_id, game_round,
-    user_action1,user_action2,user_action3,user_action4,user_action5
+    user_action1, next_situation
   }
 
 },{persist:true})
