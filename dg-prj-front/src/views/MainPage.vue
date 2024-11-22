@@ -1,5 +1,5 @@
 <template>
-    <div class="container-center-horizontal--main" @click="closeHowToPlayModal">
+    <div class="container-center-horizontal--main" @click="howToPlayHandler">
         <div class="main screen">
             <!-- title -->
             <h1 class="title">Type to Ending</h1>
@@ -8,7 +8,7 @@
                     <!-- 여기에는 주요 요소들 -->
                     <!--how to play modal-->
                     <div class="black-bg show-how-to-play" v-if="modalStore.isHowToPlayModalOpen"
-                        @click="closeHowToPlayModal">
+                        @click="howToPlayHandler">
                         <howToPlay class="how-to-play-modal" />
                     </div>
 
@@ -190,9 +190,9 @@
                 <!-- 얘 손좀 보자 -->
                 <!-- 모달을 띄워주는 버튼 -->
                 <div class="overlap-group-1">
-                    <button class="button-2 button-3">
-                        <img class="icon" src="@/assets/icons/icon.png" alt="Icon" />
-                        <div class="show-how-to-play text-2 valign-text-middle manrope-semi-bold-white-32px"
+                    <button class="button-2 button-3 modal-button">
+                        <img class="icon modal-button" src="@/assets/icons/icon.png" alt="Icon" />
+                        <div class="modal-button show-how-to-play text-2 valign-text-middle manrope-semi-bold-white-32px"
                             @click.prevent="howToPlayHandler">How to play</div>
                     </button>
                 </div>
@@ -321,8 +321,30 @@ const enterRoomFunc = () => {
 }
 
 // 게임 설명 모달을 열어주는 함수
-const howToPlayHandler = () => {
-    modalStore.isHowToPlayModalOpen = true
+const howToPlayHandler = (event) => {
+    const { target } = event;
+    const { isHowToPlayModalOpen } = modalStore;
+
+    const closeModalTargets = [
+        'container-center-horizontal--main',
+        'screen',
+        'title',
+        'black-bg'
+    ];
+
+    if (isHowToPlayModalOpen) {
+        // 모달이 열려있다면
+        if (closeModalTargets.some(targetClass => target.classList.contains(targetClass))) {
+            // 닫을 수 있는 요소를 클릭했으면 모달 닫기
+            modalStore.isHowToPlayModalOpen = false;
+        } else {
+            // 모달 내부 클릭 시 계속 열어둠
+            modalStore.isHowToPlayModalOpen = true;
+        }
+    } else if (target.classList.contains('modal-button')) {
+        // 모달이 닫혀있고, 모달 버튼을 클릭했으면 열어줘
+        modalStore.isHowToPlayModalOpen = true;
+    }
 }
 
 // 게임 설명 모달을 닫아주는 함수 >> 모달 외부 클릭하면 닫아짐
@@ -330,9 +352,6 @@ const howToPlayHandler = () => {
 // 모달의 배경은 배경색상과 똑같음 >> 체감상 없다고 생각할 수 있음 >> 여기 클릭하면 닫아지는거 완료
 // 그런데 제목은 보여야함 >> 제목에는 모달 배경이 안덮여있음 >> 따라서 "모달 배경"의 외부를 클릭해도 닫아져야함
 // 그러느니 그냥 흰 모달창 외부 or X 버튼 클릭시 닫아버리자
-const closeHowToPlayModal = (event) => {
-}
-
 
 // 대기실로 입장하는 함수
 const moveToWaitingRoom = () => {
