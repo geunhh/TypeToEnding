@@ -70,7 +70,6 @@ const router = createRouter({
       name : 'ResultPage',
       component : ResultView,
     },
-
   ],
 
 })

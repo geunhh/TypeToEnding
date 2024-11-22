@@ -87,7 +87,7 @@
                         </div>
                     </div>
                     <button class="game-record-button" @click.prevent="handleGameInfoSearchModal">
-                        <p class="cancel">전적보기</p>
+                        <p class="cancel">{{ !isGameInfoSearchModalOpen ? "Open Record" : "Close Record" }}</p>
                     </button>
                 </div>
             </div>
@@ -213,12 +213,89 @@
 
 
 
-            <!-- <div class="black-bg" v-if="isGameInfoSearchModalOpen">
-                <div class="white-bg">
-                    <h2>대충 전적 검색</h2>
-                    <button>Update</button><button @click.prevent="isGameInfoSearchModalOpen = false">Cancel</button>
+            <div class="black-bg overlap" v-if="isGameInfoSearchModalOpen">
+                <div class="white-bg container-7">
+                    <div class="sub-container-6">
+                        <div class="text-container">
+                            <div class="heading-3">최종 결과</div>
+                        </div>
+                        <button class="button-4">
+                            <div class="text-3">All Movies</div>
+                            <img class="button-5"
+                                src="https://cdn.animaapp.com/projects/673df13276e2d7568d4b019c/releases/673e0d44e0c0123a8ba3d3b7/img/button.svg" />
+                        </button>
+                    </div>
+
+                    <!-- <h2>대충 전적 검색</h2>
+                    <button>Update</button><button @click.prevent="isGameInfoSearchModalOpen = false">Cancel</button> -->
+                    <div class="sub-container-7">
+                        <div class="container-8">
+                            <div class="number">01</div>
+                            <div class="sub-container-8">
+                                <div class="container-9">
+                                    <div class="heading-4">파묘</div>
+                                    <div class="sub-container-9">
+                                        <img class="close"
+                                            src="https://cdn.animaapp.com/projects/673df13276e2d7568d4b019c/releases/673e0d44e0c0123a8ba3d3b7/img/close.svg" />
+                                        <div class="text-4">폐기</div>
+                                    </div>
+                                </div>
+                                <p class="paragraph">
+                                    <span class="span">주어진 시나리오<br /></span>
+                                    <span class="text-wrapper-3">ㅁㄴㅇㄹ<br /></span>
+                                    <span class="span"><br />근흐흐 가 쓴 시나리오<br />몰라여. 어떻게든 되겠죠 껄껄껄<br /><br /></span>
+                                    <span class="text-wrapper-3">평가 결과 : 주인공의 강인한 의지 : ‘날로 먹다.’<br />ㅁㄴㅇㄹ</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="container-10">
+                            <div class="number">02</div>
+                            <div class="sub-container-8">
+                                <div class="container-11">
+                                    <div class="heading-5">파묘</div>
+                                    <div class="sub-container-9">
+                                        <img class="close"
+                                            src="https://cdn.animaapp.com/projects/673df13276e2d7568d4b019c/releases/673e0d44e0c0123a8ba3d3b7/img/close.svg" />
+                                        <div class="text-4">폐기</div>
+                                    </div>
+                                </div>
+                                <p class="paragraph">
+                                    주어진 시나리오<br />폐기된 경우 AI가 임의로 작성한 다음 시나리오로 계속.<br /><br />근흐흐 가 쓴
+                                    시나리오<br />....<br /><br />평가 결과
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
-            </div> -->
+                <div class="buttons-container">
+                    <button class="button-6">
+                        <div class="text-wrapper-4">맨앞</div>
+                    </button>
+                    <img class="img"
+                        src="https://cdn.animaapp.com/projects/673df13276e2d7568d4b019c/releases/673e0d44e0c0123a8ba3d3b7/img/button-1.svg" />
+                    <div class="indicators-container">
+                        <div class="shape-2"></div>
+                        <div class="shape-3"></div>
+                        <div class="shape-3"></div>
+                        <div class="shape-3"></div>
+                    </div>
+                    <img class="img"
+                        src="https://cdn.animaapp.com/projects/673df13276e2d7568d4b019c/releases/673e0d44e0c0123a8ba3d3b7/img/button-2.svg" />
+                    <button class="button-6">
+                        <div class="text-wrapper-4">맨뒤</div>
+                    </button>
+                </div>
+                <div class="buttons-container-2">
+                    <button class="button-7">
+                        <div class="text-5">자세히 보기</div>
+                    </button>
+                    <div class="text-button">요약해서 보기</div>
+                </div>
+                <div class="rectangle"></div>
+
+            </div>
 
         </div>
     </div>
@@ -345,10 +422,35 @@ const handleUpdateUserInfoModal = () => {
 
 const handleGameInfoSearchModal = () => {
     // 다른 모달(비번변경, 전적검색 모달)들이 안띄워져 있다면 띄워
-    // if (!isUpdateUserInfoModalOpen.value && !isUpdatePasswordModalOpen.value) { isGameInfoSearchModalOpen.value = true }
 
-    // 이녀석 모달 구현할 때 까지는 false로 고정
-    isGameInfoSearchModalOpen.value = false
+    // 이 버튼은 특별하게 전적보기 버튼으로만 열고 닫기가 됨
+    if (!isGameInfoSearchModalOpen.value && !isUpdateUserInfoModalOpen.value && !isUpdatePasswordModalOpen.value) {
+        isGameInfoSearchModalOpen.value = true
+    } else if (isGameInfoSearchModalOpen.value) {
+        isGameInfoSearchModalOpen.value = false
+    }
+
+    // 모달이 열릴 때만
+    // axios로 전적 받아와라
+    if (isGameInfoSearchModalOpen.value) {
+        // console.log('모달이 열렸습니다')
+        axios({
+            method: "GET",
+            // url: `${BASE_URL}/gameApp/user_record/6/`,
+            url: `${BASE_URL}/gameApp/user_record/5/`,
+            // url: `${BASE_URL}/gameApp/user_record/${store.userId}/`,
+            headers: { "Authorization": `Token ${store.token}` },
+        }).then((res) => {
+            window.alert(`${store.userInfo.name}님의 전적을 가져왔습니다!`)
+            console.log(res.data.game_records)
+            res.data.game_records.forEach((record) => console.log(record.history))
+        }).catch(err => window.alert('전적 검색에 실패했습니다.'))
+
+
+
+
+
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -378,19 +480,735 @@ const selectSex = (sex) => {
 
 
 <style scoped>
-/***************************************************/
-/***************************************************/
-/***************************************************/
-/***************************************************/
-/***************************************************/
-/***************************************************/
-/***************************************************/
-
 @import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
 @import url("https://fonts.googleapis.com/css?family=Manrope:500,400,600");
 /* The following line is used to measure usage of this code. You can remove it if you want. */
 @import url("https://px.animaapp.com/673df13076e2d7568d4b0197.673df13076e2d7568d4b019a.vdlRvPB.hcp.png");
 
+/***************************************************/
+/***************************************************/
+/***************************************************/
+/***************************************************/
+/***************************************************/
+/***************************************************/
+/***************************************************/
+
+.div-wrapper {
+    background-color: #1a1a1a;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.div-wrapper .div {
+    background-color: #1a1a1a;
+    width: 1440px;
+    height: 1024px;
+    position: relative;
+}
+
+.div-wrapper .button {
+    display: flex;
+    width: 86px;
+    height: 86px;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px;
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    background-color: #808080;
+    border-radius: 6px;
+    border: 1px solid;
+    border-color: #1e1e1e;
+}
+
+.div-wrapper .skip-previous-filled {
+    position: relative;
+    width: 66px;
+    height: 66px;
+}
+
+.div-wrapper .overlap-group {
+    position: absolute;
+    width: 416px;
+    height: 820px;
+    top: 164px;
+    left: 50px;
+    border-radius: 10px;
+}
+
+.div-wrapper .sub-container {
+    display: flex;
+    flex-direction: column;
+    width: 416px;
+    height: 820px;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 40px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #0f0f0f;
+    border-radius: 10px;
+    border: 1px solid;
+    border-color: var(--black-15);
+}
+
+.div-wrapper .container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+.div-wrapper .heading-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+.div-wrapper .heading {
+    flex: 1;
+    margin-top: -1.00px;
+    font-weight: 500;
+    color: var(--grey-60);
+    font-size: 24px;
+    line-height: 36px;
+    position: relative;
+    font-family: "Manrope", Helvetica;
+    letter-spacing: 0;
+}
+
+.div-wrapper .sub-container-2 {
+    display: flex;
+    width: 82px;
+    align-items: center;
+    gap: 2px;
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.div-wrapper .text-wrapper {
+    position: relative;
+    flex: 1;
+    margin-top: -1.00px;
+    font-family: "Manrope", Helvetica;
+    font-weight: 500;
+    color: var(--grey-60);
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: 24px;
+}
+
+.div-wrapper .container-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    width: 82px;
+    align-items: flex-start;
+    gap: 10px 10px;
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.div-wrapper .container-2 {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 6px 12px;
+    position: relative;
+    flex: 0 0 auto;
+    background-color: #1a1a1a;
+    border-radius: 6px;
+    border: 1px solid;
+    border-color: #4e4e4e;
+}
+
+.div-wrapper .text {
+    position: relative;
+    width: fit-content;
+    margin-top: -1.00px;
+    font-family: "Manrope", Helvetica;
+    font-weight: 500;
+    color: #ffffff;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 21px;
+    white-space: nowrap;
+}
+
+.div-wrapper .container-3 {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 6px 12px;
+    position: relative;
+    flex: 0 0 auto;
+    margin-right: -94.00px;
+    background-color: #1a1a1a;
+    border-radius: 6px;
+    border: 1px solid;
+    border-color: #4e4e4e;
+}
+
+.div-wrapper .container-4 {
+    display: flex;
+    flex-direction: column;
+    width: 147px;
+    align-items: flex-start;
+    gap: 10px;
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.div-wrapper .sub-container-3 {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+.div-wrapper .icon {
+    position: relative;
+    width: 20px;
+    height: 20px;
+}
+
+.div-wrapper .sub-container-4 {
+    display: flex;
+    width: 147px;
+    align-items: flex-start;
+    gap: 16px;
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.div-wrapper .container-5 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 14px;
+    position: relative;
+    flex: 1;
+    flex-grow: 1;
+    background-color: var(--black-08);
+    border-radius: 8px;
+    border: 1px solid;
+    border-color: #4e4e4e;
+}
+
+.div-wrapper .heading-2 {
+    width: fit-content;
+    margin-top: -1.00px;
+    font-weight: 600;
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 24px;
+    white-space: nowrap;
+    position: relative;
+    font-family: "Manrope", Helvetica;
+    letter-spacing: 0;
+}
+
+.div-wrapper .sub-container-5 {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.div-wrapper .container-6 {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 1px;
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.div-wrapper .shape {
+    position: relative;
+    width: 17.12px;
+    height: 16.28px;
+}
+
+.div-wrapper .img {
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.div-wrapper .button-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 70px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+.div-wrapper .button-2 {
+    all: unset;
+    box-sizing: border-box;
+    display: flex;
+    width: 336px;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 18px 24px;
+    position: relative;
+    background-color: var(--red-45);
+    border-radius: 8px;
+}
+
+.div-wrapper .text-2 {
+    position: relative;
+    width: 284px;
+    height: 27px;
+    margin-top: -1.00px;
+    font-family: "Manrope", Helvetica;
+    font-weight: 600;
+    color: var(--absolutewhite);
+    font-size: 18px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 27px;
+    white-space: nowrap;
+}
+
+.div-wrapper .button-3 {
+    all: unset;
+    box-sizing: border-box;
+    display: flex;
+    width: 93px;
+    height: 49px;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px;
+    position: absolute;
+    top: 526px;
+    left: 283px;
+    background-color: #808080;
+    border-radius: 6px;
+    border: 1px solid;
+    border-color: #1e1e1e;
+    transform: rotate(-180.00deg);
+}
+
+.div-wrapper .text-wrapper-2 {
+    position: relative;
+    width: fit-content;
+    margin-top: -1.00px;
+    margin-right: -1.00px;
+    transform: rotate(180.00deg);
+    font-family: "Manrope", Helvetica;
+    font-weight: 500;
+    color: #ffffff;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: 30px;
+    white-space: nowrap;
+}
+
+.div-wrapper .overlap {
+    position: absolute;
+    width: 921px;
+    height: 960px;
+    top: 32px;
+    left: 491px;
+}
+
+.div-wrapper .container-7 {
+    display: flex;
+    flex-direction: column;
+    width: 917px;
+    height: 960px;
+    align-items: flex-start;
+    gap: 30px;
+    padding: 50px;
+    position: absolute;
+    top: 0;
+    left: 4px;
+    background-color: var(--black-06);
+    border-radius: 12px;
+    border: 1px solid;
+    border-color: var(--black-15);
+}
+
+.div-wrapper .sub-container-6 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+.div-wrapper .text-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.div-wrapper .heading-3 {
+    width: fit-content;
+    margin-top: -1.00px;
+    font-weight: 600;
+    color: #ffffff;
+    font-size: 24px;
+    line-height: 36px;
+    white-space: nowrap;
+    position: relative;
+    font-family: "Manrope", Helvetica;
+    letter-spacing: 0;
+}
+
+.div-wrapper .button-4 {
+    all: unset;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 14px 16px;
+    position: relative;
+    flex: 0 0 auto;
+    background-color: var(--black-08);
+    border-radius: 8px;
+    border: 1px solid;
+    border-color: var(--black-15);
+}
+
+.div-wrapper .text-3 {
+    position: relative;
+    width: fit-content;
+    font-family: "Manrope", Helvetica;
+    font-weight: 500;
+    color: #ffffff;
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: 27.5px;
+    white-space: nowrap;
+}
+
+.div-wrapper .button-5 {
+    position: relative;
+    width: 30px;
+    height: 30px;
+}
+
+.div-wrapper .sub-container-7 {
+    display: flex;
+    flex-direction: column;
+    height: 728px;
+    align-items: flex-start;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+}
+
+.div-wrapper .container-8 {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 0px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-color: var(--black-15);
+}
+
+.div-wrapper .number {
+    position: relative;
+    width: 60px;
+    font-family: "Manrope", Helvetica;
+    font-weight: 600;
+    color: var(--grey-60);
+    font-size: 30px;
+    letter-spacing: 0;
+    line-height: 45px;
+}
+
+.div-wrapper .sub-container-8 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    position: relative;
+    flex: 1;
+    flex-grow: 1;
+}
+
+.div-wrapper .container-9 {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.div-wrapper .heading-4 {
+    width: 659px;
+    font-weight: 600;
+    color: #ffffff;
+    font-size: 20px;
+    line-height: 30px;
+    position: relative;
+    font-family: "Manrope", Helvetica;
+    letter-spacing: 0;
+}
+
+.div-wrapper .sub-container-9 {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 10px;
+    position: relative;
+    flex: 0 0 auto;
+    background-color: var(--black-08);
+    border-radius: 8px;
+    border: 1px solid;
+    border-color: var(--black-15);
+}
+
+.div-wrapper .close {
+    position: relative;
+    width: 24px;
+    height: 24px;
+}
+
+.div-wrapper .text-4 {
+    position: relative;
+    width: fit-content;
+    margin-top: -1.00px;
+    font-family: "Manrope", Helvetica;
+    font-weight: 500;
+    color: var(--grey-60);
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: 24px;
+    white-space: nowrap;
+}
+
+.div-wrapper .paragraph {
+    position: relative;
+    align-self: stretch;
+    font-family: "Manrope", Helvetica;
+    font-weight: 400;
+    color: var(--grey-60);
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: 27px;
+}
+
+.div-wrapper .span {
+    font-family: "Manrope", Helvetica;
+    font-weight: 400;
+    color: #999999;
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: 27px;
+}
+
+.div-wrapper .text-wrapper-3 {
+    font-weight: 700;
+}
+
+.div-wrapper .container-10 {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 0px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-color: var(--black-15);
+}
+
+.div-wrapper .container-11 {
+    display: flex;
+    align-items: center;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+.div-wrapper .heading-5 {
+    flex: 1;
+    font-weight: 600;
+    color: #ffffff;
+    font-size: 20px;
+    line-height: 30px;
+    position: relative;
+    font-family: "Manrope", Helvetica;
+    letter-spacing: 0;
+}
+
+.div-wrapper .buttons-container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: absolute;
+    top: 893px;
+    left: 482px;
+}
+
+.div-wrapper .button-6 {
+    all: unset;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px;
+    position: relative;
+    flex: 0 0 auto;
+    background-color: var(--black-08);
+    border-radius: 100px;
+    border: 1px solid;
+    border-color: var(--black-15);
+}
+
+.div-wrapper .text-wrapper-4 {
+    position: relative;
+    width: fit-content;
+    margin-top: -1.00px;
+    font-family: "Manrope", Helvetica;
+    font-weight: 400;
+    color: #ffffff;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 21px;
+    white-space: nowrap;
+}
+
+.div-wrapper .indicators-container {
+    display: flex;
+    width: 81px;
+    align-items: flex-start;
+    gap: 3px;
+    position: relative;
+}
+
+.div-wrapper .shape-2 {
+    position: relative;
+    width: 23px;
+    height: 4px;
+    background-color: var(--red-45);
+    border-radius: 100px;
+}
+
+.div-wrapper .shape-3 {
+    position: relative;
+    flex: 1;
+    flex-grow: 1;
+    height: 4px;
+    background-color: var(--black-20);
+    border-radius: 100px;
+}
+
+.div-wrapper .buttons-container-2 {
+    display: inline-flex;
+    align-items: center;
+    gap: 30px;
+    padding: 10px 40px;
+    position: absolute;
+    top: 877px;
+    left: 0;
+    background-color: var(--black-06);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 4px solid;
+    border-color: var(--black-12);
+}
+
+.div-wrapper .button-7 {
+    all: unset;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 24px;
+    position: relative;
+    flex: 0 0 auto;
+    background-color: var(--black-10);
+    border-radius: 8px;
+    border: 1px solid;
+    border-color: var(--black-10);
+}
+
+.div-wrapper .text-5 {
+    position: relative;
+    width: fit-content;
+    margin-top: -1.00px;
+    font-family: "Manrope", Helvetica;
+    font-weight: 500;
+    color: var(--absolutewhite);
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: 27px;
+    white-space: nowrap;
+}
+
+.div-wrapper .text-button {
+    position: relative;
+    width: fit-content;
+    font-family: "Manrope", Helvetica;
+    font-weight: 400;
+    color: var(--grey-75);
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: 27px;
+    white-space: nowrap;
+}
+
+.div-wrapper .rectangle {
+    position: absolute;
+    width: 5px;
+    height: 175px;
+    top: 138px;
+    left: 888px;
+    background-color: #d9d9d947;
+    border-radius: 10px;
+}
+
+
+
+
+
+
+
+
+
+/***************************************************/
+/***************************************************/
+/***************************************************/
+/***************************************************/
+/***************************************************/
+/***************************************************/
+/***************************************************/
 
 .dropdown-options {
     width: 200px;

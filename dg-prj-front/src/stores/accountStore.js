@@ -11,6 +11,7 @@ export const useAccountStore = defineStore('account', () => {
   const router = useRouter()
   const BASE_URL = 'http://127.0.0.1:8000'
 
+  // 회원 가입
   const signUp = function (payload) {
     const email = payload.email
     const password1 = payload.password1
@@ -35,6 +36,7 @@ export const useAccountStore = defineStore('account', () => {
       .catch(err => window.alert("회원 가입에 실패하였습니다"))
   }
 
+  // 로그인
   const logIn = function (payload) {
     const email = payload.email
     const password = payload.password
@@ -58,6 +60,7 @@ export const useAccountStore = defineStore('account', () => {
       .catch(err => console.log(err))
   }
 
+  // 유저 정보 가져오기
   const getUserInfo = function () {
     axios({
       method: 'get',
@@ -89,5 +92,34 @@ export const useAccountStore = defineStore('account', () => {
     }).catch(err => console.log(err))
   }
 
-  return { signUp, logIn, token, getUserInfo, userId, logOut, userInfo }
+
+  return { token, userInfo, userId, signUp, logIn, getUserInfo, logOut }
 }, { persist: true })
+
+const useGameRecordStore = defineStore('gameRecord', () => {
+  const accountStore = useAccountStore()
+  const user_id = ref(null)
+  const token = ref(null)
+
+  // 전적검색
+  const getUserGameRecord = () => {
+    console.log(accountStore.userId.value)
+    console.log(accountStore.token.value)
+
+    //   user_id.value = accountStore.userId.value
+    //     axios({
+    //       method: 'GET',
+    //       url: `${BASE_URL}/user_record/`,
+    //       headers: {
+    //         Authorization: `Token ${token.value}`
+    //       },
+    //       params: {
+    //         user_id:...
+    //     }
+    //     }).then().catch(err => window.alert('전적 검색에 실패하였습니다.'))
+    // }
+  }
+
+  return { user_id, token, getUserGameRecord }
+
+})
