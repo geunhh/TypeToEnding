@@ -1,0 +1,15 @@
+npm install
+npm install vite
+npm install bootstrap-vue-3
+npm audit fix --force
+
+위 순서대로 프론트 프젝 디렉토리 내에서 설치하면 됨
+
+python.exe -m pip install --upgrade pip
+
+
+npm은 프론트 프젝 내에서만 설치!
+같은 맥락에서 node_modules, package.json, package-lock.json도 프론트 프젝 안에만 있어야함
+
+.env 는 프백 둘다 각각 하나씩 심어둬야함(안쓴다면 없어도 괜찮긴 한데 있는게 나음)
+
