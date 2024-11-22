@@ -52,13 +52,22 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="items-container">
+                        <!-- 버튼 누르면 다른 페이지로 감 -->
+                        <!-- <div class="items-container">
                             <div class="container">
                                 <RouterLink :to="{ name: 'SignUpView' }">
                                     <button class="grey-button-common">
                                         <span class="sign-up">Sign Up</span>
                                     </button>
                                 </RouterLink>
+                            </div>
+                        </div> -->
+                        <div class="items-container">
+                            <div class="container">
+                                <button class="grey-button-common"
+                                    @click.prevent="isSignUpModalOpen = !isSignUpModalOpen">
+                                    <span class="sign-up">{{ isSignUpModalOpen ? "Close Form" : "Sign Up" }}</span>
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -101,20 +110,72 @@
                             @click.prevent="isEnterRoomModalOpen = true">
                     </div>
 
-                    <!-- 이 버튼 누르면 게임 설명 모달 띄워짐 -->
                 </div>
-                <div class="overlap-group1">
-                    <button class="how-to-play-button-common" @click.prevent="howToPlayHandler" value="How to Play">
-                        <img class="icon" src="@/assets/icons/icon.png" alt="Icon"  />
+                <form class="form-1" v-if="!accountStore.token && isSignUpModalOpen">
+                    <div class="items-container">
+                        <div class="container">
+                            <div class="input-field">
+                                <input v-model.trim="newEmail" type="email" class="text email-pw-input"
+                                    placeholder="Enter your email">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="items-container">
+                        <div class="container">
+                            <div class="input-field">
+                                <input v-model.trim="newNickname" type="text" class="text email-pw-input"
+                                    placeholder="Enter your nickname">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="items-container">
+                        <div class="container">
+                            <div class="input-field">
+                                <input v-model.trim="newPassword1" type="password" class="text email-pw-input"
+                                    placeholder="Enter your password">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="items-container">
+                        <div class="container">
+                            <div class="input-field">
+                                <input v-model.trim="newPassword2" type="password" class="text email-pw-input"
+                                    placeholder="Confirm your password">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="items-container">
+                        <div class="container">
+                            <!-- <button class="red-button-common" @click="signUpFunc"> -->
+                            <button class="red-button-common" @click.prevent="signUpFunc">
+                                <div class="option-common manrope-semi-bold-white-18px">Sign Up</div>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- 공간차지용 더미 태그 : 삭제하지 말것 -->
+                <div class="dummy-form" v-else>
+
+                </div>
+
+
+
+                <!-- 이 버튼 누르면 게임 설명 모달 띄워짐 -->
+                <div class="overlap-group-1">
+                    <button class="button-2 button-3">
+                        <img class="icon" src="@/assets/icons/icon.png" alt="Icon" />
                         <div class="show-how-to-play text-2 valign-text-middle manrope-semi-bold-white-32px"
-                            @click.prevent="howToPlayHandler">How to play</div>
+                        @click.prevent="howToPlayHandler">How to play</div>
                     </button>
+                    <!-- <button class="how-to-play-button-common" @click.prevent="howToPlayHandler" value="How to Play">
+                        <img class="icon" src="@/assets/icons/icon.png" alt="Icon" />
+                        <div class="show-how-to-play text-2 valign-text-middle manrope-semi-bold-white-32px"
+                        @click.prevent="howToPlayHandler">How to play</div>
+                    </button> -->
                 </div>
-
-            </div>
+            </div>          
         </div>
-
-
     </div>
 </template>
 
@@ -133,10 +194,14 @@ const store = useUserStore()
 const moviestore = useMovieStore()
 const router = useRouter()
 const accountStore = useAccountStore()
+const newEmail = ref(null)
+const newPassword1 = ref(null)
+const newPassword2 = ref(null)
+const newNickname = ref(null)
+const isEnterRoomModalOpen = ref(false)
+const isHowToPlayModalOpen = ref(false)
+const isSignUpModalOpen = ref(false)
 
-
-const isEnterRoomModalOpen = ref(false);
-const isHowToPlayModalOpen = ref(false);
 
 onMounted(() => {
     moviestore.movie_name = null
@@ -146,6 +211,16 @@ onMounted(() => {
     moviestore.movieId = null
     // applyStyles()
 })
+
+const signUpFunc = () => {
+    const payload = {
+        email: newEmail.value,
+        password1: newPassword1.value,
+        password2: newPassword2.value,
+        name: newNickname.value,
+    }
+    accountStore.signUp(payload)
+}
 
 // 프로필 페이지로 이동하는 함수
 const moveToProfilePage = () => {
@@ -224,10 +299,30 @@ const moveToWaitingRoom = () => {
 </script>
 
 <style scoped>
-@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
-@import url("https://fonts.googleapis.com/css?family=Inter:400|Inknut+Antiqua:400|Manrope:400,600");
+/* 장식용 cdn */
+/* @import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"); */
+/* @import url("https://fonts.googleapis.com/css?family=Inter:400|Inknut+Antiqua:400|Manrope:400,600"); */
 /* The following line is used to measure usage of this code. You can remove it if you want. */
-@import url("https://px.animaapp.com/673df13076e2d7568d4b0197.673df13076e2d7568d4b019a.vdlRvPB.hcp.png");
+/* @import url("https://px.animaapp.com/673df13076e2d7568d4b0197.673df13076e2d7568d4b019a.vdlRvPB.hcp.png"); */
+
+
+.button-2 {
+border:0px;
+  align-items: center;
+  gap: 4px;
+  height: 63px;
+  left: 0;
+  position: absolute;
+  top: 19px;
+  width: 280px;
+}
+.button-3 {
+  background-color: var(--red45);
+  border-radius: 8px;
+  display: flex;
+  padding: 18px 24px;
+}
+
 
 .howtoplay-container {
     border: 1px white solid;
@@ -266,6 +361,36 @@ div {
 /***************************************************/
 /***************************************************/
 
+.form-1 {
+    align-items: flex-start;
+    background-color: var(--black06);
+    border: 1px solid;
+    border-color: var(--black15);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    height: 621px;
+    margin-left: 27px;
+    padding: 50px;
+    position: relative;
+    width: 488px;
+}
+.dummy-form {
+    align-items: flex-start;
+    background-color: var(--eerie-black);
+
+
+
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    height: 621px;
+    margin-left: 27px;
+    padding: 50px;
+    position: relative;
+    width: 488px;
+}
 
 .text-2 {
     height: 63px;
@@ -448,6 +573,7 @@ div {
     height: 1024px;
     padding: 29px 52px;
     width: 1440px;
+    min-width: 1311px;
 }
 
 .main .title {
@@ -467,7 +593,6 @@ div {
 .main .overlap-group-container {
     align-items: flex-start;
     display: flex;
-    gap: 543px;
     min-width: 1311px;
 }
 
@@ -621,8 +746,9 @@ div {
 
 
 
-.main .overlap-group1 {
+.main .overlap-group-1 {
     height: 82px;
+    margin-left: 28px;
     margin-top: 78.0px;
     position: relative;
     width: 280px;
@@ -723,21 +849,31 @@ div {
     padding: 20px;
     position: relative;
     width: 100%;
+
 }
 
 .how-to-play-button-common {
-    display: flex; /* Flexbox 사용 */
-    align-items: center; /* 수직 중앙 정렬 */
-    background-color: var(--red45); /* 버튼 배경색 */
-    border: none; /* 기본 테두리 제거 */
-    border-radius: 8px; /* 둥근 모서리 */
-    padding: 10px 20px; /* 상하 패딩 10px, 좌우 패딩 20px */
-    cursor: pointer; /* 커서 포인터 변경 */
+    display: flex;
+    /* Flexbox 사용 */
+    align-items: center;
+    /* 수직 중앙 정렬 */
+    background-color: var(--red45);
+    /* 버튼 배경색 */
+    border: none;
+    /* 기본 테두리 제거 */
+    border-radius: 8px;
+    /* 둥근 모서리 */
+    padding: 10px 20px;
+    /* 상하 패딩 10px, 좌우 패딩 20px */
+    cursor: pointer;
+    /* 커서 포인터 변경 */
 }
 
 .show-how-to-play {
-    margin-left: 10px; /* 아이콘과 텍스트 간격 */
-    white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+    margin-left: 10px;
+    /* 아이콘과 텍스트 간격 */
+    white-space: nowrap;
+    /* 텍스트 줄 바꿈 방지 */
 }
 
 .log-out-button {

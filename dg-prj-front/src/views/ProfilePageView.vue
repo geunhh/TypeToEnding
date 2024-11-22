@@ -30,7 +30,7 @@
                             </div>
                             <div class="sub-container-1">
                                 <div class="container-1">
-                                    <p class="text manrope-medium-white-14px">{{ age }}</p>
+                                    <p class="text manrope-medium-white-14px">{{ age !== null ? age : "?" }}</p>
                                 </div>
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                             </div>
                             <div class="sub-container-1">
                                 <div class="container-1">
-                                    <div class="text manrope-medium-white-14px">{{ sex }}</div>
+                                    <div class="text manrope-medium-white-14px">{{ sex !== null ? sex : "?" }}</div>
                                 </div>
                             </div>
                         </div>
@@ -61,7 +61,8 @@
                             <div class="sub-container-5">
                                 <div class="container-6">
                                     <!-- <div class="heading-3 heading-4 manrope-semi-bold-white-16px">{{avg_win_point}}</div> -->
-                                    <div class="heading-3 heading-4 manrope-semi-bold-white-16px">9W 1L</div>
+                                    <div class="heading-3 heading-4 manrope-semi-bold-white-16px">{{ avg_win_point !==
+                                        null ? avg_win_point :"0W 0L"}}</div>
                                     <!--나중에 값 들어오면 교체할 것-->
                                     <div class="sub-container-6">
                                         <div class="container-7">
@@ -161,10 +162,6 @@
                 </div>
             </form>
             <!-- 여기까지가 유저정보 모달 -->
-
-
-
-
             <!-- 아래부터는 비밀번호 모달 -->
             <form class="form" v-if="isUpdatePasswordModalOpen && !isUpdateUserInfoModalOpen">
                 <div class="items-container">
@@ -206,6 +203,8 @@
                 </div>
             </form>
 
+            <!-- 여기까지가 비밀번호 모달 -->
+            <!-- 아래부터는 전적검색 모달 -->
 
 
 
@@ -216,8 +215,6 @@
 
 
 
-
-            <!-- 전적 검색 모달 -->
             <!-- <div class="black-bg" v-if="isGameInfoSearchModalOpen">
                 <div class="white-bg">
                     <h2>대충 전적 검색</h2>
