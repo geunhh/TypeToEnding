@@ -1,7 +1,6 @@
 <template>
-    <div>
-        <h1>시나리오 생성중...</h1>
-        <p>지금은 3초 뒤에 게임페이지로 넘어가는데, 나중에 최소 3초 + 데이터 넘어오면 가기</p>
+    <div class="bigbig-container">
+        <h1 class="h1">시나리오 생성중...</h1>
     </div>
 </template>
 
@@ -9,7 +8,6 @@
 import { useRouter } from 'vue-router'
 import { onMounted } from 'vue';
 import { useGameStore, useMovieStore } from '@/stores/counter';
-import axios from 'axios';
 
 const moviestore = useMovieStore()
 const router = useRouter()
@@ -37,6 +35,10 @@ onMounted(() => {
 
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+.bigbig-container{
+  padding : 5rem;
+  text-align: center;
+}
 
 </style>

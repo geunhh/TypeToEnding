@@ -16,8 +16,6 @@
                 :class="{active: index===0}">
                 <img class="poster" :src="`http://127.0.0.1:8000${moviestore.movies[index].poster_path}`" 
                   style="height:60rem ;" v-if="movie.poster_path">
-
-                  
             </div>
           </div>
           <!-- 캐러셀 좌우 버튼 -->

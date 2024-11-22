@@ -1,9 +1,8 @@
 <template>
-    <div style="margin: 100px; ">
+    <div style="margin: 100px;" class="bigbig-container">
 
         <h1>최종 결과 페이지</h1>
         <hr>
-        <!-- <button @click="recommend_toggle" :disabled="!recommend">영화 추천 받기 토글</button><br> -->
         <!-- 모달 -->
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-primary" :disabled="!recommend" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
@@ -21,7 +20,7 @@
                         <h1 class="modal-title fs-5" id="staticBackdropLabel">영화 추천</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body" v-if="isRecommend">
+                    <div class="modal-body" v-if="isRecommend" style="color: black;">
                         <h3> 스토리 요약</h3>
                         <p> {{ recommend.story_summary }}</p>
                         <hr>
@@ -149,6 +148,10 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.bigbig-container{
+  padding : 5rem;
+  text-align: center;
+}
 .result-content {
     font-size: smaller;
 }

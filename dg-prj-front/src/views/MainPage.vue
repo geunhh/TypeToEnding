@@ -222,7 +222,7 @@
 import howToPlay from '@/components/howToPlay.vue';
 import { useAccountStore } from '@/stores/accountStore';
 import { useModalStore } from '@/stores/modalStore';
-import { useMovieStore, useUserStore } from '@/stores/counter';
+import { useGameStore, useMovieStore, useUserStore } from '@/stores/counter';
 import { ref, onMounted } from 'vue';
 import { RouterLink, useRouter } from 'vue-router';
 import { v4 as uuidv4 } from 'uuid'
@@ -230,6 +230,7 @@ import { v4 as uuidv4 } from 'uuid'
 const moviestore = useMovieStore()
 const accountStore = useAccountStore()
 const modalStore = useModalStore()
+const gamesStore = useGameStore()
 
 const router = useRouter()
 
@@ -244,6 +245,7 @@ const newNickname = ref(null)
 const isEnterRoomModalOpen = ref(false)
 const isSignUpModalOpen = ref(false)
 
+
 // 초기 설정
 onMounted(() => {
     moviestore.movie_name = null
@@ -252,6 +254,8 @@ onMounted(() => {
     moviestore.poster_path = null
     moviestore.movieId = null
     modalStore.isHowToPlayModalOpen = false
+    gamesStore.game_round = 0
+    
     console.log(accountStore.token)
 })
 

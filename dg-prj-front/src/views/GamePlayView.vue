@@ -1,43 +1,62 @@
 <template>
-    <div class="bigbig-container">
-        <h1> Round : {{ gamestore.game_round+1 }}</h1>
+    <div class="bigbig-container" >
         <!-- 상단 bar -->
         <div class="playgame-container container text-center">
         <div class="high-bar" :class="flex">
-            <div class="row">
+            <div class="row" style="display: flex; align-items: center; justify-content: center;">
                 <div class="col-sm-2" >
-                 <h3># {{ gamestore.game_round+1 }}</h3>
+                 <h1># {{ gamestore.game_round+1 }}</h1 style="font-size: larger;">
                 </div>
-                <div class="col-sm-5" >
-                    <div class="col">
-                        <h2>영화 : {{ moviestore.movie_name }}</h2>
+                <div class="col-sm-7" style="text-align: left; 
+                    border-right: 1px gray solid;
+                    border-left: 1px gray solid ;
+                    padding: 0 0;" 
+                    >
+                    <div class="col" style="border-bottom: 1px solid gray; padding: 0 5px;">
+                        <h5>영화 : {{ moviestore.movie_name }}</h5>
+
                     </div>
-                    <div class="col">
-                        <h2>감독 : {{ accountstore.userInfo.name }}</h2>
+                    <div class="col" style="padding: 0 5px; ">
+                        <h5>감독 : {{ accountstore.userInfo.name }}</h5>
                     </div>
                 </div>
-                <div class="col-sm-3">
-                    ggg
+                <div class="col-sm-3" style="padding-left: 0;">
+                    <div class="row" style="border-bottom: 1px gray solid; margin: 0;">
+                        <div class="col" style="border-right: 1px gray solid;font" >{{ month }} / {{ day }}</div>
+                        <div class="col"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6" style="text-align: center;">
+                        <span style="color: red;">__</span>
+                        <span :style="{ color: gamestore.game_round>0 ? 'red' : ''}">__</span>
+                        <span :style="{ color: gamestore.game_round>1 ? 'red' : ''}">__</span>
+                        <span :style="{ color: gamestore.game_round>2 ? 'red' : ''}">__</span>
+                        <span :style="{ color: gamestore.game_round>3 ? 'red' : ''}">__</span>
+                    </div>
+                        
+                        
+                    </div>
                 </div>
 
             </div>
         </div>
-        <div class="description-game"> 주어진 상황에 이어질 시나리오를 작성하시오</div>
+        <div class="description-game"><h4> 주어진 상황에 이어질 시나리오를 작성하시오</h4></div>
         <div class="scenario-container">
-            <div class="scenario-box">시나리오 설명창
+            <div class="scenario-box" style="font-size: larger;">
+                <p>시나리오 설명창</p>
                 <p v-if="gamestore.next_situation">{{ gamestore.next_situation }}</p> 
                 <p v-else>{{ gamestore.initial_question }}</p> 
-                <!-- 이거 고쳐야 함 -->
             </div>
 
-            <div class="prompt-box">시나리오 작성창 
-                <textarea name="" id="" style="width: 100%; height: 90%; background-color: darkgray;"
+            <div class="prompt-box">
+                <p>시나리오 작성창 </p>
+                <textarea style="width: 100%; height: 90%; background-color: darkgray;"
                             v-model="useraction">
                 </textarea>
             </div>
             
         </div>
-        <button class="submit-btn" @click="goEval">
+        <button class="submit-btn" @click="goEval" style="margin-top: 30px;">
         시나리오 제출 
     </button>
 
@@ -57,11 +76,21 @@ const moviestore = useMovieStore()
 const gamestore = useGameStore()
 const userstore = useUserStore()
 const accountstore = useAccountStore()
+let today = new Date()
+let month = today.getMonth()+1
+let day = today.getDate()
+
+
+
 
 const goEval = function () {
+    if (useraction.value.length < 11) {
+        alert('시나리오가 너무 짧습니다.')
+    }
+    else {
     gamestore.user_action1 = useraction.value    
     router.push({name: 'evaluation'})   
-    
+    }
     
 }
 
@@ -69,6 +98,13 @@ const goEval = function () {
 </script>
 
 <style scoped>
+.row span{
+    padding: 0 2px;
+}
+.row svg{
+    display: inline-block;
+    padding: 0;
+}
 .bigbig-container{
   padding : 5rem;
   text-align: center;

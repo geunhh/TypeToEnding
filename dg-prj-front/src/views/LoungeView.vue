@@ -2,7 +2,8 @@
     <div class="bigbig-container">
     <div >
         <h1 class="title">Type to Ending</h1>
-        <div class="theater-code" style="margin-top: -30px;">Theater Code : 0000 </div>
+        <div class="theater-code" style="margin-top: -30px;">Theater Code : {{moviestore.roomId.slice(0,4).toUpperCase()}} </div>
+        <!-- 일단 방코드는 roomID 앞 4글자 땄어. -->
 
     </div>
     <div class="grid-container">
@@ -15,7 +16,7 @@
         </div>
         
         <div>
-            <div class="description">
+            <div class="description" style="padding: 10px;">
                 <p style="font-size: medium; padding: 5px;" v-if="moviestore.movieId">{{moviestore.description}}</p>
                 <p style="font-size: medium;" v-else>영화 줄거리가 들어갈 공간입니다.</p>
             </div>

@@ -1,5 +1,5 @@
 <template>
-    <div class>
+    <div class="bigbig-container">
         <h1> Round : {{ gamestore.game_round }}</h1>
         <div class="playgame-container">
         <!-- <p>{{ moviestore.movie_name }}</p>
@@ -24,7 +24,11 @@
             
         </div>
         <div class="d-flex justify-content-end">
-        <button type="button" class="btn btn-danger" @click="nextStage">다음으로</button>
+        <button type="button" class="btn btn-danger" @click="nextStage"
+            style="margin-top: 15px;">
+            <span v-if="gamestore.game_round==4">결말보기</span>
+            <span v-else>다음으로</span>
+        </button>
     </div>
 
     </div>
@@ -62,6 +66,10 @@ const nextStage = function () {
 </script>
 
 <style scoped>
+.bigbig-container{
+  padding : 5rem;
+  text-align: center;
+}
 .btn-loc{
     margin-left: 10%;
 }

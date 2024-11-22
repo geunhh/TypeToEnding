@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bigbig-container">
       <h1 v-if="!isComplete">AI가 당신의 시나리오를 평가하는 중 입니다.</h1>
       <div v-else>
       <h1>평가가 끝났습니다!!</h1>
@@ -56,6 +56,10 @@ onMounted(() => {
 })
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+.bigbig-container{
+  padding : 5rem;
+  text-align: center;
+}
 
 </style>
