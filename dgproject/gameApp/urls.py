@@ -6,6 +6,7 @@ urlpatterns = [
     path('test/',views.test),   #postman 시험용
     path('movielist/',views.movielist),
     path('record/<int:game_id>/',views.get_movie),
+    path('user_record/<int:user_id>/',views.get_user_game_record), # 특정 유저가 플레이한 전적조회
 
     path('start_game/', views.start_game, name='start_game'), 
     # initial_question 들고와야하니까 구분함

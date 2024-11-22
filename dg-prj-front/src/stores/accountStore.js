@@ -67,7 +67,7 @@ export const useAccountStore = defineStore('account', () => {
       }
     })
       .then(res => {
-        // console.log('사용자 정보 가져오기 성공')
+        console.log(token.value)
         userId.value = res.data.user_id
         userInfo.value = res.data
       })

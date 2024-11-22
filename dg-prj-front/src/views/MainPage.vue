@@ -252,6 +252,7 @@ onMounted(() => {
     moviestore.poster_path = null
     moviestore.movieId = null
     modalStore.isHowToPlayModalOpen = false
+    console.log(accountStore.token)
 })
 
 // 회원 가입폼에 입력한 정보 초기화하는 함수
