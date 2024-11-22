@@ -1,9 +1,35 @@
 <template>
+  <div class="bigbig-container">
+    
     <div>
         <h2 style="margin-top: -10px;">Type to Ending</h2>
     </div>
     <div class="big-contianer">
-        {{ moviestore.roomId }}
+        <!--  -->
+        <div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false">
+          <div class="carousel-inner" >
+            <div class="carousel-item" 
+                v-for="(movie,index) in moviestore.movies" 
+                :key="movie.id" 
+                :class="{active: index===0}">
+              <img class="poster" :src="`http://127.0.0.1:8000${movie.poster_path}`" 
+                  style="width:20rem ;" v-if="movie.poster_path">
+            </div>
+
+          </div>
+          <!--  -->
+          <button class="carousel-control-prev" type="button" 
+                  data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+dddd
+        <!--  -->
     <form @submit.prevent="submitMovie">
     <div v-for="movie in moviestore.movies" :key="movie.id">
         <!-- 영화 정보 렌더링 -->
@@ -21,6 +47,7 @@
 
     </form>
     </div>
+  </div>
 
 
 </template>
@@ -68,5 +95,9 @@ const submitMovie = () => {
 }
 .big-contianer{
     padding-inline: 10%;
+    padding: 10%;
+}
+.bigbig-container{
+  padding : 5rem;
 }
 </style>
