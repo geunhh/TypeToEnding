@@ -1,5 +1,5 @@
 <template>
-    <div class="container-center-horizontal--main">
+    <div class="container-center-horizontal--main" @click="closeHowToPlayModal">
         <div class="main screen">
             <!-- title -->
             <h1 class="title">Type to Ending</h1>
@@ -7,11 +7,12 @@
                 <div class="overlap-group">
                     <!-- 여기에는 주요 요소들 -->
                     <!--how to play modal-->
-                    <div class="black-bg show-how-to-play" v-if="isHowToPlayModalOpen" @click="closeHowToPlayModal">
-                        <howToPlay />
+                    <div class="black-bg show-how-to-play" v-if="modalStore.isHowToPlayModalOpen"
+                        @click="closeHowToPlayModal">
+                        <howToPlay class="how-to-play-modal" />
                     </div>
 
-                    <!-- 방 입장을 위한 모달 -->
+                    <!-- 방 입장을 위한 모달 >> 개발 보류 -->
                     <div class="card" v-if="isEnterRoomModalOpen" @click="closeEnterRoomModal">
                         <div class="text-container">
                             <div class="heading valign-text-middle">영화관 코드를 입력해주세요</div>
@@ -90,7 +91,7 @@
                         </div>
                         <div class="items-container">
                             <div class="container">
-                                <button @click.prevent="isEnterRoomModalOpen=false" class="red-button-common">
+                                <button @click.prevent="isEnterRoomModalOpen = false" class="red-button-common">
                                     <p style="padding: 0px 0px; margin: 0px" class="option-common">Enter Room</p>
                                 </button>
                             </div>
@@ -109,7 +110,6 @@
                         <img class="forward" src="@/assets/icons/forward.png" alt="forward"
                             @click.prevent="isEnterRoomModalOpen = true">
                     </div>
-
                 </div>
                 <form class="form-1" v-if="!accountStore.token && isSignUpModalOpen">
                     <div class="items-container">
@@ -160,8 +160,35 @@
 
 
 
-                <!-- 이 버튼 누르면 게임 설명 모달 띄워짐 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 <!-- 얘 손좀 보자 -->
+                <!-- 모달을 띄워주는 버튼 -->
                 <div class="overlap-group-1">
                     <button class="button-2 button-3">
                         <img class="icon" src="@/assets/icons/icon.png" alt="Icon" />
@@ -169,6 +196,23 @@
                             @click.prevent="howToPlayHandler">How to play</div>
                     </button>
                 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             </div>
         </div>
     </div>
@@ -177,23 +221,27 @@
 <script setup>
 import howToPlay from '@/components/howToPlay.vue';
 import { useAccountStore } from '@/stores/accountStore';
+import { useModalStore } from '@/stores/modalStore';
 import { useMovieStore, useUserStore } from '@/stores/counter';
 import { ref, onMounted } from 'vue';
 import { RouterLink, useRouter } from 'vue-router';
 import { v4 as uuidv4 } from 'uuid'
 
+const moviestore = useMovieStore()
+const accountStore = useAccountStore()
+const modalStore = useModalStore()
+
+const router = useRouter()
+
 const email = ref(null)
 const password = ref(null)
-const store = useUserStore()
-const moviestore = useMovieStore()
-const router = useRouter()
-const accountStore = useAccountStore()
+
 const newEmail = ref(null)
 const newPassword1 = ref(null)
 const newPassword2 = ref(null)
 const newNickname = ref(null)
+
 const isEnterRoomModalOpen = ref(false)
-const isHowToPlayModalOpen = ref(false)
 const isSignUpModalOpen = ref(false)
 
 // 초기 설정
@@ -203,6 +251,7 @@ onMounted(() => {
     moviestore.context = null
     moviestore.poster_path = null
     moviestore.movieId = null
+    modalStore.isHowToPlayModalOpen = false
 })
 
 // 회원 가입폼에 입력한 정보 초기화하는 함수
@@ -273,14 +322,15 @@ const enterRoomFunc = () => {
 
 // 게임 설명 모달을 열어주는 함수
 const howToPlayHandler = () => {
-    isHowToPlayModalOpen.value = true
+    modalStore.isHowToPlayModalOpen = true
 }
 
 // 게임 설명 모달을 닫아주는 함수 >> 모달 외부 클릭하면 닫아짐
+// 내가 의도한 것 : 모달 창 외부를 클릭 >> 흰 화면 바깥 어디를 클릭해도 닫아져야함
+// 모달의 배경은 배경색상과 똑같음 >> 체감상 없다고 생각할 수 있음 >> 여기 클릭하면 닫아지는거 완료
+// 그런데 제목은 보여야함 >> 제목에는 모달 배경이 안덮여있음 >> 따라서 "모달 배경"의 외부를 클릭해도 닫아져야함
+// 그러느니 그냥 흰 모달창 외부 or X 버튼 클릭시 닫아버리자
 const closeHowToPlayModal = (event) => {
-    if (event.target.classList.contains('show-how-to-play')) {
-        isHowToPlayModalOpen.value = false;
-    }
 }
 
 
@@ -347,11 +397,16 @@ div {
 .black-bg {
     width: 100%;
     height: 100%;
-    background: #1e1e1e;
+    background: #1a1a1a;
     position: fixed;
+    top: 100;
+    /* 화면의 최상단 */
+    left: 0;
+    /* 화면의 좌측 */
     padding: 20px;
+    z-index: 1000;
+    /* 다른 요소 위에 표시 */
 }
-
 
 
 
@@ -874,7 +929,6 @@ div {
 }
 
 .show-how-to-play {
-    margin-left: 10px;
     /* 아이콘과 텍스트 간격 */
     white-space: nowrap;
     /* 텍스트 줄 바꿈 방지 */

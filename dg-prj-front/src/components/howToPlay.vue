@@ -18,9 +18,6 @@ body {
     margin: 0
 }
 
-div {
-    box-sizing: border-box;
-}
 
 .white-bg {
     color: #000000;
