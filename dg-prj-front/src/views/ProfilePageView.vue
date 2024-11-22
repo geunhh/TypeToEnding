@@ -206,97 +206,72 @@
 
 
 
-
-
-
-
-
-
-
-            <div class="black-bg overlap" v-if="isGameInfoSearchModalOpen">
-                <div class="white-bg container-7">
-                    <div class="sub-container-6">
+            <div class="overlap-group-game-info" v-if="isGameInfoSearchModalOpen">
+                <div class="container-7-game-info">
+                    <div class="sub-container-9-game-info">
                         <div class="text-container">
-                            <div class="heading-3">최종 결과</div>
+                            <div class="heading-3 heading-6">최종 결과</div>
                         </div>
-                        <button class="button-4">
-                            <div class="text-3">All Movies</div>
-                            <img class="button-5"
-                                src="https://cdn.animaapp.com/projects/673df13276e2d7568d4b019c/releases/673e0d44e0c0123a8ba3d3b7/img/button.svg" />
-                        </button>
+                        <div class="button-4">
+                            <!-- <div class="text-4">All Movies</div>
+                            <img class="button-5" src="#" alt="Button" /> -->
+                        </div>
                     </div>
-
-                    <!-- <h2>대충 전적 검색</h2>
-                    <button>Update</button><button @click.prevent="isGameInfoSearchModalOpen = false">Cancel</button> -->
-                    <div class="sub-container-7">
-                        <div class="container-8">
-                            <div class="number">01</div>
-                            <div class="sub-container-8">
+                    <div class="sub-container-10">
+                        <div v-for="(record) in totalGameRecordsAll[0].history" :key=index class="container-8-game-info">
+                            <div class="number">{{ record.round }}</div>
+                            <div class="sub-container-2-game-info">
                                 <div class="container-9">
-                                    <div class="heading-4">파묘</div>
-                                    <div class="sub-container-9">
-                                        <img class="close"
-                                            src="https://cdn.animaapp.com/projects/673df13276e2d7568d4b019c/releases/673e0d44e0c0123a8ba3d3b7/img/close.svg" />
-                                        <div class="text-4">폐기</div>
+                                    <div class="sub-container-3">
+                                        <img class="close" src="#" alt="close" />
+                                        <div class="text-2 manrope-medium-mountain-mist-16px">폐기</div>
                                     </div>
                                 </div>
-                                <p class="paragraph">
-                                    <span class="span">주어진 시나리오<br /></span>
-                                    <span class="text-wrapper-3">ㅁㄴㅇㄹ<br /></span>
-                                    <span class="span"><br />근흐흐 가 쓴 시나리오<br />몰라여. 어떻게든 되겠죠 껄껄껄<br /><br /></span>
-                                    <span class="text-wrapper-3">평가 결과 : 주인공의 강인한 의지 : ‘날로 먹다.’<br />ㅁㄴㅇㄹ</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="container-10">
-                            <div class="number">02</div>
-                            <div class="sub-container-8">
-                                <div class="container-11">
-                                    <div class="heading-5">파묘</div>
-                                    <div class="sub-container-9">
-                                        <img class="close"
-                                            src="https://cdn.animaapp.com/projects/673df13276e2d7568d4b019c/releases/673e0d44e0c0123a8ba3d3b7/img/close.svg" />
-                                        <div class="text-4">폐기</div>
-                                    </div>
-                                </div>
-                                <p class="paragraph">
-                                    주어진 시나리오<br />폐기된 경우 AI가 임의로 작성한 다음 시나리오로 계속.<br /><br />근흐흐 가 쓴
-                                    시나리오<br />....<br /><br />평가 결과
+                                <p class="paragraph manrope-normal-mountain-mist-18px">
+                                    <span class="manrope-normal-mountain-mist-18px">상황<br /></span>
+                                    <span class="span-1">{{ record.situation }}<br /></span>
+                                    <span class="manrope-normal-mountain-mist-18px">
+                                        <br />
+                                        유저의 행동
+                                        <br />
+                                        {{ record.user_action || '없음' }}
+                                        <br />
+                                        <br />
+                                    </span>
+                                    <span class="span-1">평가 결과 : {{ record.evaluation }}
+                                        <br />
+                                        이유: {{ record.reason || '없음' }}
+                                    </span>
                                 </p>
                             </div>
                         </div>
                     </div>
-
-
-                </div>
-                <div class="buttons-container">
-                    <button class="button-6">
-                        <div class="text-wrapper-4">맨앞</div>
-                    </button>
-                    <img class="img"
-                        src="https://cdn.animaapp.com/projects/673df13276e2d7568d4b019c/releases/673e0d44e0c0123a8ba3d3b7/img/button-1.svg" />
-                    <div class="indicators-container">
-                        <div class="shape-2"></div>
-                        <div class="shape-3"></div>
-                        <div class="shape-3"></div>
-                        <div class="shape-3"></div>
+                    <div class="buttons-container-game-info">
+                        <div class="button-1-game-info">
+                            <div class="text-3">맨앞</div>
+                        </div>
+                        <img class="button-6" src="#" alt="Button" />
+                        <div class="indicators-container">
+                            <div class="shape-3"></div>
+                            <div class="shape-1"></div>
+                            <div class="shape-1"></div>
+                            <div class="shape-1"></div>
+                        </div>
+                        <img class="button-7" src="#" alt="Button" />
+                        <div class="button-1-game-info">
+                            <div class="text-3">맨뒤</div>
+                        </div>
                     </div>
-                    <img class="img"
-                        src="https://cdn.animaapp.com/projects/673df13276e2d7568d4b019c/releases/673e0d44e0c0123a8ba3d3b7/img/button-2.svg" />
-                    <button class="button-6">
-                        <div class="text-wrapper-4">맨뒤</div>
-                    </button>
-                </div>
-                <div class="buttons-container-2">
-                    <button class="button-7">
-                        <div class="text-5">자세히 보기</div>
-                    </button>
-                    <div class="text-button">요약해서 보기</div>
-                </div>
-                <div class="rectangle"></div>
 
+                    <!-- <div class="buttons-container-1">
+                        <div class="button-8">
+                            <div class="text-5">자세히 보기</div>
+                        </div>
+                        <div class="text-button">요약해서 보기</div>
+                    </div> -->
+                </div>
+                <div class="rectangle-521"></div>
             </div>
-
         </div>
     </div>
 </template>
@@ -325,6 +300,11 @@ const sex = ref(null)
 const email = ref(null)
 const avg_win_point = ref(null)
 const isDropdownOpen = ref(null)
+const totalGameRecordsAll = ref(null)
+const totalGameRecordsFiltered = ref(null)
+const totalGameRecordsAllPages = ref(null)
+const totalGameRecordsFilteredPages = ref(null)
+const currentPage = ref(0)
 
 onMounted(() => {
     store.getUserInfo()
@@ -396,6 +376,95 @@ const updateUserInfo = () => {
     }).catch(err => window.alert('유저 정보 변경에 문제가 생겼습니다'))
 }
 
+// 이스케이프 문자를 제거합니다.
+const removeEscapeCharacters = (inputString) => {
+    return inputString
+        .replace(/\\r/g, '') // \r 제거
+        .replace(/\\n/g, '') // \n 제거
+        .replace(/\\"/g, '"'); // 이스케이프된 따옴표를 원래의 따옴표로 변환
+}
+
+// 객체배열형태로 반환
+const parseStringToObjectArray = (inputString) => {
+    const objectsArray = [];
+    let currentObject = '';
+    let braceCount = 0; // 중괄호 개수 카운트
+
+    for (let char of inputString) {
+        if (char === '{') {
+            if (braceCount === 0) {
+                currentObject = '{'; // 새로운 객체 시작
+            }
+            braceCount++;
+        } else if (char === '}') {
+            braceCount--;
+            currentObject += char;
+
+            if (braceCount === 0) {
+                // 객체가 완성되면 배열에 추가
+                objectsArray.push(JSON.parse(currentObject)); // JSON.parse를 사용하여 객체로 변환
+                currentObject = ''; // 현재 객체 초기화
+            }
+        } else if (braceCount > 0) {
+            currentObject += char; // 현재 객체에 추가
+        }
+    }
+    return objectsArray;
+}
+
+
+
+// 실질적으로 전적을 DB에서 가져오는 함수
+const getGameRecord = () => {
+    // 모달이 열릴 때만
+    // axios로 전적 받아와라
+    if (isGameInfoSearchModalOpen.value) {
+        axios({
+            method: "GET",
+            // url: `${BASE_URL}/gameApp/user_record/6/`,
+            url: `${BASE_URL}/gameApp/user_record/5/`,
+            // url: `${BASE_URL}/gameApp/user_record/${store.userId}/`,
+            headers: { "Authorization": `Token ${store.token}` },
+        }).then((res) => {
+            // console.log(res.data.game_records)
+            totalGameRecordsAll.value = res.data.game_records
+            totalGameRecordsAllPages.value = res.data.game_records.length
+        }).then(() => {
+            if (!(totalGameRecordsAll.value === null && totalGameRecordsAll.value === undefined)) {
+                if (!totalGameRecordsAllPages.value) { window.alert(`${store.userInfo.name}님은 아직 게임을 플레이한적이 없습니다!`) }
+                else {
+                    window.alert(`${store.userInfo.name}님의 전적을 가져왔습니다!`)
+                    // 여기서 히스토리 파싱 + 정리하자
+                    totalGameRecordsAll.value.forEach(record => {
+                        const cleanHistory = removeEscapeCharacters(record.history)
+                        const parsedHistory = parseStringToObjectArray(cleanHistory)
+                        record.history = parsedHistory
+                        console.log(record.history);
+
+
+                        // console.log(record.movie);
+                        // console.log(record.total_summary);
+                        // console.log(record.total_score);
+                        // console.log(record.recommend_movie);
+                        // console.log(record.recommend_movie_reason);
+                        // console.log(record.recommend_movie_theme);
+                        // console.log(record.emotion);
+
+                    });
+
+
+
+                    // console.log(totalGameRecordsAll.value[0]);
+                }
+            }
+
+        }).catch(err => {
+            window.alert('전적 검색에 실패했습니다.')
+            isGameInfoSearchModalOpen.value = false // 전적 가져오는 데에 실패하면 모달 닫아버리셈
+        })
+    }
+}
+
 const closePasswordUpdateModal = () => {
     isUpdatePasswordModalOpen.value = false
     currentPassword.value = ""
@@ -420,6 +489,7 @@ const handleUpdateUserInfoModal = () => {
     if (!isGameInfoSearchModalOpen.value && !isUpdatePasswordModalOpen.value) { isUpdateUserInfoModalOpen.value = true }
 }
 
+// 전적 모달 띄워주는 함수
 const handleGameInfoSearchModal = () => {
     // 다른 모달(비번변경, 전적검색 모달)들이 안띄워져 있다면 띄워
 
@@ -429,29 +499,9 @@ const handleGameInfoSearchModal = () => {
     } else if (isGameInfoSearchModalOpen.value) {
         isGameInfoSearchModalOpen.value = false
     }
-
-    // 모달이 열릴 때만
-    // axios로 전적 받아와라
-    if (isGameInfoSearchModalOpen.value) {
-        // console.log('모달이 열렸습니다')
-        axios({
-            method: "GET",
-            // url: `${BASE_URL}/gameApp/user_record/6/`,
-            url: `${BASE_URL}/gameApp/user_record/5/`,
-            // url: `${BASE_URL}/gameApp/user_record/${store.userId}/`,
-            headers: { "Authorization": `Token ${store.token}` },
-        }).then((res) => {
-            window.alert(`${store.userInfo.name}님의 전적을 가져왔습니다!`)
-            console.log(res.data.game_records)
-            res.data.game_records.forEach((record) => console.log(record.history))
-        }).catch(err => window.alert('전적 검색에 실패했습니다.'))
-
-
-
-
-
-    }
+    getGameRecord()
 }
+
 
 //////////////////////////////////////////////////////////////////////////////////////////
 // 드롭다운 외부 클릭 감지
@@ -482,9 +532,6 @@ const selectSex = (sex) => {
 <style scoped>
 @import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
 @import url("https://fonts.googleapis.com/css?family=Manrope:500,400,600");
-/* The following line is used to measure usage of this code. You can remove it if you want. */
-@import url("https://px.animaapp.com/673df13076e2d7568d4b0197.673df13076e2d7568d4b019a.vdlRvPB.hcp.png");
-
 /***************************************************/
 /***************************************************/
 /***************************************************/
@@ -536,6 +583,13 @@ const selectSex = (sex) => {
     height: 820px;
     top: 164px;
     left: 50px;
+    border-radius: 10px;
+}
+
+.overlap-group-game-info {
+    position: relative;
+    width: 100%;
+    height: 100%;
     border-radius: 10px;
 }
 
@@ -596,6 +650,16 @@ const selectSex = (sex) => {
     gap: 2px;
     position: relative;
     flex: 0 0 auto;
+}
+
+.sub-container-2-game-info {
+    align-items: flex-start;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 14px;
+    position: relative;
 }
 
 .div-wrapper .text-wrapper {
@@ -847,6 +911,23 @@ const selectSex = (sex) => {
     border-color: var(--black-15);
 }
 
+.container-7-game-info {
+    align-items: flex-start;
+    background-color: var(--black06);
+    border: 1px solid;
+    border-color: var(--black15);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    /* gap: 30px; */
+    height: 100%;
+    /* left: 4px; */
+    padding: 50px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
 .div-wrapper .sub-container-6 {
     display: flex;
     align-items: center;
@@ -937,6 +1018,22 @@ const selectSex = (sex) => {
     border-color: var(--black-15);
 }
 
+.container-8-game-info {
+    align-items: center;
+    align-self: stretch;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-color: var(--black15);
+    border-top-style: solid;
+    border-top-width: 1px;
+    display: flex;
+    flex: 0 0 auto;
+    gap: 20px;
+    padding: 20px 0px;
+    position: relative;
+    width: 100%;
+}
+
 .div-wrapper .number {
     position: relative;
     width: 60px;
@@ -987,6 +1084,33 @@ const selectSex = (sex) => {
     border-radius: 8px;
     border: 1px solid;
     border-color: var(--black-15);
+}
+
+.sub-container-9-game-info {
+    align-self: stretch;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    flex: 0 0 auto;
+    background-color: var(--black-08);
+    justify-content: space-between;
+    border-color: var(--black-15);
+    margin-bottom: 30px;
+}
+
+.sub-container-10 {
+    align-items: flex-start;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    height: 728px;
+    position: relative;
+    width: 100%;
+    overflow-y: auto;
+    /* 세로 스크롤 추가 */
+    max-height: 728px;
+    /*최대 높이를 기존 높이와 동일하게 설정*/
 }
 
 .div-wrapper .close {
@@ -1074,6 +1198,30 @@ const selectSex = (sex) => {
     position: absolute;
     top: 893px;
     left: 482px;
+}
+
+.game-info-with-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.buttons-container-game-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    /* 절대 위치 지정 */
+    bottom: 0;
+    /* 컨테이너의 하단에 위치 */
+    left: 50%;
+    /* 수평 중앙 정렬을 위한 설정 */
+    transform: translateX(-50%);
+    /* 중앙 정렬을 위한 변환 */
+    width: 100%;
+    /* 필요에 따라 전체 너비 사용 */
+    padding-bottom: 20px;
+    /*선택 사항: 위아래 패딩 추가*/
 }
 
 .div-wrapper .button-6 {
@@ -1589,6 +1737,19 @@ const selectSex = (sex) => {
     padding: 10px;
     position: relative;
     width: 86px;
+}
+
+.button-1-game-info {
+    align-items: center;
+    background-color: var(--black08);
+    border: 1px solid;
+    border-color: var(--black15);
+    border-radius: 100px;
+    display: inline-flex;
+    flex: 0 0 auto;
+    gap: 10px;
+    padding: 14px;
+    position: relative;
 }
 
 .record .overlap-group {

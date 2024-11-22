@@ -570,6 +570,12 @@
     font-family: "Manrope", Helvetica;
     letter-spacing: 0;
   }
+
+  .heading-6{
+    font-family: var(--font-family-manrope);
+    letter-spacing: 0;
+    position: relative;
+  }
   
   .div-wrapper .buttons-container {
     display: inline-flex;
