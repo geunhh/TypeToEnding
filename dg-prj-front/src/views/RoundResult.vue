@@ -23,9 +23,9 @@
             </div>
             
         </div>
-        <button class="submit-btn" @click="nextStage">
-        다음으로
-    </button>
+        <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-danger" @click="nextStage">다음으로</button>
+    </div>
 
     </div>
 </div>
@@ -62,6 +62,9 @@ const nextStage = function () {
 </script>
 
 <style scoped>
+.btn-loc{
+    margin-left: 10%;
+}
 .submit-btn{
     padding: 10px 20px;
     font-size: large;
