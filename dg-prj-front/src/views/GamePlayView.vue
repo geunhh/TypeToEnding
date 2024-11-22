@@ -1,12 +1,26 @@
 <template>
-    <div>
-        <h1> Round : {{ gamestore.game_round }}</h1>
-        <div class="playgame-container">
-        <!-- <p>{{ moviestore.movie_name }}</p>
-        <p>{{ moviestore.description }}</p> -->
+    <div class="bigbig-container">
+        <h1> Round : {{ gamestore.game_round+1 }}</h1>
         <!-- 상단 bar -->
-        <div class="high-bar">
-            구현 예정 
+        <div class="playgame-container container text-center">
+        <div class="high-bar" :class="flex">
+            <div class="row">
+                <div class="col-sm-2" >
+                 <h3># {{ gamestore.game_round+1 }}</h3>
+                </div>
+                <div class="col-sm-5" >
+                    <div class="col">
+                        <h2>영화 : {{ moviestore.movie_name }}</h2>
+                    </div>
+                    <div class="col">
+                        <h2>감독 : {{ accountstore.userInfo.name }}</h2>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    ggg
+                </div>
+
+            </div>
         </div>
         <div class="description-game"> 주어진 상황에 이어질 시나리오를 작성하시오</div>
         <div class="scenario-container">
@@ -24,7 +38,7 @@
             
         </div>
         <button class="submit-btn" @click="goEval">
-        시나리오 제출 {{ gamestore.game_id }}
+        시나리오 제출 
     </button>
 
     </div>
@@ -32,6 +46,7 @@
 </template>
 
 <script setup>
+import { useAccountStore } from '@/stores/accountStore';
 import { useGameStore, useMovieStore, useUserStore } from '@/stores/counter';
 import axios from 'axios';
 import { ref } from 'vue';
@@ -41,6 +56,7 @@ const useraction = ref(null)
 const moviestore = useMovieStore()
 const gamestore = useGameStore()
 const userstore = useUserStore()
+const accountstore = useAccountStore()
 
 const goEval = function () {
     gamestore.user_action1 = useraction.value    
@@ -53,6 +69,10 @@ const goEval = function () {
 </script>
 
 <style scoped>
+.bigbig-container{
+  padding : 5rem;
+  text-align: center;
+}
 .submit-btn{
     padding: 10px 20px;
     font-size: large;
