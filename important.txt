@@ -13,3 +13,7 @@ npm은 프론트 프젝 내에서만 설치!
 
 .env 는 프백 둘다 각각 하나씩 심어둬야함(안쓴다면 없어도 괜찮긴 한데 있는게 나음)
 
+관리자 계정 : dgproject@admin.com
+테스트 계정1 : dgproejct1@test.com
+테스트 계정2 : dgproejct2@test.com
+테스트 계정3 : dgproejct3@test.com

@@ -26,12 +26,13 @@ export const useAccountStore = defineStore('account', () => {
       }
     })
       .then(res => {
-        console.log('회원가입 성공..')
-        console.log(res.data)
+        // console.log('회원가입 성공..')
+        // console.log(res.data)
+        window.alert("가입되었습니다")
         const password = password1
         logIn({ email, password }) // 가입 완료 되면 바로 로그인 된 채로 메인페이지로 이동
       })
-      .catch(err => console.log(err.response))
+      .catch(err => window.alert("회원 가입에 실패하였습니다"))
   }
 
   const logIn = function (payload) {
@@ -46,8 +47,9 @@ export const useAccountStore = defineStore('account', () => {
       }
     })
       .then(res => {
-        console.log('로그인 성공..')
-        console.log(res.data)
+        // console.log('로그인 성공..')
+        // console.log(res.data)
+        window.alert("로그인 하였습니다")
         token.value = res.data.key
         getUserInfo()
         router.push({ name: 'main' }) // 로그인 성공시 메인 페이지로 이동
@@ -65,7 +67,7 @@ export const useAccountStore = defineStore('account', () => {
       }
     })
       .then(res => {
-        console.log('사용자 정보 가져오기 성공')
+        // console.log('사용자 정보 가져오기 성공')
         userId.value = res.data.user_id
         userInfo.value = res.data
       })
@@ -80,7 +82,8 @@ export const useAccountStore = defineStore('account', () => {
         Authorization: `Token ${token.value}`
       }
     }).then(() => {
-      console.log('로그아웃 성공')
+      // console.log('로그아웃 성공')
+      window.alert("로그아웃 하였습니다")
       token.value = null
       userId.value = null
     }).catch(err => console.log(err))

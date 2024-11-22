@@ -11,6 +11,7 @@
                         <howToPlay />
                     </div>
 
+                    <!-- 방 입장을 위한 모달 -->
                     <div class="card" v-if="isEnterRoomModalOpen" @click="closeEnterRoomModal">
                         <div class="text-container">
                             <div class="heading valign-text-middle">영화관 코드를 입력해주세요</div>
@@ -64,8 +65,7 @@
                         </div> -->
                         <div class="items-container">
                             <div class="container">
-                                <button class="grey-button-common"
-                                    @click.prevent="isSignUpModalOpen = !isSignUpModalOpen">
+                                <button class="grey-button-common" @click.prevent="toggleSignUpModal">
                                     <span class="sign-up">{{ isSignUpModalOpen ? "Close Form" : "Sign Up" }}</span>
                                 </button>
                             </div>
@@ -90,7 +90,7 @@
                         </div>
                         <div class="items-container">
                             <div class="container">
-                                <button @click.prevent="isEnterRoomModalOpen = false" class="red-button-common">
+                                <button @click.prevent="isEnterRoomModalOpen=false" class="red-button-common">
                                     <p style="padding: 0px 0px; margin: 0px" class="option-common">Enter Room</p>
                                 </button>
                             </div>
@@ -146,7 +146,6 @@
                     </div>
                     <div class="items-container">
                         <div class="container">
-                            <!-- <button class="red-button-common" @click="signUpFunc"> -->
                             <button class="red-button-common" @click.prevent="signUpFunc">
                                 <div class="option-common manrope-semi-bold-white-18px">Sign Up</div>
                             </button>
@@ -162,19 +161,15 @@
 
 
                 <!-- 이 버튼 누르면 게임 설명 모달 띄워짐 -->
+                <!-- 얘 손좀 보자 -->
                 <div class="overlap-group-1">
                     <button class="button-2 button-3">
                         <img class="icon" src="@/assets/icons/icon.png" alt="Icon" />
                         <div class="show-how-to-play text-2 valign-text-middle manrope-semi-bold-white-32px"
-                        @click.prevent="howToPlayHandler">How to play</div>
+                            @click.prevent="howToPlayHandler">How to play</div>
                     </button>
-                    <!-- <button class="how-to-play-button-common" @click.prevent="howToPlayHandler" value="How to Play">
-                        <img class="icon" src="@/assets/icons/icon.png" alt="Icon" />
-                        <div class="show-how-to-play text-2 valign-text-middle manrope-semi-bold-white-32px"
-                        @click.prevent="howToPlayHandler">How to play</div>
-                    </button> -->
                 </div>
-            </div>          
+            </div>
         </div>
     </div>
 </template>
@@ -185,7 +180,6 @@ import { useAccountStore } from '@/stores/accountStore';
 import { useMovieStore, useUserStore } from '@/stores/counter';
 import { ref, onMounted } from 'vue';
 import { RouterLink, useRouter } from 'vue-router';
-// import { applyStyles } from '@/assets/classes/MainPageV.js'; // 파일 경로 조정
 import { v4 as uuidv4 } from 'uuid'
 
 const email = ref(null)
@@ -202,44 +196,29 @@ const isEnterRoomModalOpen = ref(false)
 const isHowToPlayModalOpen = ref(false)
 const isSignUpModalOpen = ref(false)
 
-
+// 초기 설정
 onMounted(() => {
     moviestore.movie_name = null
     moviestore.description = null
     moviestore.context = null
     moviestore.poster_path = null
     moviestore.movieId = null
-    // applyStyles()
 })
 
-const signUpFunc = () => {
-    const payload = {
-        email: newEmail.value,
-        password1: newPassword1.value,
-        password2: newPassword2.value,
-        name: newNickname.value,
-    }
-    accountStore.signUp(payload)
+// 회원 가입폼에 입력한 정보 초기화하는 함수
+const resetForm = () => {
+    newEmail.value = ""
+    newPassword1.value = ""
+    newPassword2.value = ""
+    newNickname.value = ""
 }
 
 // 프로필 페이지로 이동하는 함수
 const moveToProfilePage = () => {
-    console.log(accountStore.userId)
     router.push({
         name: 'ProfilePageView',
         params: { userId: accountStore.userId }
     })
-}
-
-const testFunc = function () {
-    console.log(email.value)
-    console.log(password.value)
-}
-
-// 로그아웃 함수
-const logOutFunc = function () {
-    // console.log('button clicked!!!')
-    accountStore.logOut()
 }
 
 // 로그인 함수
@@ -253,6 +232,24 @@ const loginFunc = function () {
     accountStore.logIn(payload)
 }
 
+// 로그아웃 함수
+const logOutFunc = function () {
+    accountStore.logOut()
+}
+
+// 회원 가입하는 함수
+const signUpFunc = () => {
+    const payload = {
+        email: newEmail.value,
+        password1: newPassword1.value,
+        password2: newPassword2.value,
+        name: newNickname.value,
+    }
+    accountStore.signUp(payload)
+    resetForm()
+}
+
+// 방 생성 하는 함수
 const CreateRoom = function () {
     // 방 번호가 랜덤으로 들어가야함. 이지만 나중에 해보자잇.
 
@@ -262,12 +259,21 @@ const CreateRoom = function () {
     router.push({ name: 'LoungeView', params: { roomId } })
 }
 
-
-
+// 방 입장 모달 닫기 >> 개발 보류
 const closeEnterRoomModal = (event) => {
     if (event.target.classList.contains('card')) {
         isEnterRoomModalOpen.value = false;
     }
+}
+
+// 방 입장 모달 열기 >> 개발 보류
+const enterRoomFunc = () => {
+    isEnterRoomModalOpen.value = true
+}
+
+// 게임 설명 모달을 열어주는 함수
+const howToPlayHandler = () => {
+    isHowToPlayModalOpen.value = true
 }
 
 // 게임 설명 모달을 닫아주는 함수 >> 모달 외부 클릭하면 닫아짐
@@ -275,17 +281,8 @@ const closeHowToPlayModal = (event) => {
     if (event.target.classList.contains('show-how-to-play')) {
         isHowToPlayModalOpen.value = false;
     }
-
-}
-// 게임 설명 모달을 열어주는 함수
-const howToPlayHandler = (event) => {
-    // console.log("good@!");
-    isHowToPlayModalOpen.value = true
 }
 
-const enterRoomFunc = () => {
-    console.log(roomCode.value)
-}
 
 // 대기실로 입장하는 함수
 const moveToWaitingRoom = () => {
@@ -295,6 +292,11 @@ const moveToWaitingRoom = () => {
     })
 }
 
+// 회원 가입 폼을 열고 닫는 함수, sign up 버튼에 적용됨
+const toggleSignUpModal = () => {
+    resetForm()
+    isSignUpModalOpen.value = !isSignUpModalOpen.value
+}
 
 </script>
 
@@ -307,20 +309,21 @@ const moveToWaitingRoom = () => {
 
 
 .button-2 {
-border:0px;
-  align-items: center;
-  gap: 4px;
-  height: 63px;
-  left: 0;
-  position: absolute;
-  top: 19px;
-  width: 280px;
+    border: 0px;
+    align-items: center;
+    gap: 4px;
+    height: 63px;
+    left: 0;
+    position: absolute;
+    top: 19px;
+    width: 280px;
 }
+
 .button-3 {
-  background-color: var(--red45);
-  border-radius: 8px;
-  display: flex;
-  padding: 18px 24px;
+    background-color: var(--red45);
+    border-radius: 8px;
+    display: flex;
+    padding: 18px 24px;
 }
 
 
@@ -376,6 +379,7 @@ div {
     position: relative;
     width: 488px;
 }
+
 .dummy-form {
     align-items: flex-start;
     background-color: var(--eerie-black);

@@ -60,10 +60,8 @@
                             </div>
                             <div class="sub-container-5">
                                 <div class="container-6">
-                                    <!-- <div class="heading-3 heading-4 manrope-semi-bold-white-16px">{{avg_win_point}}</div> -->
                                     <div class="heading-3 heading-4 manrope-semi-bold-white-16px">{{ avg_win_point !==
-                                        null ? avg_win_point :"0W 0L"}}</div>
-                                    <!--나중에 값 들어오면 교체할 것-->
+                                        null ? avg_win_point : "0W 0L" }}</div>
                                     <div class="sub-container-6">
                                         <div class="container-7">
                                             <img class="star" src="@/assets/icons/star.png" alt="star" />
@@ -78,17 +76,17 @@
                             </div>
                         </div>
                         <div class="container-2">
-                            <button class="red-button-common" @click.prevent="isUpdatePasswordModalOpen = true">
+                            <button class="red-button-common" @click.prevent="handleUpdatePasswordModal">
                                 <p class="option-common">Change Password</p>
                             </button>
                         </div>
                         <div class="container-2">
-                            <button class="red-button-common" @click.prevent="isUpdateUserInfoModalOpen = true">
+                            <button class="red-button-common" @click.prevent="handleUpdateUserInfoModal">
                                 <p class="option-common">Update Profile</p>
                             </button>
                         </div>
                     </div>
-                    <button class="game-record-button" @click.prevent="isGameInfoSearchModalOpen = true">
+                    <button class="game-record-button" @click.prevent="handleGameInfoSearchModal">
                         <p class="cancel">전적보기</p>
                     </button>
                 </div>
@@ -261,47 +259,38 @@ onMounted(() => {
     document.addEventListener('click', handleClickOutside);
 })
 
-// token 정보 => userid
+// 메인 화면으로 돌아가주는 함수
 const backToMain = () => {
-    router.push({
-        name: 'main'
-    })
+    router.push({ name: 'main' })
 }
 
+// 전적 검색 모달 열어주는 함수
 const gameInfoSearch = () => {
     isGameInfoSearchModalOpen.value = true
 }
 
+// 비밀번호 변경해주는 함수
 const updatePassword = () => {
-    console.log('clicked!!!');
-    // 대충 입력받은 비밀번호를 axios 정의하고 던져주기
     if (newPassword1.value != newPassword2.value) {
         window.alert("새로 입력한 두 비밀번호가 서로 일치하지 않습니다")
     }
     else {
         axios({
             method: 'POST',
-            url: `${BASE_URL}/api/auth/password/change/`, // 얘는 나중에 장고에서 url 설정하고 다시 돌아오자
+            url: `${BASE_URL}/api/auth/password/change/`,
             data: {
-                old_passowrd: currentPassword.value, // 키가 맞는지도 한번 더 확인하자
+                old_passowrd: currentPassword.value,
                 new_password1: newPassword1.value,
                 new_password2: newPassword1.value
             },
-            headers: {
-                "Authorization": `Token ${store.token}`
-            }
-        }).then(res => {
-            window.alert("비밀번호가 성공적으로 변경되었습니다.")
-        }).then(() => {
+            headers: { "Authorization": `Token ${store.token}` }
+        }).then(res => { window.alert("비밀번호가 성공적으로 변경되었습니다.") }).then(() => {
             closePasswordUpdateModal()
-        }).catch(err => {
-            window.alert("비밀번호변경에 문제가 생겼습니다")
-            console.error(err)
-        })
+        }).catch(err => window.alert("비밀번호 변경에 문제가 생겼습니다"))
     }
 }
 
-
+// 유저 정보 변경해주는 함수
 const updateUserInfo = () => {
     axios({
         method: 'PUT',
@@ -321,12 +310,10 @@ const updateUserInfo = () => {
         store.userInfo.sex = res.data.user.sex
         window.alert('성공적으로 유저 정보가 업데이트 되었습니다')
         return store.userInfo
-
     }).then((userInfo) => {
         name.value = userInfo.name
         age.value = userInfo.age
         sex.value = userInfo.sex
-
     }).then(() => {
         closeUpdateUserInfoModal()
     }).catch(err => window.alert('유저 정보 변경에 문제가 생겼습니다'))
@@ -338,11 +325,30 @@ const closePasswordUpdateModal = () => {
     newPassword1.value = ""
     newPassword2.value = ""
 }
+
 const closeUpdateUserInfoModal = () => {
     isUpdateUserInfoModalOpen.value = false
     newNickname.value = null
     newAge.value = null
     newSex.value = null
+}
+
+const handleUpdatePasswordModal = () => {
+    // 다른 모달(유저정보 변경, 전적검색 모달)들이 안띄워져 있다면 띄워
+    if (!isGameInfoSearchModalOpen.value && !isUpdateUserInfoModalOpen.value) { isUpdatePasswordModalOpen.value = true }
+}
+
+const handleUpdateUserInfoModal = () => {
+    // 다른 모달(비번변경, 전적검색 모달)들이 안띄워져 있다면 띄워
+    if (!isGameInfoSearchModalOpen.value && !isUpdatePasswordModalOpen.value) { isUpdateUserInfoModalOpen.value = true }
+}
+
+const handleGameInfoSearchModal = () => {
+    // 다른 모달(비번변경, 전적검색 모달)들이 안띄워져 있다면 띄워
+    // if (!isUpdateUserInfoModalOpen.value && !isUpdatePasswordModalOpen.value) { isGameInfoSearchModalOpen.value = true }
+
+    // 이녀석 모달 구현할 때 까지는 false로 고정
+    isGameInfoSearchModalOpen.value = false
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -355,13 +361,15 @@ const handleClickOutside = (event) => {
     }
 }
 
+// 드롭다운 열기/닫기
 const toggleDropdown = () => {
-    isDropdownOpen.value = !isDropdownOpen.value; // 드롭다운 열기/닫기
+    isDropdownOpen.value = !isDropdownOpen.value;
 }
 
+// 성별 선택
 const selectSex = (sex) => {
-    newSex.value = sex; // 성별 선택
-    isDropdownOpen.value = false; // 드롭다운 닫기
+    newSex.value = sex;
+    isDropdownOpen.value = false; // 성별이 선택되었을 경우 드롭다운도 닫아버림
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
