@@ -1,67 +1,68 @@
 <template>
-    <div class="bigbig-container" >
-        <!-- 상단 bar -->
+    <div class="bigbig-container">
         <div class="playgame-container container text-center">
-        <div class="high-bar" :class="flex">
-            <div class="row" style="display: flex; align-items: center; justify-content: center;">
-                <div class="col-sm-2" >
-                 <h1># {{ gamestore.game_round+1 }}</h1 style="font-size: larger;">
-                </div>
-                <div class="col-sm-7" style="text-align: left; 
-                    border-right: 1px gray solid;
-                    border-left: 1px gray solid ;
-                    padding: 0 0;" 
-                    >
-                    <div class="col" style="border-bottom: 1px solid gray; padding: 0 5px;">
-                        <h5>영화 : {{ moviestore.movie_name }}</h5>
+            <!-- 상단 bar -->
+            <div class="high-bar">
+                <div class="bar-content">
+                    <!-- 라운드 표시 -->
+                    <div class="round-section">
+                        <div class="round-circle">
+                            <span class="round-label">ROUND</span>
+                            <span class="round-number">{{ gamestore.game_round + 1 }}</span>
+                        </div>
+                    </div>
 
+                    <!-- 영화/감독 정보 -->
+                    <div class="info-section">
+                        <div class="info-row">
+                            <i class="bi bi-film"></i>
+                            <span class="info-label">영화</span>
+                            <span class="info-value">{{ moviestore.movie_name }}</span>
+                        </div>
+                        <div class="info-row">
+                            <i class="bi bi-person-badge"></i>
+                            <span class="info-label">감독</span>
+                            <span class="info-value">{{ accountstore.userInfo.name }}</span>
+                        </div>
                     </div>
-                    <div class="col" style="padding: 0 5px; ">
-                        <h5>감독 : {{ accountstore.userInfo.name }}</h5>
-                    </div>
-                </div>
-                <div class="col-sm-3" style="padding-left: 0;">
-                    <div class="row" style="border-bottom: 1px gray solid; margin: 0;">
-                        <div class="col" style="border-right: 1px gray solid;font" >{{ month }} / {{ day }}</div>
-                        <div class="col"></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6" style="text-align: center;">
-                        <span style="color: red;">__</span>
-                        <span :style="{ color: gamestore.game_round>0 ? 'red' : ''}">__</span>
-                        <span :style="{ color: gamestore.game_round>1 ? 'red' : ''}">__</span>
-                        <span :style="{ color: gamestore.game_round>2 ? 'red' : ''}">__</span>
-                        <span :style="{ color: gamestore.game_round>3 ? 'red' : ''}">__</span>
-                    </div>
-                        
-                        
-                    </div>
-                </div>
 
+                    <!-- 진행 상황 -->
+                    <div class="progress-section">
+                        <div class="date-display">
+                            <i class="bi bi-calendar3"></i>
+                            <span>{{year}} / {{ month }} / {{ day }}</span>
+                        </div>
+                        <div class="progress-indicators">
+                            <div v-for="n in 5" :key="n" class="progress-dot"
+                                :class="{ 'active': gamestore.game_round >= n - 1 }">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="description-game"><h4> 주어진 상황에 이어질 시나리오를 작성하시오</h4></div>
-        <div class="scenario-container">
-            <div class="scenario-box" style="font-size: larger;">
-                <p>시나리오 설명창</p>
-                <p v-if="gamestore.next_situation">{{ gamestore.next_situation }}</p> 
-                <p v-else>{{ gamestore.initial_question }}</p> 
+            <div class="description-game">
+                <h4> 주어진 상황에 이어질 시나리오를 작성하시오</h4>
             </div>
+            <div class="scenario-container">
+                <div class="scenario-box" style="font-size: larger;">
+                    <p>시나리오 설명창</p>
+                    <p v-if="gamestore.next_situation">{{ gamestore.next_situation }}</p>
+                    <p v-else>{{ gamestore.initial_question }}</p>
+                </div>
 
-            <div class="prompt-box">
-                <p>시나리오 작성창 </p>
-                <textarea style="width: 100%; height: 90%; background-color: darkgray;"
-                            v-model="useraction">
+                <div class="prompt-box">
+                    <p>시나리오 작성창 </p>
+                    <textarea style="width: 100%; height: 90%; background-color: darkgray;" v-model="useraction">
                 </textarea>
-            </div>
-            
-        </div>
-        <button class="submit-btn" @click="goEval" style="margin-top: 30px;">
-        시나리오 제출 
-    </button>
+                </div>
 
+            </div>
+            <button class="submit-btn" @click="goEval" style="margin-top: 30px;">
+                시나리오 제출
+            </button>
+
+        </div>
     </div>
-</div>
 </template>
 
 <script setup>
@@ -77,7 +78,8 @@ const gamestore = useGameStore()
 const userstore = useUserStore()
 const accountstore = useAccountStore()
 let today = new Date()
-let month = today.getMonth()+1
+let year = today.getFullYear()
+let month = today.getMonth() + 1
 let day = today.getDate()
 
 
@@ -88,47 +90,189 @@ const goEval = function () {
         alert('시나리오가 너무 짧습니다.')
     }
     else {
-    gamestore.user_action1 = useraction.value    
-    router.push({name: 'evaluation'})   
+        gamestore.user_action1 = useraction.value
+        router.push({ name: 'evaluation' })
     }
-    
+
 }
 
 
 </script>
 
 <style scoped>
-.row span{
+.high-bar {
+    background: linear-gradient(to right, #1A1A1A, #2d2d2d);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.bar-content {
+    display: grid;
+    grid-template-columns: 1fr 4fr 2fr;
+    gap: 2rem;
+    align-items: center;
+}
+
+/* 라운드 섹션 */
+.round-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid #830213;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(131, 2, 19, 0.1);
+    margin: 0 auto;
+}
+
+.round-label {
+    font-size: 0.7rem;
+    color: #830213;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.round-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #830213;
+}
+
+/* 정보 섹션 */
+.info-section {
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0 2rem;
+}
+
+.info-row {
+    padding: 0.8rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.info-row:first-child {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-row i {
+    color: #830213;
+    font-size: 1.2rem;
+}
+
+.info-label {
+    color: #8B8680;
+    font-weight: 500;
+    min-width: 60px;
+}
+
+.info-value {
+    color: #fff;
+    font-weight: 500;
+    flex-grow: 1;
+}
+
+/* 진행 상황 섹션 */
+.progress-section {
+    padding: 0 1rem;
+}
+
+.date-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.date-display i {
+    color: #830213;
+}
+
+.progress-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 0.8rem;
+    padding: 0.5rem 0;
+}
+
+.progress-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.progress-dot.active {
+    background: #830213;
+    box-shadow: 0 0 10px rgba(131, 2, 19, 0.5);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .bar-content {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .info-section {
+        border: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 1rem 0;
+    }
+
+    .round-circle {
+        margin: 0 auto;
+    }
+}
+.row span {
     padding: 0 2px;
 }
-.row svg{
+
+.row svg {
     display: inline-block;
     padding: 0;
 }
-.bigbig-container{
-  padding : 5rem;
-  text-align: center;
+
+.bigbig-container {
+    padding: 5rem;
+    text-align: center;
 }
-.submit-btn{
+
+.submit-btn {
     padding: 10px 20px;
     font-size: large;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     color: white;
-    background-color:red;
+    background-color: red;
 }
-.playgame-container{
+
+.playgame-container {
     margin: 20px;
 }
-.high-bar{
+
+.high-bar {
     border: 1px gray solid;
     border-radius: 10px;
     background-color: black;
     color: white;
 }
-.description-game{
-    
+
+.description-game {
+
     border: 1px gray solid;
     border-radius: 10px;
     background-color: black;
@@ -137,24 +281,180 @@ const goEval = function () {
     margin: 20px auto;
     padding: 5px 50px;
 }
+
 .scenario-container {
-  display: flex;
-  justify-content: center; /* 수평 중앙 정렬 */
-  align-items: center;     /* 수직 중앙 정렬 */
-  gap: 20%;               /* 픽셀 단위로 큰 간격 설정 */
-  margin-top: 40px;        /* 추가 여백 */
+    display: flex;
+    justify-content: center;
+    /* 수평 중앙 정렬 */
+    align-items: center;
+    /* 수직 중앙 정렬 */
+    gap: 20%;
+    /* 픽셀 단위로 큰 간격 설정 */
+    margin-top: 40px;
+    /* 추가 여백 */
 }
-.scenario-box, .prompt-box {
-  padding: 20px;
-  font-size: medium;
-  border-radius: 10px;
-  background-color: black;
-  color: white;
-  width: 400px;
-  height: 500px;
-  text-align: center; /* 내부 텍스트를 가운데 정렬 */
-}
+
+.scenario-box,
 .prompt-box {
-  background-color: gray; /* prompt-box만 다른 배경색으로 설정 */
+    padding: 20px;
+    font-size: medium;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    width: 400px;
+    height: 500px;
+    text-align: center;
+    /* 내부 텍스트를 가운데 정렬 */
+}
+
+.prompt-box {
+    background-color: gray;
+    /* prompt-box만 다른 배경색으로 설정 */
+}
+/* 기존 high-bar 관련 스타일은 유지하고, 아래 스타일을 추가/수정합니다 */
+
+.bigbig-container {
+    padding: 3rem;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    min-height: 100vh;
+}
+
+.description-game {
+    background: linear-gradient(to right, #1A1A1A, #2d2d2d);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1rem 2rem;
+    margin: 2rem auto;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: auto;
+    display: inline-block;
+}
+
+.description-game h4 {
+    color: #fff;
+    font-weight: 500;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.description-game h4::before {
+    content: '\F4DD';
+    font-family: bootstrap-icons;
+    color: #830213;
+    font-size: 1.2rem;
+}
+
+.scenario-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.scenario-box, .prompt-box {
+    flex: 1;
+    max-width: 500px;
+    background: linear-gradient(to right, #1A1A1A, #2d2d2d);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+.scenario-box p:first-child, .prompt-box p:first-child {
+    color: #830213;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.scenario-box p:first-child::before {
+    content: '\F4D5';
+    font-family: bootstrap-icons;
+}
+
+.prompt-box p:first-child::before {
+    content: '\F4CB';
+    font-family: bootstrap-icons;
+}
+
+.scenario-box p:not(:first-child) {
+    color: #fff;
+    line-height: 1.6;
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    text-align: left;
+}
+
+.prompt-box textarea {
+    flex-grow: 1;
+    background: rgba(0, 0, 0, 0.2);
+    border: none;
+    border-radius: 8px;
+    padding: 1rem;
+    color: #fff;
+    font-size: 1rem;
+    line-height: 1.6;
+    resize: none;
+    color: black;
+}
+
+.prompt-box textarea:focus {
+    outline: 1px solid #830213;
+}
+
+.submit-btn {
+    background: linear-gradient(to right, #830213, #9f0217);
+    color: white;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.submit-btn::before {
+    content: '\F4E6';
+    font-family: bootstrap-icons;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(131, 2, 19, 0.4);
+}
+
+/* 스크롤바 스타일링 */
+.scenario-box p:not(:first-child)::-webkit-scrollbar,
+.prompt-box textarea::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scenario-box p:not(:first-child)::-webkit-scrollbar-track,
+.prompt-box textarea::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.scenario-box p:not(:first-child)::-webkit-scrollbar-thumb,
+.prompt-box textarea::-webkit-scrollbar-thumb {
+    background: #830213;
+    border-radius: 3px;
 }
 </style>

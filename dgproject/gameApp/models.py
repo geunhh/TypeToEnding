@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from accounts.models import CustomUser
 
 # Create your models here.
 class Movie(models.Model):
@@ -7,6 +8,7 @@ class Movie(models.Model):
     description = models.TextField()            # 줄거리 및 설명
     context = models.TextField()                # 세계관
     poster_path = models.ImageField(upload_to='movie_posters/',null=True, blank=True)
+    creator = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='movies', blank=True, null=True)
 
     def __str__(self):
         return self.title

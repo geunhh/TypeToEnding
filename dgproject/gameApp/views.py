@@ -14,19 +14,30 @@ import pprint
 import json
 
 
-@api_view(["GET"])
+@api_view(["GET","POST"])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def movielist(request):
-    """
-    전체 영화 목록을 반환하는 API
+    if request.method == 'GET':
+        """
+        전체 영화 목록을 반환하는 API
 
-    Returns:
-        Response: 직렬화된 영화 데이터 목록
-    """
-    movies = Movie.objects.all()
-    serializer = MovieSerializer(movies, many=True)
-    return Response(serializer.data, status=status.HTTP_200_OK)
+        Returns:
+            Response: 직렬화된 영화 데이터 목록
+        """
+        movies = Movie.objects.all()
+        serializer = MovieSerializer(movies, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    elif request.method == 'POST' :
+        """
+        영화 생성하는 API
+
+        """
+        serializer = MovieSerializer(data=request.data)        
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
 
 
 @api_view(["GET"])
