@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Movie, GameRecord
+from .models import Movie, GameRecord, InitialQuestion
 
 class MovieSerializer(serializers.ModelSerializer):
     class Meta:
@@ -10,4 +10,9 @@ class GameRecordSerializer(serializers.ModelSerializer):
     movie = MovieSerializer(read_only=True)  # Movie를 중첩 Serializer로 처리
     class Meta:
         model = GameRecord
+        fields = '__all__'
+
+class InitialQuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InitialQuestion
         fields = '__all__'

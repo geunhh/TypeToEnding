@@ -6,7 +6,7 @@ from rest_framework.decorators import (
 from rest_framework.response import Response
 from .models import GameRecord, Movie
 from .game_logic import play_game_round, generate_game_summary, anlayze_result
-from .serializers import MovieSerializer, GameRecordSerializer
+from .serializers import MovieSerializer, GameRecordSerializer, InitialQuestionSerializer
 from rest_framework.authentication import TokenAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
@@ -221,3 +221,14 @@ def get_user_game_record(request, user_id):
     serializer = GameRecordSerializer(game_records, many=True)
 
     return Response({"game_records": serializer.data})
+
+@api_view(["POST"])
+def initial_question(request):
+    if request.method == 'POST' :
+        """
+        초기 질문 생성하는 API
+        """
+        serializer = InitialQuestionSerializer(data=request.data)        
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
