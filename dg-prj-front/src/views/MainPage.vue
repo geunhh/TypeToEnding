@@ -256,7 +256,7 @@ onMounted(() => {
     modalStore.isHowToPlayModalOpen = false
     gamesStore.game_round = 0
     
-    console.log(accountStore.token)
+    // console.log(accountStore.token)
 })
 
 // 회원 가입폼에 입력한 정보 초기화하는 함수
@@ -277,8 +277,6 @@ const moveToProfilePage = () => {
 
 // 로그인 함수
 const loginFunc = function () {
-    console.log(email.value)
-    console.log(password.value)
     const payload = {
         email: email.value,
         password: password.value,
@@ -309,7 +307,7 @@ const CreateRoom = function () {
 
     const roomId = uuidv4()
     moviestore.roomId = roomId
-    console.log(moviestore.roomId)
+    // console.log(moviestore.roomId)
     router.push({ name: 'LoungeView', params: { roomId } })
 }
 

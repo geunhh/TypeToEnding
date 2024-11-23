@@ -399,11 +399,14 @@ const fetchGameRecords = () => {
                         record.history = parsedHistory;
 
                         // 승패 계산
-                        if (record.history.evaluation === '적절함') {
-                            wins.value++;
-                        } else {
-                            loss.value++;
-                        }
+                        record.history.forEach(stage => {
+                            // stage.evaluation이 존재할 때만 평가를 확인합니다.
+                            if (stage.evaluation && stage.evaluation === '적절함') {
+                                wins.value++;
+                            } else {
+                                loss.value++;
+                            }
+                        });
                     });
 
                     // 평균 승률 및 별 개수 계산
@@ -423,7 +426,6 @@ const fetchGameRecords = () => {
                 window.alert('게임 기록을 가져오는 데 실패했습니다.');
             }
         }).catch(err => {
-            console.error('전적 검색에 실패했습니다:', err);
             window.alert('전적 검색에 실패했습니다.');
             isGameInfoSearchModalOpen.value = false;
         });
@@ -441,7 +443,21 @@ const handleGameInfoSearchModal = () => {
 
 // 드롭다운에서 영화를 선택하는 함수 : 필터링 기능
 const selectMovie = (option) => {
-    SelectedMovies.value = option;
+    SelectedMovies.value = option
+
+    if (option === "All Movies") {
+        totalGameRecordsFiltered.value = totalGameRecordsAll.value;
+        totalGameRecordsFilteredPages.value = totalGameRecordsAllPages.value;
+    } else {
+        totalGameRecordsFiltered.value = []
+        totalGameRecordsFilteredPages.value = 0
+        totalGameRecordsAll.value.forEach(record => {
+            if (record.movie.title === option) {
+                totalGameRecordsFiltered.value.push(record)
+            }
+        })
+        totalGameRecordsFilteredPages.value = totalGameRecordsFiltered.value.length - 1
+    }
 }
 
 // 메인 화면으로 돌아가주는 함수
@@ -484,7 +500,6 @@ const updateUserInfo = () => {
             "Authorization": `Token ${store.token}`
         }
     }).then(res => {
-        console.log(res.data.user)
         store.userInfo.name = res.data.user.name
         store.userInfo.age = res.data.user.age
         store.userInfo.sex = res.data.user.sex
