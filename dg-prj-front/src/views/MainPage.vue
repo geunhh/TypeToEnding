@@ -7,10 +7,10 @@
                 <div class="overlap-group">
                     <!-- 여기에는 주요 요소들 -->
                     <!--how to play modal-->
-                    <div class="black-bg show-how-to-play" v-if="modalStore.isHowToPlayModalOpen"
+                    <!-- <div class="black-bg show-how-to-play" v-if="modalStore.isHowToPlayModalOpen"
                         @click="howToPlayHandler">
                         <howToPlay class="how-to-play-modal" />
-                    </div>
+                    </div> -->
                     
 
                     <!-- 방 입장을 위한 모달 >> 개발 보류 -->
@@ -190,13 +190,13 @@
 
                 <!-- 얘 손좀 보자 -->
                 <!-- 모달을 띄워주는 버튼 -->
-                <div class="overlap-group-1">
+                <!-- <div class="overlap-group-1">
                     <button class="button-2 button-3 modal-button">
                         <img class="icon modal-button" src="@/assets/icons/icon.png" alt="Icon" />
                         <div class="modal-button show-how-to-play text-2 valign-text-middle manrope-semi-bold-white-32px"
                             @click.prevent="howToPlayHandler">How to play</div>
                     </button>
-                </div>
+                </div> -->
 
 
 

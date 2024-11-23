@@ -521,11 +521,15 @@ const updateUserInfo = () => {
 
 // 이스케이프 문자를 제거합니다.
 const removeEscapeCharacters = (inputString) => {
+    if (typeof inputString !== 'string') {
+        console.warn("removeEscapeCharacters: Non-string input received", inputString);
+        return inputString; // 문자열이 아니면 그대로 반환
+    }
     return inputString
-        .replace(/\\r/g, '') // \r 제거
-        .replace(/\\n/g, '') // \n 제거
-        .replace(/\\"/g, '"'); // 이스케이프된 따옴표를 원래의 따옴표로 변환
-}
+        .replace(/\\r/g, '')
+        .replace(/\\n/g, '')
+        .replace(/\\"/g, '"');
+};
 
 // 객체배열형태로 반환
 const parseStringToObjectArray = (inputString) => {

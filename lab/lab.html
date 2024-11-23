@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전체 화면 배경 이미지 변경기</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            overflow: hidden; /* 스크롤 바 숨기기 */
+            position: relative; /* 자식 요소의 절대 위치를 위한 기준 설정 */
+        }
+        #background {
+            position: absolute; /* 절대 위치 지정 */
+            width: 100%; /* 전체 너비 */
+            height: 100%; /* 전체 높이 */
+            transition: opacity 1s ease-in-out; /* 부드러운 전환 효과 */
+            opacity: 0; /* 처음에는 보이지 않도록 설정 */
+        }
+    </style>
+</head>
+<body>
+    <div id="background"></div>
+
+    <script>
+        const images = [
+            '귀멸의칼날.jpg',
+            '너의이름은.jpg',
+            'avengers.jpg'
+        ];
+        
+        let index = 0;
+
+        function changeBackgroundImage() {
+            const backgroundDiv = document.getElementById('background');
+            backgroundDiv.style.backgroundImage = `url(${images[index]})`;
+            backgroundDiv.style.backgroundSize = 'cover'; // 이미지를 화면에 꽉 차게 조정
+            backgroundDiv.style.backgroundPosition = 'center'; // 이미지를 중앙에 배치
+            
+            // 투명도 조정
+            backgroundDiv.style.opacity = 1; // 보이도록 설정
+            
+            // 이전 이미지 숨기기
+            setTimeout(() => {
+                backgroundDiv.style.opacity = 0; // 사라지도록 설정
+            }, 4000); // 4초 후에 사라짐
+            
+            index = (index + 1) % images.length; // 다음 이미지로 이동
+        }
+
+        setInterval(changeBackgroundImage, 5000); // 5초마다 변경
+        changeBackgroundImage(); // 첫 번째 이미지를 설정하기 위한 초기 호출
+    </script>
+</body>
+</html>
