@@ -392,11 +392,6 @@ const fetchGameRecords = () => {
                 lastFetchTime.value = Date.now();
 
                 if (totalGameRecordsAll.value.length > 0) {
-                    // 초기화
-                    wins.value = 0;
-                    loss.value = 0;
-                    playedMovies.value = []; // 초기화
-
                     totalGameRecordsAll.value.forEach(record => {
                         playedMovies.value.push(record.movie.title);
                         const cleanHistory = removeEscapeCharacters(record.history);
