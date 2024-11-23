@@ -1,6 +1,6 @@
 <template>
     <div class="bigbig-container">
-        <h1> Round : {{ gamestore.game_round }}</h1>
+        <h1> Round : {{ gamestore.game_round +1 }}</h1>
         <div class="playgame-container">
         <!-- <p>{{ moviestore.movie_name }}</p>
         <p>{{ moviestore.description }}</p> -->

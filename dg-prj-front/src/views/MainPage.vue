@@ -92,8 +92,8 @@
                         </div>
                         <div class="items-container">
                             <div class="container">
-                                <button @click.prevent="isEnterRoomModalOpen = false" class="red-button-common">
-                                    <p style="padding: 0px 0px; margin: 0px" class="option-common">Enter Room</p>
+                                <button @click.prevent="CreateMovie" class="red-button-common">
+                                    <p style="padding: 0px 0px; margin: 0px" class="option-common">Make Movie</p>
                                 </button>
                             </div>
                         </div>
@@ -243,7 +243,6 @@ const newPassword1 = ref(null)
 const newPassword2 = ref(null)
 const newNickname = ref(null)
 
-const isEnterRoomModalOpen = ref(false)
 const isSignUpModalOpen = ref(false)
 
 
@@ -363,6 +362,13 @@ const moveToWaitingRoom = () => {
         name: 'WaitingRoomView',
         params: { roomCode: "3F7D" }
     })
+}
+
+// 영화 생성 페이지로 이동하는 함수
+const CreateMovie = function () {
+    console.log('ggg')
+    router.push({name : 'CreateMovie'})
+    
 }
 
 // 회원 가입 폼을 열고 닫는 함수, sign up 버튼에 적용됨
