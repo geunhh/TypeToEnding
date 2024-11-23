@@ -11,6 +11,7 @@
                         @click="howToPlayHandler">
                         <howToPlay class="how-to-play-modal" />
                     </div>
+                    
 
                     <!-- 방 입장을 위한 모달 >> 개발 보류 -->
                     <div class="card" v-if="isEnterRoomModalOpen" @click="closeEnterRoomModal">

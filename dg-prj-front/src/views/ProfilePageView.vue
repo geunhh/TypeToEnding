@@ -220,6 +220,11 @@
                                     <div class="sub-container-3"></div>
                                 </div>
                                 <div class="paragraph manrope-normal-mountain-mist-18px">
+                                    <p class="category-heading">플레이한 영화</p>
+                                    <p v-if="totalGameRecordsFiltered[currentPage]">{{
+                                        totalGameRecordsFiltered[currentPage].movie.title }}</p>
+                                    <p v-else>&nbsp;</p> <!-- 빈칸으로 남김 -->
+
                                     <p class="category-heading">시나리오 요약</p>
                                     <p v-if="totalGameRecordsFiltered[currentPage]">{{
                                         totalGameRecordsFiltered[currentPage].total_summary }}</p>
@@ -382,7 +387,7 @@ const fetchGameRecords = () => {
     if (isGameInfoSearchModalOpen.value) {
         axios({
             method: "GET",
-            url: `${BASE_URL}/gameApp/user_record/5/`,
+            url: `${BASE_URL}/gameApp/user_record/${store.userId}/`,
             headers: { "Authorization": `Token ${store.token}` },
         }).then((res) => {
             // API 응답 데이터가 존재하는지 확인
