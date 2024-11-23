@@ -60,17 +60,24 @@
                             </div>
                             <div class="sub-container-5">
                                 <div class="container-6">
-                                    <div class="heading-3 heading-4 manrope-semi-bold-white-16px">{{ avg_win_point !==
-                                        null ? avg_win_point : "0W 0L" }}</div>
+                                    <div class="heading-3 heading-4 manrope-semi-bold-white-16px">
+                                        {{ avg_win_point !== null ? avg_win_point : "0 Slct / 0 Disc" }}
+                                    </div>
                                     <div class="sub-container-6">
                                         <div class="container-7">
-                                            <img class="star" src="@/assets/icons/star.png" alt="star" />
-                                            <img class="star" src="@/assets/icons/star.png" alt="star" />
-                                            <img class="star" src="@/assets/icons/star.png" alt="star" />
-                                            <img class="star" src="@/assets/icons/star.png" alt="star" />
-                                            <img class="half-star" src="@/assets/icons/half-star.png" alt="half-star" />
+                                            <div v-if="avg_win_rate">
+                                                <img v-for="i in redStars" :key="i" class="star-class"
+                                                    src="@/assets/icons/red-star.png" alt="red-star">
+                                                <img v-if="halfStar" class="star-class"
+                                                    src="@/assets/icons/half-star.png" alt="half-star">
+                                                <img v-for="i in grayStars" :key="i" class="star-class"
+                                                    src="@/assets/icons/gray-star.png" alt="gray-star">
+                                            </div>
+                                            <div v-else>
+                                                <img v-for="i in 5" :key="i" class="star-class"
+                                                    src="@/assets/icons/gray-star.png" alt="gray-star">
+                                            </div>
                                         </div>
-                                        <div class="text manrope-medium-white-14px">4.5</div>
                                     </div>
                                 </div>
                             </div>
@@ -91,8 +98,6 @@
                     </button>
                 </div>
             </div>
-
-            <!-- 드롭다운이 겁나 짜쳐요.... -->
             <form class="form" v-if="isUpdateUserInfoModalOpen && !isUpdatePasswordModalOpen">
                 <div class="items-container">
                     <div class="container-3">
@@ -108,7 +113,7 @@
                         <div class="heading-1 heading-4 manrope-semi-bold-white-18px">Age</div>
                         <div class="input-field">
                             <input class="text-2 text-5 input-box manrope-medium-mountain-mist-18px" v-model="newAge"
-                                :placeholder="store.userInfo.age">
+                                :placeholder="store.userInfo.age || '?'">
                         </div>
                     </div>
                 </div>
@@ -116,37 +121,22 @@
                 <div class="items-container">
                     <div class="container-3">
                         <div class="heading-1 heading-4 manrope-semi-bold-white-18px">Sex</div>
-                        <div class="input-field ">
-                            <div class="text-2 text-5  manrope-medium-mountain-mist-18px" @click="toggleDropdown">
-                                {{ newSex === 'M' ? '남자' : newSex === 'F' ? '여자' : '성별 선택' }}
-                            </div>
-                            <img class="button-3 dropdown" src="@/assets/icons/drop-down.png" alt="Button"
-                                @click="toggleDropdown" style="margin-left: 8px; cursor: pointer;" />
-                            <div v-if="isDropdownOpen" class="dropdown-options">
-                                <div @click="selectSex('M')" class="option manrope-medium-mountain-mist-18px-option">남자
-                                </div>
-                                <div @click="selectSex('F')" class="option manrope-medium-mountain-mist-18px-option">여자
-                                </div>
-                            </div>
+                        <div class="btn-group">
+                            <button class="sex button-sex-select btn btn-secondary btn-lg" type="button">
+                                {{ newSex === 'M' ? '남자' : newSex === 'F' ? '여자' : '?' }}
+                            </button>
+                            <button type="button"
+                                class="dropdown-sex button-sex-select btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="visually-hidden">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><button @click="selectSex('M')" class="dropdown-item" type="button">남자</button></li>
+                                <li><button @click="selectSex('F')" class="dropdown-item" type="button">여자</button></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-
-
-
-
-                <!-- <div class="items-container">
-                    <div class="container-3">
-                        <div class="heading-1 heading-4 manrope-semi-bold-white-18px">Sex</div>
-                        <div class="input-field">
-
-                            <div class="text-2 text-5 manrope-medium-mountain-mist-18px">Male</div>
-
-                            <img class="button-3" src="@/assets/icons/drop-down.png" alt="Button" />
-
-                        </div>
-                    </div>
-                </div> -->
 
                 <div class="container-2">
                     <button class="red-button-common" @click.prevent="updateUserInfo">
@@ -200,78 +190,130 @@
                     </button>
                 </div>
             </form>
-
             <!-- 여기까지가 비밀번호 모달 -->
             <!-- 아래부터는 전적검색 모달 -->
-
-
-
             <div class="overlap-group-game-info" v-if="isGameInfoSearchModalOpen">
                 <div class="container-7-game-info">
                     <div class="sub-container-9-game-info">
                         <div class="text-container">
-                            <div class="heading-3 heading-6">최종 결과</div>
+                            <p class="game-result">{{ name }}'s game record</p>
                         </div>
-                        <div class="button-4">
-                            <!-- <div class="text-4">All Movies</div>
-                            <img class="button-5" src="#" alt="Button" /> -->
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle button-4-game-info" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ SelectedMovies || 'All Movies' }}
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li v-for="(option, index) in playedMovies" :key="index">
+                                    <button class="dropdown-item" type="button" @click="selectMovie(option)">{{ option
+                                        }}</button>
+                                    <div class="dropdown-divider" v-if="index !== playedMovies.length - 1"></div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                     <div class="sub-container-10">
-                        <div v-for="(record) in totalGameRecordsAll[0].history" :key=index class="container-8-game-info">
-                            <div class="number">{{ record.round }}</div>
+                        <div class="container-8-game-info">
+                            <div class="number-game-info-summary">요약</div>
+                            <div class="sub-container-2-game-info">
+                                <div class="container-9">
+                                    <div class="sub-container-3"></div>
+                                </div>
+                                <div class="paragraph manrope-normal-mountain-mist-18px">
+                                    <p class="category-heading">시나리오 요약</p>
+                                    <p v-if="totalGameRecordsFiltered[currentPage]">{{
+                                        totalGameRecordsFiltered[currentPage].total_summary }}</p>
+                                    <p v-else>&nbsp;</p> <!-- 빈칸으로 남김 -->
+
+                                    <p class="category-heading">{{ name }} 의 감정</p>
+                                    <p v-if="totalGameRecordsFiltered[currentPage]">{{
+                                        totalGameRecordsFiltered[currentPage].emotion }}</p>
+                                    <p v-else>&nbsp;</p> <!-- 빈칸으로 남김 -->
+
+                                    <p class="category-heading">추천하는 영화</p>
+                                    <p v-if="totalGameRecordsFiltered[currentPage]">{{
+                                        totalGameRecordsFiltered[currentPage].recommend_movie }}</p>
+                                    <p v-else>&nbsp;</p> <!-- 빈칸으로 남김 -->
+
+                                    <p class="category-heading">이 영화를 추천하는 이유</p>
+                                    <p v-if="totalGameRecordsFiltered[currentPage]">#{{
+                                        totalGameRecordsFiltered[currentPage].recommend_movie_theme }}</p>
+                                    <p v-else>&nbsp;</p> <!-- 빈칸으로 남김 -->
+
+                                    <p v-if="totalGameRecordsFiltered[currentPage]">{{
+                                        totalGameRecordsFiltered[currentPage].recommend_movie_reason }}</p>
+                                    <p v-else>&nbsp;</p> <!-- 빈칸으로 남김 -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 전적 기록 -->
+                        <div v-if="totalGameRecordsFiltered && totalGameRecordsFiltered[currentPage]"
+                            v-for="(record, index) in totalGameRecordsFiltered[currentPage].history" :key="index"
+                            class="container-8-game-info">
+                            <div class="number-game-info">{{ record.round + 1 }}</div>
                             <div class="sub-container-2-game-info">
                                 <div class="container-9">
                                     <div class="sub-container-3">
-                                        <img class="close" src="#" alt="close" />
-                                        <div class="text-2 manrope-medium-mountain-mist-16px">폐기</div>
+                                        <img v-if="record.evaluation === '적절함'" class="selected-or-discarded"
+                                            src="@/assets/icons/selected.png" alt="selected" />
+                                        <img v-else class="selected-or-discarded" src="@/assets/icons/discarded.png"
+                                            alt="discarded" />
                                     </div>
                                 </div>
-                                <p class="paragraph manrope-normal-mountain-mist-18px">
-                                    <span class="manrope-normal-mountain-mist-18px">상황<br /></span>
-                                    <span class="span-1">{{ record.situation }}<br /></span>
-                                    <span class="manrope-normal-mountain-mist-18px">
-                                        <br />
-                                        유저의 행동
-                                        <br />
-                                        {{ record.user_action || '없음' }}
-                                        <br />
-                                        <br />
-                                    </span>
-                                    <span class="span-1">평가 결과 : {{ record.evaluation }}
-                                        <br />
-                                        이유: {{ record.reason || '없음' }}
-                                    </span>
-                                </p>
+                                <div class="paragraph manrope-normal-mountain-mist-18px">
+                                    <p class="category-heading">상황</p>
+                                    <p>{{ record.situation }}</p>
+
+                                    <p class="category-heading"> 당신의 대답</p>
+                                    <p>{{ record.user_action || '없음' }}</p>
+
+                                    <p class="category-heading">이유</p>
+                                    <p>{{ record.reason || '없음' }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="buttons-container-game-info">
-                        <div class="button-1-game-info">
-                            <div class="text-3">맨앞</div>
-                        </div>
-                        <img class="button-6" src="#" alt="Button" />
-                        <div class="indicators-container">
-                            <div class="shape-3"></div>
-                            <div class="shape-1"></div>
-                            <div class="shape-1"></div>
-                            <div class="shape-1"></div>
-                        </div>
-                        <img class="button-7" src="#" alt="Button" />
-                        <div class="button-1-game-info">
-                            <div class="text-3">맨뒤</div>
-                        </div>
+
                     </div>
 
-                    <!-- <div class="buttons-container-1">
-                        <div class="button-8">
-                            <div class="text-5">자세히 보기</div>
+                    <!-- 페이지 이동 버튼 -->
+                    <div class="buttons-container-game-info">
+                        <!-- 이전 페이지 버튼 -->
+                        <button class="page-move-button-game-info" @click.prevent="currentPage = 0">
+                            <img class="page-move-game-info" src="@/assets/icons/arrowarrowleft.png" alt="Button" />
+                        </button>
+
+                        <!-- 한 페이지 뒤로 가기 버튼 -->
+                        <button class="page-move-button-game-info"
+                            @click.prevent="currentPage === 0 ? currentPage = 0 : currentPage--">
+                            <img class="page-move-game-info" src="@/assets/icons/arrowleft.png" alt="Button" />
+                        </button>
+
+                        <!-- 페이지 인디케이터 -->
+                        <div class="indicators-container">
+                            <p class="number-game-info-p">{{ currentPage + 1 }} / {{ totalGameRecordsFilteredPages + 1
+                                }}</p>
                         </div>
-                        <div class="text-button">요약해서 보기</div>
-                    </div> -->
+
+                        <!-- 한 페이지 앞으로 가기 버튼 -->
+                        <button class="page-move-button-game-info" @click.prevent="
+                            currentPage === totalGameRecordsFilteredPages ? currentPage = totalGameRecordsFilteredPages : currentPage++
+                            ">
+                            <img class="page-move-game-info" src="@/assets/icons/arrowright.png" alt="Button" />
+                        </button>
+
+                        <!-- 마지막 페이지로 이동 버튼 -->
+                        <button class="page-move-button-game-info" @click.prevent="
+                            currentPage = totalGameRecordsFilteredPages
+                            ">
+                            <img class="page-move-game-info" src="@/assets/icons/arrowarrowright.png" alt="Button" />
+                        </button>
+                    </div>
                 </div>
+                <!-- 추가적인 요소 -->
                 <div class="rectangle-521"></div>
             </div>
+
         </div>
     </div>
 </template>
@@ -279,7 +321,7 @@
 <script setup>
 import { useAccountStore } from '@/stores/accountStore';
 import { useRouter } from 'vue-router'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import axios from 'axios';
 
 const store = useAccountStore()
@@ -299,12 +341,21 @@ const age = ref(null)
 const sex = ref(null)
 const email = ref(null)
 const avg_win_point = ref(null)
+const avg_win_rate = ref(null)
 const isDropdownOpen = ref(null)
-const totalGameRecordsAll = ref(null)
-const totalGameRecordsFiltered = ref(null)
-const totalGameRecordsAllPages = ref(null)
-const totalGameRecordsFilteredPages = ref(null)
+const totalGameRecordsAll = ref([])
+const totalGameRecordsAllPages = ref(0)
+const totalGameRecordsFiltered = ref([])
+const totalGameRecordsFilteredPages = ref(0)
 const currentPage = ref(0)
+const SelectedMovies = ref(null)
+const lastFetchTime = ref(null)
+const wins = ref(0)
+const loss = ref(0)
+const redStars = ref(0)
+const halfStar = ref(0)
+const grayStars = ref(0)
+const playedMovies = ref(['All Movies'])
 
 onMounted(() => {
     store.getUserInfo()
@@ -316,14 +367,91 @@ onMounted(() => {
     document.addEventListener('click', handleClickOutside);
 })
 
+const computedGameRecords = computed(() => {
+    if (!totalGameRecordsFiltered.value || shouldRefetchData.value) {
+        fetchGameRecords()
+    }
+    return totalGameRecordsFiltered.value
+})
+
+const shouldRefetchData = computed(() => {
+    return !lastFetchTime.value || (Date.now() - lastFetchTime.value > 5 * 60 * 1000)
+})
+
+const fetchGameRecords = () => {
+    if (isGameInfoSearchModalOpen.value) {
+        axios({
+            method: "GET",
+            url: `${BASE_URL}/gameApp/user_record/5/`,
+            headers: { "Authorization": `Token ${store.token}` },
+        }).then((res) => {
+            // API 응답 데이터가 존재하는지 확인
+            if (res.data && res.data.game_records) {
+                totalGameRecordsAll.value = res.data.game_records;
+                totalGameRecordsAllPages.value = totalGameRecordsAll.value.length - 1;
+                lastFetchTime.value = Date.now();
+
+                if (totalGameRecordsAll.value.length > 0) {
+                    // 초기화
+                    wins.value = 0;
+                    loss.value = 0;
+                    playedMovies.value = []; // 초기화
+
+                    totalGameRecordsAll.value.forEach(record => {
+                        playedMovies.value.push(record.movie.title);
+                        const cleanHistory = removeEscapeCharacters(record.history);
+                        const parsedHistory = parseStringToObjectArray(cleanHistory);
+                        record.history = parsedHistory;
+
+                        // 승패 계산
+                        if (record.history.evaluation === '적절함') {
+                            wins.value++;
+                        } else {
+                            loss.value++;
+                        }
+                    });
+
+                    // 평균 승률 및 별 개수 계산
+                    avg_win_point.value = `${wins.value} Slct / ${loss.value} Disc`;
+                    avg_win_rate.value = Number(((wins.value / (wins.value + loss.value)) * 5).toFixed(1));
+                    redStars.value = Math.floor(avg_win_rate.value);
+                    halfStar.value = avg_win_rate.value % 1 >= 0.5 ? 1 : 0;
+                    grayStars.value = 5 - redStars.value - halfStar.value;
+
+                    totalGameRecordsFiltered.value = totalGameRecordsAll.value;
+                    totalGameRecordsFilteredPages.value = totalGameRecordsAllPages.value;
+                    window.alert(`${store.userInfo.name}님의 전적을 가져왔습니다!`);
+                } else {
+                    window.alert(`${store.userInfo.name}님은 아직 게임을 플레이한적이 없습니다!`);
+                }
+            } else {
+                window.alert('게임 기록을 가져오는 데 실패했습니다.');
+            }
+        }).catch(err => {
+            console.error('전적 검색에 실패했습니다:', err);
+            window.alert('전적 검색에 실패했습니다.');
+            isGameInfoSearchModalOpen.value = false;
+        });
+    }
+}
+
+const handleGameInfoSearchModal = () => {
+    if (!isGameInfoSearchModalOpen.value && !isUpdateUserInfoModalOpen.value && !isUpdatePasswordModalOpen.value) {
+        isGameInfoSearchModalOpen.value = true
+    } else if (isGameInfoSearchModalOpen.value) {
+        isGameInfoSearchModalOpen.value = false
+    }
+    computedGameRecords.value
+}
+
+// 드롭다운에서 영화를 선택하는 함수 : 필터링 기능
+const selectMovie = (option) => {
+    SelectedMovies.value = option;
+}
+
 // 메인 화면으로 돌아가주는 함수
 const backToMain = () => {
     router.push({ name: 'main' })
-}
-
-// 전적 검색 모달 열어주는 함수
-const gameInfoSearch = () => {
-    isGameInfoSearchModalOpen.value = true
 }
 
 // 비밀번호 변경해주는 함수
@@ -412,59 +540,6 @@ const parseStringToObjectArray = (inputString) => {
     return objectsArray;
 }
 
-
-
-// 실질적으로 전적을 DB에서 가져오는 함수
-const getGameRecord = () => {
-    // 모달이 열릴 때만
-    // axios로 전적 받아와라
-    if (isGameInfoSearchModalOpen.value) {
-        axios({
-            method: "GET",
-            // url: `${BASE_URL}/gameApp/user_record/6/`,
-            url: `${BASE_URL}/gameApp/user_record/5/`,
-            // url: `${BASE_URL}/gameApp/user_record/${store.userId}/`,
-            headers: { "Authorization": `Token ${store.token}` },
-        }).then((res) => {
-            // console.log(res.data.game_records)
-            totalGameRecordsAll.value = res.data.game_records
-            totalGameRecordsAllPages.value = res.data.game_records.length
-        }).then(() => {
-            if (!(totalGameRecordsAll.value === null && totalGameRecordsAll.value === undefined)) {
-                if (!totalGameRecordsAllPages.value) { window.alert(`${store.userInfo.name}님은 아직 게임을 플레이한적이 없습니다!`) }
-                else {
-                    window.alert(`${store.userInfo.name}님의 전적을 가져왔습니다!`)
-                    // 여기서 히스토리 파싱 + 정리하자
-                    totalGameRecordsAll.value.forEach(record => {
-                        const cleanHistory = removeEscapeCharacters(record.history)
-                        const parsedHistory = parseStringToObjectArray(cleanHistory)
-                        record.history = parsedHistory
-                        console.log(record.history);
-
-
-                        // console.log(record.movie);
-                        // console.log(record.total_summary);
-                        // console.log(record.total_score);
-                        // console.log(record.recommend_movie);
-                        // console.log(record.recommend_movie_reason);
-                        // console.log(record.recommend_movie_theme);
-                        // console.log(record.emotion);
-
-                    });
-
-
-
-                    // console.log(totalGameRecordsAll.value[0]);
-                }
-            }
-
-        }).catch(err => {
-            window.alert('전적 검색에 실패했습니다.')
-            isGameInfoSearchModalOpen.value = false // 전적 가져오는 데에 실패하면 모달 닫아버리셈
-        })
-    }
-}
-
 const closePasswordUpdateModal = () => {
     isUpdatePasswordModalOpen.value = false
     currentPassword.value = ""
@@ -489,19 +564,6 @@ const handleUpdateUserInfoModal = () => {
     if (!isGameInfoSearchModalOpen.value && !isUpdatePasswordModalOpen.value) { isUpdateUserInfoModalOpen.value = true }
 }
 
-// 전적 모달 띄워주는 함수
-const handleGameInfoSearchModal = () => {
-    // 다른 모달(비번변경, 전적검색 모달)들이 안띄워져 있다면 띄워
-
-    // 이 버튼은 특별하게 전적보기 버튼으로만 열고 닫기가 됨
-    if (!isGameInfoSearchModalOpen.value && !isUpdateUserInfoModalOpen.value && !isUpdatePasswordModalOpen.value) {
-        isGameInfoSearchModalOpen.value = true
-    } else if (isGameInfoSearchModalOpen.value) {
-        isGameInfoSearchModalOpen.value = false
-    }
-    getGameRecord()
-}
-
 
 //////////////////////////////////////////////////////////////////////////////////////////
 // 드롭다운 외부 클릭 감지
@@ -511,11 +573,6 @@ const handleClickOutside = (event) => {
         isDropdownOpen.value = false; // 드롭다운 닫기
         newSex.value = null; // 성별 선택하지 않은 경우 null로 설정
     }
-}
-
-// 드롭다운 열기/닫기
-const toggleDropdown = () => {
-    isDropdownOpen.value = !isDropdownOpen.value;
 }
 
 // 성별 선택
@@ -539,6 +596,111 @@ const selectSex = (sex) => {
 /***************************************************/
 /***************************************************/
 /***************************************************/
+
+.star-rating {
+    display: flex;
+}
+
+.star-class {
+    width: 24px;
+    /* 별의 크기를 조정 */
+    height: auto;
+}
+
+.btn-group .dropdown-menu {
+    background-color: #1a1a1a;
+    min-width: 100%;
+}
+
+.btn-group .dropdown-item {
+    color: var(--grey60);
+    background-color: #1a1a1a;
+}
+
+.btn-group .dropdown-item:hover {
+    background-color: #e50000;
+    color: #FFFFFF;
+}
+
+.btn-group .btn-secondary {
+    background-color: var(--black08);
+    border: 1px solid #262626;
+    color: var(--grey60);
+}
+
+.btn-group .btn-secondary:hover,
+.btn-group .btn-secondary:focus,
+.btn-group .btn-secondary:active {
+    background-color: var(--black08) !important;
+    border-color: #262626 !important;
+    box-shadow: none !important;
+    color: var(--grey60);
+}
+
+.button-sex-select {
+    width: calc(100% - 38px);
+    height: 24px;
+    text-align: left;
+    padding: 20px;
+}
+
+.dropdown-toggle-split {
+    width: 38px;
+}
+
+.btn-group .dropdown-sex {
+    text-align: center;
+}
+
+.btn-group .sex {
+    /* 마우스 호버링에도 반응이 없어야함 */
+    /* 단 disable은 사용하지 말 것 */
+    pointer-events: none;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+
+
+
+.dropdown-menu {
+    background-color: #1a1a1a;
+}
+
+.dropdown-item {
+    color: var(--grey60);
+    background-color: #1a1a1a;
+}
+
+.dropdown-item:hover {
+    background-color: #e50000;
+    color: #FFFFFF;
+}
+
+.dropdown-divider {
+    border-top: 1px solid #262626;
+    margin: 0;
+}
+
+.dropdown .btn-secondary {
+    background-color: var(--red45);
+    border-color: var(--red45);
+}
+
+.dropdown .btn-secondary:hover,
+.dropdown .btn-secondary:focus,
+.dropdown .btn-secondary:active {
+    background-color: var(--red45);
+    border-color: var(--red45);
+    box-shadow: none !important;
+}
 
 .div-wrapper {
     background-color: #1a1a1a;
@@ -911,6 +1073,30 @@ const selectSex = (sex) => {
     border-color: var(--black-15);
 }
 
+.number-game-info {
+    color: var(--grey60);
+    font-family: var(--font-family-manrope);
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 45px;
+    position: relative;
+    width: 60px;
+    text-align: center;
+}
+
+.number-game-info-summary {
+    color: var(--grey60);
+    font-family: var(--font-family-manrope);
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 45px;
+    position: relative;
+    width: 60px;
+    text-align: center;
+}
+
 .container-7-game-info {
     align-items: flex-start;
     background-color: var(--black06);
@@ -944,6 +1130,21 @@ const selectSex = (sex) => {
     gap: 10px;
     position: relative;
     flex: 0 0 auto;
+    color: var(--grey-60)
+}
+
+.game-result {
+    font-family: var(--font-family-manrope);
+    letter-spacing: 0;
+    position: relative;
+    color: var(--grey60);
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    line-height: 36px;
+    margin-top: -1.00px;
+    white-space: nowrap;
+    width: fit-content;
+    margin: 0px;
 }
 
 .div-wrapper .heading-3 {
@@ -992,6 +1193,12 @@ const selectSex = (sex) => {
     height: 30px;
 }
 
+.button-5-game-info {
+    height: 30px;
+    position: relative;
+    width: 30px;
+}
+
 .div-wrapper .sub-container-7 {
     display: flex;
     flex-direction: column;
@@ -1030,6 +1237,25 @@ const selectSex = (sex) => {
     flex: 0 0 auto;
     gap: 20px;
     padding: 20px 0px;
+    position: relative;
+    width: 100%;
+}
+
+.container-8-game-info-summarize {
+    /* align-items: center; */
+    align-self: stretch;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-color: var(--black15);
+    border-top-style: solid;
+    border-top-width: 1px;
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+    gap: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
     position: relative;
     width: 100%;
 }
@@ -1092,14 +1318,13 @@ const selectSex = (sex) => {
     display: flex;
     align-items: center;
     position: relative;
-    flex: 0 0 auto;
     background-color: var(--black-08);
     justify-content: space-between;
     border-color: var(--black-15);
-    margin-bottom: 30px;
 }
 
 .sub-container-10 {
+    margin-top: 30px;
     align-items: flex-start;
     align-self: stretch;
     display: flex;
@@ -1220,8 +1445,15 @@ const selectSex = (sex) => {
     /* 중앙 정렬을 위한 변환 */
     width: 100%;
     /* 필요에 따라 전체 너비 사용 */
-    padding-bottom: 20px;
+    padding: 10px;
     /*선택 사항: 위아래 패딩 추가*/
+    gap: 25px;
+    /* margin-top: ; */
+}
+
+.selected-or-discarded {
+    width: 80px;
+    height: 40px;
 }
 
 .div-wrapper .button-6 {
@@ -1239,6 +1471,18 @@ const selectSex = (sex) => {
     border-color: var(--black-15);
 }
 
+.page-move-button-game-info {
+    border: 0px;
+    background-color: transparent;
+}
+
+.page-move-game-info {
+    flex: 0 0 auto;
+    position: relative;
+    width: 52px;
+    height: 52px;
+}
+
 .div-wrapper .text-wrapper-4 {
     position: relative;
     width: fit-content;
@@ -1250,6 +1494,30 @@ const selectSex = (sex) => {
     letter-spacing: 0;
     line-height: 21px;
     white-space: nowrap;
+}
+
+.number-game-info-p {
+    margin: 0px;
+    color: var(--grey60);
+    font-family: var(--font-family-manrope);
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 45px;
+    position: relative;
+    text-align: center;
+}
+
+.category-heading {
+    color: var(--absolutewhite);
+    font-size: var(--font-size-m);
+    font-weight: 600;
+    line-height: 30px;
+    width: 659px;
+    font-family: var(--font-family-manrope);
+    letter-spacing: 0;
+    position: relative;
+    margin-bottom: 5px;
 }
 
 .div-wrapper .indicators-container {
@@ -1655,15 +1923,18 @@ const selectSex = (sex) => {
     position: relative;
 }
 
-.star {
-    height: 16.28px;
+.star-class {
+    height: 16px;
     position: relative;
-    width: 17.12px;
+    width: 16px;
+    flex: 0 0 auto;
 }
 
-.half-star {
-    flex: 0 0 auto;
-    position: relative;
+.avg-win-rate {
+    /* margin-left: 10px; */
+    display: flex;
+    align-items: flex-end;
+    /* 내부 요소를 아래쪽에 정렬 */
 }
 
 .container-2 {
@@ -1931,6 +2202,20 @@ const selectSex = (sex) => {
     width: 314px;
 }
 
+.button-4-game-info {
+    align-items: center;
+    background-color: var(--red45);
+    border: 1px solid;
+    border-color: var(--black15);
+    border-radius: 8px;
+    display: inline-flex;
+    flex: 0 0 auto;
+    gap: 4px;
+    padding: 14px 16px;
+    position: relative;
+    height: 100%;
+}
+
 .record .text-3 {
     height: 27px;
     text-align: center;
@@ -1954,6 +2239,18 @@ const selectSex = (sex) => {
     width: 266px;
 }
 
+.text-4-game-info {
+    color: var(--absolutewhite);
+    font-family: var(--font-family-manrope);
+    font-size: var(--font-size-m);
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 27.5px;
+    position: relative;
+    white-space: nowrap;
+    width: fit-content;
+}
+
 manrope-semi-bold-white-18px {
     color: var(--absolutewhite);
     font-family: var(--profile-font-family-manrope);
@@ -1974,6 +2271,14 @@ manrope-semi-bold-white-18px {
     color: var(--absolutewhite);
     font-family: var(--profile-font-family-manrope);
     font-size: var(--profile-font-size-xs);
+    font-style: normal;
+    font-weight: 500;
+}
+
+.avg-win-rate-class {
+    color: var(--absolutewhite);
+    font-family: var(--profile-font-family-manrope);
+    font-size: 14px;
     font-style: normal;
     font-weight: 500;
 }
