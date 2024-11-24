@@ -1,5 +1,10 @@
 <template>
+  <video autoplay loop muted class="background-video">
+            <source src="@/assets/movies/sample5.mp4" type="video/mp4">
+        </video>
   <div class="bigbig-container" v-if="moviestore.movies!=null">
+    
+    
     <div style="text-align: center;">
       <h1 class="title">Type to Ending</h1>
       <!-- {{ originalMovielist }} -->
@@ -142,7 +147,7 @@ const submitMovie = () => {
 <style scoped>
 .bigbig-container {
     padding: 3rem;
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    background: rgba(0, 0, 0, 0.3);
     min-height: 100vh;
 }
 

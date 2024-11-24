@@ -2,11 +2,13 @@
 
     <div class="bigbig-container">
         <!-- 헤더 섹션 -->
-
+        <video autoplay loop muted class="background-video" ref="backgroundVideo">
+            <source src="@/assets/movies/sample5.mp4" type="video/mp4">
+        </video>
         <div class="header-section" style="position: relative; text-align: center;">
-            <button class="back-icon" @click="gohome">
+            <!-- <button class="back-icon" @click="gohome">
                 <i style="font-size: 3rem;color: #830213; " class="bi bi-house-fill"></i>
-            </button>
+            </button> -->
             <h1 class="title">Type to Ending </h1>
 
             <div class="theater-code">
@@ -78,11 +80,19 @@
 import howToPlay from '@/components/howToPlay.vue';
 import { useAccountStore } from '@/stores/accountStore';
 import { useMovieStore, useUserStore } from '@/stores/counter';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 const router = useRouter()
 const store = useAccountStore()
 const moviestore = useMovieStore()
+const backgroundVideo = ref(null);
 
+onMounted(() => {
+    // 재생 속도를 느리게 설정
+    if (backgroundVideo.value) {
+    backgroundVideo.value.playbackRate = 0.5; // 0.5배속으로 설정
+  }
+});
 const gogoSelect = function () {
     router.push({ name: 'SelectMovie' })
 }
@@ -113,7 +123,6 @@ const gohome = function () {
 
 .bigbig-container {
     padding: 5rem 10rem;
-    background-color: #1A1A1A;
     min-height: 100vh;
 }
 

@@ -1,10 +1,10 @@
 <template>
     <div class="container-center-horizontal--main">
         <video autoplay loop muted class="background-video">
-            <source src="@/assets/movies/sample1.mp4" type="video/mp4">
+            <source src="@/assets/movies/sample5.mp4" type="video/mp4">
         </video>
         <div class="container-center-horizontal--main" @click="howToPlayHandler">
-            <div class="main screen">
+            <div class="main screen" style="background-color: rgba(0, 0, 0, 0.8);">
                 <!-- title -->
                 <h1 class="title">Type to Ending</h1>
                 <div class="overlap-group-container">
