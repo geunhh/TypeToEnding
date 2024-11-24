@@ -61,7 +61,7 @@
                 </div>
 
             </div>
-            <div class="d-flex justify-content-end">
+            <div class="d-flex justify-content-center">
                 <button type="button" class="btn btn-danger" @click="nextStage" style="margin-top: 15px;">
                     <span v-if="gamestore.game_round == 4">결말보기</span>
                     <span v-else>다음으로</span>
@@ -252,6 +252,9 @@ const nextStage = function () {
 
 .playgame-container {
     margin: 20px;
+    max-width: 1320px;
+    margin : 0 auto
+
 }
 
 .high-bar {
