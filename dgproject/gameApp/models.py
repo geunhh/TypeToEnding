@@ -40,5 +40,11 @@ class GameRecord(models.Model):
     recommend_movie_theme = models.TextField(null=True, blank=True)
     emotion = models.TextField(null=True, blank=True)
 
+class Comment(models.Model):
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')  # 사용자별 댓글 관리
+    content = models.TextField() # 댓글내용
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     

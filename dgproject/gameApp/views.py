@@ -6,10 +6,11 @@ from rest_framework.decorators import (
 from rest_framework.response import Response
 from .models import GameRecord, Movie
 from .game_logic import play_game_round, generate_game_summary, anlayze_result
-from .serializers import MovieSerializer, GameRecordSerializer, InitialQuestionSerializer
+from .serializers import MovieSerializer, GameRecordSerializer, InitialQuestionSerializer, CommentSerializer
 from rest_framework.authentication import TokenAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
+from django.shortcuts import get_list_or_404, get_object_or_404
 import pprint
 import json
 
@@ -232,3 +233,15 @@ def initial_question(request):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(["GET","POST"])
+def comment_list_create(request,movie_id):
+    movie = get_object_or_404(Movie, id=movie_id)
+    if request.method == "GET":
+        pass
+    elif request.method =="POST":
+        serializer = CommentSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user, movie=movie)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

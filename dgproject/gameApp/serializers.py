@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Movie, GameRecord, InitialQuestion
+from .models import Movie, GameRecord, InitialQuestion, Comment
 
 class MovieSerializer(serializers.ModelSerializer):
     class Meta:
@@ -16,3 +16,9 @@ class InitialQuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = InitialQuestion
         fields = '__all__'
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = '__all__'
+        read_only_fields = ['created_at', 'updated_at', 'user', 'movie'] 

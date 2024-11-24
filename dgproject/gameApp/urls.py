@@ -14,5 +14,6 @@ urlpatterns = [
     path('play_game/<int:game_id>/', views.play_game, name='play_game'),
     path('recommend/<int:game_id>/', views.recommend_movie),
     path('game-summary/<int:game_id>/',views.get_game_summary, name='game_summary'),
-    path('initialquestion/', views.initial_question)
+    path('initialquestion/', views.initial_question),
+    path('comment/<int:movie_id>/', views.comment_list_create),
 ]
