@@ -3,7 +3,7 @@
         <div class="record screen">
             <div class="flex-col">
                 <button class="button-1" @click.prevent="backToMain">
-                    <img class="previous" src="@/assets/icons/previous.png" alt="previous" />
+                    <!-- <img class="previous" src="@/assets/icons/previous.png" alt="previous" /> -->
                 </button>
                 <div class="overlap-group">
                     <div class="sub-container-2">
@@ -194,7 +194,7 @@
             <!-- 아래부터는 전적검색 모달 -->
             <div class="overlap-group-game-info" v-if="isGameInfoSearchModalOpen">
                 <div class="container-7-game-info">
-                    
+
                     <!-- 영화 필터링 기능 -->
                     <div class="sub-container-9-game-info">
                         <div class="text-container">
@@ -217,7 +217,7 @@
 
                     <!-- 전적 띄워주는 기능 -->
                     <div class="sub-container-10">
-                        <div class="container-8-game-info">
+                        <div class="container-8-game-info" v-if="totalGameRecordsFiltered.length > 0">
                             <div class="number-game-info-summary">요약</div>
                             <div class="sub-container-2-game-info">
                                 <div class="container-9">
@@ -1686,8 +1686,6 @@ const selectSex = (sex) => {
     letter-spacing: 0;
     line-height: 27px;
     margin-top: -1.00px;
-    position: relative;
-    background-color: var(--grey60);
     margin-bottom: 0px;
 }
 
@@ -1705,7 +1703,6 @@ const selectSex = (sex) => {
     line-height: 27px;
     /* margin-top: -1.00px; */
     margin-bottom: 0px;
-
     position: relative;
     background-color: #830213;
 }
@@ -1713,7 +1710,7 @@ const selectSex = (sex) => {
 .grey-button-common {
     align-items: center;
     align-self: stretch;
-    background-color: var(--grey60);
+    background-color: var(--black15);
     border: 1px solid;
     border-color: var(--grey60);
     border-radius: 8px;
@@ -1730,14 +1727,19 @@ const selectSex = (sex) => {
     padding: 0px 0px;
     width: 362px;
     height: 68px;
+    transition: all 0.3s ease;
+}
+.game-record-button:hover {
+    background-color: var(--grey60);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .cancel-button {
     align-items: center;
     align-self: stretch;
-    background-color: var(--grey60);
-    border: 1px solid;
-    border-color: var(--grey60);
+    background-color: var(--black15);
+    border: 2px solid var(--grey60);
     border-radius: 8px;
     display: flex;
     flex: 0 0 auto;
@@ -1752,18 +1754,24 @@ const selectSex = (sex) => {
     padding: 0px 0px;
     width: 314;
     height: 69px;
+    transition: all 0.3s ease;
+}
+
+.cancel-button:hover{
+    background-color: var(--grey60);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .game-record-button {
     align-items: center;
     align-self: stretch;
-    background-color: var(--grey60);
-    border: 1px solid;
-    border-color: var(--grey60);
+    background-color: var(--black15);
+    border: 2px solid var(--grey60);
     border-radius: 8px;
     display: flex;
     flex: 0 0 auto;
-    gap: 77px;
+    /* gap: 77px; */
     overflow: hidden;
     padding: 20px;
     position: absolute;
@@ -1776,6 +1784,7 @@ const selectSex = (sex) => {
     padding: 0px 0px;
     width: 159px;
     height: 77px;
+    transition: all 0.3s ease;
 }
 
 
@@ -1793,6 +1802,13 @@ const selectSex = (sex) => {
     padding: 20px;
     position: relative;
     width: 100%;
+    transition: all 0.3s ease;
+}
+
+.red-button-common:hover {
+    background-color: var(--red45);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .container-center-horizontal--profile {
@@ -2020,7 +2036,8 @@ const selectSex = (sex) => {
 
 .record .button-1 {
     align-items: flex-start;
-    background-color: var(--grey60);
+    /* background-color: var(--grey60); */
+    background-color: transparent;
     border: 1px solid;
     border-color: var(--black12);
     border-radius: 6px;
@@ -2236,6 +2253,13 @@ const selectSex = (sex) => {
     padding: 14px 16px;
     position: relative;
     height: 100%;
+    transition: all 0.3s ease;
+}
+
+.button-4-game-info:hover {
+    background-color: var(--red45);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .record .text-3 {
