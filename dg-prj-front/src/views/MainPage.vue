@@ -1,53 +1,57 @@
 <template>
-    <div class="container-center-horizontal--main" @click="howToPlayHandler">
-        <div class="main screen">
-            <!-- title -->
-            <h1 class="title">Type to Ending</h1>
-            <div class="overlap-group-container">
-                <div class="overlap-group">
-                    <!-- 방 입장을 위한 모달 >> 개발 보류 -->
-                    <div class="card" v-if="isEnterRoomModalOpen" @click="closeEnterRoomModal">
-                        <div class="text-container">
-                            <div class="heading valign-text-middle">영화관 코드를 입력해주세요</div>
-                        </div>
-                        <div class="buttons-container">
-                            <div class="button-4">
-                                <div class="text-3 valign-text-middle">3F7D</div>
+    <div class="container-center-horizontal--main">
+        <video autoplay loop muted class="background-video">
+            <source src="@/assets/movies/sample1.mp4" type="video/mp4">
+        </video>
+        <div class="container-center-horizontal--main" @click="howToPlayHandler">
+            <div class="main screen">
+                <!-- title -->
+                <h1 class="title">Type to Ending</h1>
+                <div class="overlap-group-container">
+                    <div class="overlap-group">
+                        <!-- 방 입장을 위한 모달 >> 개발 보류 -->
+                        <div class="card" v-if="isEnterRoomModalOpen" @click="closeEnterRoomModal">
+                            <div class="text-container">
+                                <div class="heading valign-text-middle">영화관 코드를 입력해주세요</div>
                             </div>
-                            <div class="button-5">
-                                <div class="text-4">확인</div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 로그인 이전 -->
-                    <form class="form" v-if="!accountStore.token">
-                        <div class="items-container">
-                            <div class="container">
-                                <div class="heading manrope-semi-bold-white-18px">E-mail</div>
-                                <div class="input-field">
-                                    <input v-model="email" type="text" class="text email-pw-input"
-                                        placeholder="Enter your email">
+                            <div class="buttons-container">
+                                <div class="button-4">
+                                    <div class="text-3 valign-text-middle">3F7D</div>
+                                </div>
+                                <div class="button-5">
+                                    <div class="text-4">확인</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="items-container">
-                            <div class="container">
-                                <div class="heading manrope-semi-bold-white-18px">Password</div>
-                                <div class="input-field">
-                                    <input v-model="password" type="password" class="text email-pw-input"
-                                        placeholder="Enter your password">
+                        <!-- 로그인 이전 -->
+                        <form class="form" v-if="!accountStore.token">
+                            <div class="items-container">
+                                <div class="container">
+                                    <div class="heading manrope-semi-bold-white-18px">E-mail</div>
+                                    <div class="input-field">
+                                        <input v-model="email" type="text" class="text email-pw-input"
+                                            placeholder="Enter your email">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="items-container">
-                            <div class="container">
-                                <button @click.prevent="loginFunc" class="red-button-common">
-                                    <span type="submit" class="option-common">log in</span>
-                                </button>
+                            <div class="items-container">
+                                <div class="container">
+                                    <div class="heading manrope-semi-bold-white-18px">Password</div>
+                                    <div class="input-field">
+                                        <input v-model="password" type="password" class="text email-pw-input"
+                                            placeholder="Enter your password">
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <!-- 버튼 누르면 다른 페이지로 감 -->
-                        <!-- <div class="items-container">
+                            <div class="items-container">
+                                <div class="container">
+                                    <button @click.prevent="loginFunc" class="red-button-common">
+                                        <span type="submit" class="option-common">log in</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- 버튼 누르면 다른 페이지로 감 -->
+                            <!-- <div class="items-container">
                             <div class="container">
                                 <RouterLink :to="{ name: 'SignUpView' }">
                                     <button class="grey-button-common">
@@ -56,101 +60,102 @@
                                 </RouterLink>
                             </div>
                         </div> -->
-                        <div class="items-container">
-                            <div class="container">
-                                <button class="grey-button-common" @click.prevent="toggleSignUpModal">
-                                    <span class="sign-up">{{ isSignUpModalOpen ? "Close Form" : "Sign Up" }}</span>
-                                </button>
+                            <div class="items-container">
+                                <div class="container">
+                                    <button class="grey-button-common" @click.prevent="toggleSignUpModal">
+                                        <span class="sign-up">{{ isSignUpModalOpen ? "Close Form" : "Sign Up" }}</span>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
 
-                    <!-- 로그인 이후 -->
-                    <div class="form" v-else>
-                        <div class="items-container">
-                            <div class="container">
-                                <button @click.prevent="moveToProfilePage" class="red-button-common">
-                                    <p style="padding: 0px 0px; margin: 0px" class="option-common">Profile</p>
-                                </button>
+                        <!-- 로그인 이후 -->
+                        <div class="form" v-else>
+                            <div class="items-container">
+                                <div class="container">
+                                    <button @click.prevent="moveToProfilePage" class="red-button-common">
+                                        <p style="padding: 0px 0px; margin: 0px" class="option-common">Profile</p>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="items-container">
-                            <div class="container">
-                                <button @click.prevent="GameStart" class="red-button-common">
-                                    <p style="padding: 0px 0px; margin: 0px" class="option-common">Game Start</p>
-                                </button>
+                            <div class="items-container">
+                                <div class="container">
+                                    <button @click.prevent="GameStart" class="red-button-common">
+                                        <p style="padding: 0px 0px; margin: 0px" class="option-common">Game Start</p>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="items-container">
-                            <div class="container">
-                                <button @click.prevent="CreateMovie" class="red-button-common">
-                                    <p style="padding: 0px 0px; margin: 0px" class="option-common">Make Movie</p>
-                                </button>
+                            <div class="items-container">
+                                <div class="container">
+                                    <button @click.prevent="CreateMovie" class="red-button-common">
+                                        <p style="padding: 0px 0px; margin: 0px" class="option-common">Make Movie</p>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="items-container">
-                            <div class="container">
-                                <button @click.prevent="logOutFunc" class="grey-button-common log-out-button">
-                                    <p style="padding: 0px 0px; margin: 0px" class="log-out">Log Out</p>
-                                </button>
+                            <div class="items-container">
+                                <div class="container">
+                                    <button @click.prevent="logOutFunc" class="grey-button-common log-out-button">
+                                        <p style="padding: 0px 0px; margin: 0px" class="log-out">Log Out</p>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <!-- <img class="generic-avatar" src="@/assets/icons/generic-avatar.png" alt="generic-avatar"
+                            <!-- <img class="generic-avatar" src="@/assets/icons/generic-avatar.png" alt="generic-avatar"
                             @click.prevent="moveToProfilePage">
                         <img class="add-circle" src="@/assets/icons/add-circle.png" alt="add-circle"
                             @click.prevent="GameStart">
                         <img class="forward" src="@/assets/icons/forward.png" alt="forward"
                             @click.prevent="isEnterRoomModalOpen = true"> -->
+                        </div>
                     </div>
-                </div>
-                <form class="form-1" v-if="!accountStore.token && isSignUpModalOpen">
-                    <div class="items-container">
-                        <div class="container">
-                            <div class="input-field">
-                                <input v-model.trim="newEmail" type="email" class="text email-pw-input"
-                                    placeholder="Enter your email">
+                    <form class="form-1" v-if="!accountStore.token && isSignUpModalOpen">
+                        <div class="items-container">
+                            <div class="container">
+                                <div class="input-field">
+                                    <input v-model.trim="newEmail" type="email" class="text email-pw-input"
+                                        placeholder="Enter your email">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="items-container">
-                        <div class="container">
-                            <div class="input-field">
-                                <input v-model.trim="newNickname" type="text" class="text email-pw-input"
-                                    placeholder="Enter your nickname">
+                        <div class="items-container">
+                            <div class="container">
+                                <div class="input-field">
+                                    <input v-model.trim="newNickname" type="text" class="text email-pw-input"
+                                        placeholder="Enter your nickname">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="items-container">
-                        <div class="container">
-                            <div class="input-field">
-                                <input v-model.trim="newPassword1" type="password" class="text email-pw-input"
-                                    placeholder="Enter your password">
+                        <div class="items-container">
+                            <div class="container">
+                                <div class="input-field">
+                                    <input v-model.trim="newPassword1" type="password" class="text email-pw-input"
+                                        placeholder="Enter your password">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="items-container">
-                        <div class="container">
-                            <div class="input-field">
-                                <input v-model.trim="newPassword2" type="password" class="text email-pw-input"
-                                    placeholder="Confirm your password">
+                        <div class="items-container">
+                            <div class="container">
+                                <div class="input-field">
+                                    <input v-model.trim="newPassword2" type="password" class="text email-pw-input"
+                                        placeholder="Confirm your password">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="items-container">
-                        <div class="container">
-                            <button class="red-button-common" @click.prevent="signUpFunc">
-                                <div class="option-common manrope-semi-bold-white-18px">Sign Up</div>
-                            </button>
+                        <div class="items-container">
+                            <div class="container">
+                                <button class="red-button-common" @click.prevent="signUpFunc">
+                                    <div class="option-common manrope-semi-bold-white-18px">Sign Up</div>
+                                </button>
+                            </div>
                         </div>
+                    </form>
+                    <!-- 공간차지용 더미 태그 : 삭제하지 말것 -->
+                    <div class="dummy-form" v-else>
                     </div>
-                </form>
-                <!-- 공간차지용 더미 태그 : 삭제하지 말것 -->
-                <div class="dummy-form" v-else>
-                </div>
-                <div class="overlap-group-1">
-                    <!-- Modal -->
-                    <div>
-                        <howToPlay />
+                    <div class="overlap-group-1">
+                        <!-- Modal -->
+                        <div>
+                            <howToPlay />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -300,8 +305,8 @@ const moveToWaitingRoom = () => {
 // 영화 생성 페이지로 이동하는 함수
 const CreateMovie = function () {
     console.log('ggg')
-    router.push({name : 'CreateMovie'})
-    
+    router.push({ name: 'CreateMovie' })
+
 }
 
 // 회원 가입 폼을 열고 닫는 함수, sign up 버튼에 적용됨
@@ -313,6 +318,17 @@ const toggleSignUpModal = () => {
 </script>
 
 <style scoped>
+.background-video {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -1;
+    object-fit: cover;
+}
 
 .button-2 {
     border: 0px;
@@ -393,7 +409,7 @@ div {
 
 .dummy-form {
     align-items: flex-start;
-    background-color: var(--eerie-black);
+    background-color: transparent;
 
 
 
@@ -581,7 +597,9 @@ div {
 
 .main {
     align-items: flex-start;
-    background-color: var(--eerie-black);
+    /* background-color: var(--eerie-black); */
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    background-color: transparent;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -860,6 +878,7 @@ div {
     width: 100%;
     transition: all 0.3s ease;
 }
+
 .red-button-common:hover {
     background-color: var(--red45);
     transform: translateY(-2px);
@@ -914,6 +933,7 @@ div {
     height: 68px;
     transition: all 0.3s ease;
 }
+
 .grey-button-common:hover {
     background-color: var(--grey60);
     transform: translateY(-2px);

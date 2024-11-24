@@ -53,8 +53,8 @@ function toggleMusic() {
 .music-button {
   position: absolute;
   /* 위치는 인게임 테스트를 거치면서 기깔나게 좀 바꿔보자 */
-  top: 200px;
-  left: 200px;
+  top: 50px;
+  left: 1200px;
   padding: 10px 20px;
   font-size: 16px;
   background: transparent;

@@ -19,21 +19,21 @@
                                     <h2 class="explanation-title-htp">1. 영화 선택</h2>
                                     <p class="explanation-context-htp">플레이할 영화의 배경과 기본 시나리오를 제공할 영화를 선택합니다</p>
                                 </div>
-                                <img src="@/assets/movies/grave.jpg" class="d-block w-100" alt="...">
+                                <img src="@/assets/posters/grave.jpg" class="d-block w-100" alt="...">
                             </div>
                             <div class="carousel-item carousel-item-htp">
                                 <div>
                                     <h2 class="explanation-title-htp">2. 영화 선택</h2>
                                     <p class="explanation-context-htp">플레이할 영화의 배경과 기본 시나리오를 제공할 영화를 선택합니다</p>
                                 </div>
-                                <img src="@/assets/movies/avengers.jpg" class="d-block w-100" alt="...">
+                                <img src="@/assets/posters/avengers.jpg" class="d-block w-100" alt="...">
                             </div>
                             <div class="carousel-item carousel-item-htp">
                                 <div>
                                     <h2 class="explanation-title-htp">3. 영화 선택</h2>
                                     <p class="explanation-context-htp">플레이할 영화의 배경과 기본 시나리오를 제공할 영화를 선택합니다</p>
                                 </div>
-                                <img src="@/assets/movies/귀멸의칼날.jpg" class="d-block w-100" alt="...">
+                                <img src="@/assets/posters/귀멸의칼날.jpg" class="d-block w-100" alt="...">
                             </div>
                         </div>
                     </div>
