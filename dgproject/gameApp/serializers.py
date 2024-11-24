@@ -1,5 +1,11 @@
 from rest_framework import serializers
 from .models import Movie, GameRecord, InitialQuestion, Comment
+from accounts.models import CustomUser
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=CustomUser
+        fields = ['name']
 
 class MovieSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,6 +24,8 @@ class InitialQuestionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class CommentSerializer(serializers.ModelSerializer):
+    
+    user = UserSerializer(read_only=True)
     class Meta:
         model = Comment
         fields = '__all__'

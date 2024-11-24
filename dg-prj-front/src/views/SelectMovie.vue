@@ -1,10 +1,10 @@
 <template>
   <video autoplay loop muted class="background-video">
-            <source src="@/assets/movies/sample5.mp4" type="video/mp4">
-        </video>
-  <div class="bigbig-container" v-if="moviestore.movies!=null">
-    
-    
+    <source src="@/assets/movies/sample5.mp4" type="video/mp4">
+  </video>
+  <div class="bigbig-container" v-if="moviestore.movies != null">
+
+
     <div style="text-align: center;">
       <h1 class="title">Type to Ending</h1>
       <!-- {{ originalMovielist }} -->
@@ -12,23 +12,23 @@
     <div class="big-contianer">
       <!--  -->
       <div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false"
-        style="width: 70rem; text-align: center; margin: 0 auto; ">
+        style="width: 40rem; text-align: center; margin: 0 auto; ">
         <div class="carousel-inner">
 
           <div class="carousel-item" v-for="(movie, index) in originalMovielist" :key="movie.id"
             :class="{ active: index === 0 }" v-if="!isCustom">
             <img class="poster" :src="`http://127.0.0.1:8000${originalMovielist[index].poster_path}`"
-              style="height:60rem ;" v-if="movie.poster_path">
-            <img class="poster" src='@/assets/selectimg.jpeg' v-else style="height: 60rem;">
+              style="height:35rem ;" v-if="movie.poster_path">
+            <img class="poster" src='@/assets/selectimg.jpeg' v-else style="height: 35rem;">
 
           </div>
 
           <div class="carousel-item" v-for="(movie, index) in customMovielist"
             :class="{ active: index === 0 }" v-else>
             <img class="poster" :src="`http://127.0.0.1:8000${customMovielist[index].poster_path}`"
-              style="height:60rem ;" v-if="movie.poster_path">
+              style="height:35rem ;" v-if="movie.poster_path">
             <!-- <img class="poster" src='@/assets/selectimg.jpeg' v-else style="height: 60rem;"> -->
-            <div style="height: 60rem;" v-else>
+            <div style="height: 35rem;" v-else>
               <h1 style="color: white;">{{ movie.title }}</h1>
             </div>
             <!-- 이건 포스터 만약 있으면, 포스터 보여주고 없으면 이름만 보여주면 될듯. -->
@@ -39,7 +39,7 @@
         <!-- 캐러셀 좌우 버튼 -->
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching"
           data-bs-slide="prev">
-          <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor"
+          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
             class="bi bi-caret-left-fill" viewBox="0 0 16 16">
             <path
               d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
@@ -48,7 +48,7 @@
         </button>
         <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching"
           data-bs-slide="next">
-          <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor"
+          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
             class="bi bi-caret-right-fill" viewBox="0 0 16 16">
             <path
               d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
@@ -67,34 +67,65 @@
       </div>
     </div>
   </div>
+  
+  <!-- 댓글 창  -->
+  <div class="comment-container">
+    <p class="d-inline-flex gap-1">
+      <button class="btn btn-primary " type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+        aria-expanded="false" aria-controls="collapseExample">
+        Comment list
+      </button>
+    </p>
+    <div class="collapse collapse-panel" id="collapseExample">
+      <div class="card card-body" style="color: black;">
+        <h5>Comments</h5>
+        <ul>
+          <li v-for="comment in comments" :key="comment.id">
+            <strong>{{ comment.user.name }}</strong>: {{ comment.content }}
+          </li>
+        </ul>
+        <p v-if="comments.length === 0">No comments available for this movie.</p>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
+import { useAccountStore } from '@/stores/accountStore';
 import { useMovieStore } from '@/stores/counter';
+import axios from 'axios';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter()
 const moviestore = useMovieStore()
-
+const accountstore = useAccountStore()
 // 선택된 영화
 const selectedMovieIndex = ref(0)
 const totalMovies = ref(null)
+
 
 const isCustom = ref(false)
 
 const customMovielist = ref()
 const originalMovielist = ref()
 
+// 댓글 목록
+const comments = ref([])
+
 
 onMounted(async () => {
   await moviestore.getMovies()
-
-  // 영화 리스트 구분. 일단 14번이 admin이라 이렇게 적어둠. 나중에 db갈거나 하면 1로 바꾸면 될듯.
   customMovielist.value = moviestore.movies.filter((movie) => movie.creator !== null)
   originalMovielist.value = moviestore.movies.filter((movie) => movie.creator === null)
   console.log('커스텀', customMovielist)
   console.log(originalMovielist)
+
+  // 첫 번째 영화 댓글 가져오기
+  if (originalMovielist.value.length > 0) {
+    getComments(originalMovielist.value[0].id)
+
+  }
 
   // 초기 총 영화 수 설정
   totalMovies.value = originalMovielist.value.length
@@ -107,16 +138,54 @@ onMounted(async () => {
   })
 })
 
+// 댓글 가져오는 함수
+const getComments = function (movieId) {
+  return axios({
+    method: 'get',
+    url: `http://127.0.0.1:8000/gameApp/comment/${movieId}/`,
+    headers: {
+      Authorization: `Token ${accountstore.token}`
+    }
+  })
+  .then(res => {
+    console.log(res)
+    comments.value = res.data
+    return res.data
+  })
+  .catch(err => {
+    console.log(err)
+    comments.value = []
+})
+
+
+}
+
 // 캐러셀 버튼 누르면 이벤트 발생하면서 함수 실행
 const updateSelectedMovie = function (event) {
+  const currentList = isCustom.value ? customMovielist.value : originalMovielist.value;
+  console.log('먀먀먀')
   // 현재 보고 있는 리스트에 따라 총 영화 수 설정
   totalMovies.value = isCustom.value ? customMovielist.value.length : originalMovielist.value.length
-
+  
+  // 방향에 따라 선택된 영화 인덱스 업데이트
   if (event.direction === "left") {
     selectedMovieIndex.value = (selectedMovieIndex.value + 1) % totalMovies.value;
   } else if (event.direction === "right") {
     selectedMovieIndex.value = (selectedMovieIndex.value - 1 + totalMovies.value) % totalMovies.value;
   }
+
+  const selectedmovie = currentList[selectedMovieIndex.value]
+  console.log(selectedmovie)
+  if (selectedmovie) {
+    getComments(selectedmovie.id)
+    .then(data => {
+      console.log('댓글 업데이트',data)
+      comments.value = data
+  })
+    .catch(err => console.log('댓글 업데이트 실패',err))
+    
+  }
+
 }
 
 const submitMovie = () => {
@@ -147,6 +216,89 @@ const submitMovie = () => {
 </script>
 
 <style scoped>
+.comment-container {
+    position: fixed;
+    right: 10rem;
+    top: 10rem;
+    z-index: 9999;
+}
+
+.btn-primary {
+    background: #1A1A1A;
+    border: 1px solid #500010;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: #500010;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(80, 0, 10, 0.4);
+}
+
+.collapse-panel {
+    position: absolute;
+    top: 3rem;
+    left: 0;
+    width: 300px;
+}
+
+.card {
+    background: #1A1A1A;
+    border: 1px solid rgba(173, 154, 157, 0.3);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-body {
+    padding: 1.5rem;
+    color: #fff !important;
+}
+
+.card-body h5 {
+    color: #830213;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(131, 2, 19, 0.3);
+}
+
+.card-body ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.card-body li {
+    padding: 0.8rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.card-body li:hover {
+    background: rgba(131, 2, 19, 0.1);
+}
+
+.card-body strong {
+    color: #830213;
+    margin-right: 0.5rem;
+}
+
+.card-body p {
+    color: #8B8680;
+    text-align: center;
+    margin: 1rem 0 0;
+}
+
+.collapse-panel {
+  position: absolute;
+  top: 3rem;
+  left: 0;
+}
+
 .bigbig-container {
   padding: 3rem;
   background: var(--black10);
@@ -201,8 +353,8 @@ const submitMovie = () => {
 /* 캐러셀 버튼 */
 .carousel-control-prev,
 .carousel-control-next {
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   background: rgba(131, 2, 19, 0.2);
   border-radius: 50%;
   opacity: 0.8;
@@ -240,7 +392,7 @@ const submitMovie = () => {
 
 .btn-primary {
   background: var(--black10);
-  border: 2px solid var(--red45);
+  border: 2px solid rgba(173, 154, 157, 0.3);
   padding: 1rem 2rem;
   border-radius: 8px;
   margin: 0 1rem;
