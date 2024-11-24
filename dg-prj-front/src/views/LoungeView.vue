@@ -42,8 +42,9 @@
 
             <!-- 정보 섹션 -->
             <div class="info-section">
-                <div class="howtoplay">
-                    HOW TO PLAY
+                <!-- how to play modal -->
+                <div>
+                    <howToPlay />
                 </div>
 
                 <div class="cast-info">
@@ -77,6 +78,7 @@
 </template>
 
 <script setup>
+import howToPlay from '@/components/howToPlay.vue';
 import { useAccountStore } from '@/stores/accountStore';
 import { useMovieStore, useUserStore } from '@/stores/counter';
 import { useRouter } from 'vue-router';

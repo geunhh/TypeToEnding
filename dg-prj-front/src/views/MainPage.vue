@@ -5,14 +5,6 @@
             <h1 class="title">Type to Ending</h1>
             <div class="overlap-group-container">
                 <div class="overlap-group">
-                    <!-- 여기에는 주요 요소들 -->
-                    <!--how to play modal-->
-                    <!-- <div class="black-bg show-how-to-play" v-if="modalStore.isHowToPlayModalOpen"
-                        @click="howToPlayHandler">
-                        <howToPlay class="how-to-play-modal" />
-                    </div> -->
-                    
-
                     <!-- 방 입장을 위한 모달 >> 개발 보류 -->
                     <div class="card" v-if="isEnterRoomModalOpen" @click="closeEnterRoomModal">
                         <div class="text-container">
@@ -27,7 +19,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- 로그인 이전 -->
                     <form class="form" v-if="!accountStore.token">
                         <div class="items-container">
@@ -85,8 +76,8 @@
                         </div>
                         <div class="items-container">
                             <div class="container">
-                                <button @click.prevent="CreateRoom" class="red-button-common">
-                                    <p style="padding: 0px 0px; margin: 0px" class="option-common">Create Room</p>
+                                <button @click.prevent="GameStart" class="red-button-common">
+                                    <p style="padding: 0px 0px; margin: 0px" class="option-common">Game Start</p>
                                 </button>
                             </div>
                         </div>
@@ -107,7 +98,7 @@
                         <img class="generic-avatar" src="@/assets/icons/generic-avatar.png" alt="generic-avatar"
                             @click.prevent="moveToProfilePage">
                         <img class="add-circle" src="@/assets/icons/add-circle.png" alt="add-circle"
-                            @click.prevent="CreateRoom">
+                            @click.prevent="GameStart">
                         <img class="forward" src="@/assets/icons/forward.png" alt="forward"
                             @click.prevent="isEnterRoomModalOpen = true">
                     </div>
@@ -153,67 +144,15 @@
                         </div>
                     </div>
                 </form>
-
                 <!-- 공간차지용 더미 태그 : 삭제하지 말것 -->
                 <div class="dummy-form" v-else>
-
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                <!-- 얘 손좀 보자 -->
-                <!-- 모달을 띄워주는 버튼 -->
-                <!-- <div class="overlap-group-1">
-                    <button class="button-2 button-3 modal-button">
-                        <img class="icon modal-button" src="@/assets/icons/icon.png" alt="Icon" />
-                        <div class="modal-button show-how-to-play text-2 valign-text-middle manrope-semi-bold-white-32px"
-                            @click.prevent="howToPlayHandler">How to play</div>
-                    </button>
-                </div> -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                <div class="overlap-group-1">
+                    <!-- Modal -->
+                    <div>
+                        <howToPlay />
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -256,8 +195,6 @@ onMounted(() => {
     moviestore.movieId = null
     modalStore.isHowToPlayModalOpen = false
     gamesStore.game_round = 0
-    
-    // console.log(accountStore.token)
 })
 
 // 회원 가입폼에 입력한 정보 초기화하는 함수
@@ -303,7 +240,7 @@ const signUpFunc = () => {
 }
 
 // 방 생성 하는 함수
-const CreateRoom = function () {
+const GameStart = function () {
     // 방 번호가 랜덤으로 들어가야함. 이지만 나중에 해보자잇.
 
     const roomId = uuidv4()
@@ -317,11 +254,6 @@ const closeEnterRoomModal = (event) => {
     if (event.target.classList.contains('card')) {
         isEnterRoomModalOpen.value = false;
     }
-}
-
-// 방 입장 모달 열기 >> 개발 보류
-const enterRoomFunc = () => {
-    isEnterRoomModalOpen.value = true
 }
 
 // 게임 설명 모달을 열어주는 함수
@@ -351,20 +283,6 @@ const howToPlayHandler = (event) => {
     }
 }
 
-// 게임 설명 모달을 닫아주는 함수 >> 모달 외부 클릭하면 닫아짐
-// 내가 의도한 것 : 모달 창 외부를 클릭 >> 흰 화면 바깥 어디를 클릭해도 닫아져야함
-// 모달의 배경은 배경색상과 똑같음 >> 체감상 없다고 생각할 수 있음 >> 여기 클릭하면 닫아지는거 완료
-// 그런데 제목은 보여야함 >> 제목에는 모달 배경이 안덮여있음 >> 따라서 "모달 배경"의 외부를 클릭해도 닫아져야함
-// 그러느니 그냥 흰 모달창 외부 or X 버튼 클릭시 닫아버리자
-
-// 대기실로 입장하는 함수
-const moveToWaitingRoom = () => {
-    router.push({
-        name: 'WaitingRoomView',
-        params: { roomCode: "3F7D" }
-    })
-}
-
 // 회원 가입 폼을 열고 닫는 함수, sign up 버튼에 적용됨
 const toggleSignUpModal = () => {
     resetForm()
@@ -374,12 +292,6 @@ const toggleSignUpModal = () => {
 </script>
 
 <style scoped>
-/* 장식용 cdn */
-/* @import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"); */
-/* @import url("https://fonts.googleapis.com/css?family=Inter:400|Inknut+Antiqua:400|Manrope:400,600"); */
-/* The following line is used to measure usage of this code. You can remove it if you want. */
-/* @import url("https://px.animaapp.com/673df13076e2d7568d4b0197.673df13076e2d7568d4b019a.vdlRvPB.hcp.png"); */
-
 
 .button-2 {
     border: 0px;
