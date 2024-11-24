@@ -228,6 +228,7 @@ button i {
     padding: 1rem;
     scrollbar-width: thin;
     scrollbar-color: var(--red45) transparent;
+    max-height: 18rem;
 }
 
 /* 크롬, Edge, Safari용 스크롤바 커스터마이징 */

@@ -4,7 +4,7 @@ from rest_framework.decorators import (
     authentication_classes,
 )
 from rest_framework.response import Response
-from .models import GameRecord, Movie
+from .models import GameRecord, Movie,Comment
 from .game_logic import play_game_round, generate_game_summary, anlayze_result
 from .serializers import MovieSerializer, GameRecordSerializer, InitialQuestionSerializer, CommentSerializer
 from rest_framework.authentication import TokenAuthentication, BasicAuthentication
@@ -236,9 +236,14 @@ def initial_question(request):
 
 @api_view(["GET","POST"])
 def comment_list_create(request,movie_id):
+
     movie = get_object_or_404(Movie, id=movie_id)
     if request.method == "GET":
-        pass
+        comments = Comment.objects.filter(movie=movie)
+        serializer = CommentSerializer(comments,many=True)
+        print('디버깅 ',serializer.data)
+        return Response(serializer.data)
+        
     elif request.method =="POST":
         serializer = CommentSerializer(data=request.data)
         if serializer.is_valid():
