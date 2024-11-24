@@ -234,11 +234,6 @@ const goEval = function () {
     padding: 0;
 }
 
-.bigbig-container {
-    padding: 5rem;
-    text-align: center;
-}
-
 .submit-btn {
     padding: 10px 20px;
     font-size: large;
@@ -250,7 +245,7 @@ const goEval = function () {
 }
 
 .playgame-container {
-    margin: 20px;
+    
 }
 
 .high-bar {

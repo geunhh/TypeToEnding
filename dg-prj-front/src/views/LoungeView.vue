@@ -1,10 +1,11 @@
 <template>
+
     <div class="bigbig-container">
         <!-- 헤더 섹션 -->
+
         <div class="header-section" style="position: relative; text-align: center;">
             <div class="back-icon" @click="gohome">
-                <i style="font-size: 4.5rem;color: #830213; " class="bi bi-house-fill"></i>
-
+                <i style="font-size: 3rem;color: #830213; " class="bi bi-house-fill"></i>
             </div>
             <h1 class="title">Type to Ending </h1>
 
@@ -104,9 +105,9 @@ const gohome = function () {
 
 <style scoped>
 .back-icon {
-    position: absolute;
-    left: 5rem;
-    top: 50%;
+    position: fixed;
+    top: 5rem;
+    right: 5rem;
     transform: translateY(-50%);
     cursor: pointer;
     transition: all 0.3s ease;

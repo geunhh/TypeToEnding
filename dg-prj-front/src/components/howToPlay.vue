@@ -1,5 +1,5 @@
 <template>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         How To Play
     </button>
 
@@ -140,10 +140,19 @@ body {
 }
 
 .indicator-btn.active {
-    background-color: #e50000;
+    background-color: #830213;
 }
 
 .btn.btn-secondary.close-btn-htp {
     background-color: #999999;
+}
+.btn.btn-secondary {
+    background-color: #830213;
+}
+.btn.btn-secondary:hover {
+    background-color: #252223;
+    transform: translateY(-2px);
+    border: #830213 2px solid;
+    box-shadow: 0 4px 15px rgba(131, 2, 19, 0.4);
 }
 </style>

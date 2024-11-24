@@ -7,6 +7,7 @@
     <button class="music-button" v-else>
       <img class="music-button-icon" src="@/assets/icons/music-off.png" alt="music-off" @click="toggleMusic">
     </button>
+    
     <RouterView />
   </div>
 </template>
@@ -49,21 +50,39 @@ function toggleMusic() {
 }
 </script>
 
-<style>
+<style scoped>
 .music-button {
-  position: absolute;
-  /* 위치는 인게임 테스트를 거치면서 기깔나게 좀 바꿔보자 */
-  top: 50px;
-  left: 1200px;
-  padding: 10px 20px;
-  font-size: 16px;
-  background: transparent;
-  border: 0px;
-  z-index: 1000;
+    position: fixed;
+    top: 7rem;
+    right: 5rem;
+    background: linear-gradient(to right, #1A1A1A, #2d2d2d);
+    border: 1px solid rgba(80, 0, 10, 0.3);  /* 더 어두운 레드로 변경 */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 0;
 }
 
-.music-button-icon {
-  width: 80px;
-  height: 80px;
+.music-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(80, 0, 10, 0.4);  /* 그림자도 더 어둡게 */
+    background: linear-gradient(to right, #500010, #6b0012);  /* 더 어두운 그라데이션 */
+}
+
+.music-button img {
+    width: 25px;
+    height: 25px;
+    filter: invert(5%) sepia(70%) saturate(4000%) hue-rotate(345deg) brightness(70%) contrast(101%);  /* 더 어두운 필터 */
+    transition: all 0.3s ease;
+}
+
+.music-button:hover img {
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
 }
 </style>

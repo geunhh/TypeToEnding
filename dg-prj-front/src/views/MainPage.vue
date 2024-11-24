@@ -200,6 +200,7 @@ onMounted(() => {
     modalStore.isHowToPlayModalOpen = false
     gamesStore.game_round = 0
     gamesStore.initial_question = null
+    gamesStore.next_situation = null
 })
 
 // 회원 가입폼에 입력한 정보 초기화하는 함수
@@ -351,7 +352,7 @@ const toggleSignUpModal = () => {
 
 .howtoplay-container {
     border: 1px white solid;
-    background-color: red;
+    background-color: #500010;
     font-weight: 600;
     padding: 10px;
     height: fit-content;
@@ -487,7 +488,7 @@ div {
 
 .button-5 {
     align-items: center;
-    background-color: var(--red45);
+    background-color: #500010;
     border-radius: 8px;
     display: flex;
     flex: 1;
@@ -768,7 +769,7 @@ div {
 
 .main .button {
     align-items: flex-start;
-    background-color: var(--red45);
+    background-color: #500010;
     border-radius: 8px;
     display: flex;
     gap: 10px;
@@ -866,8 +867,8 @@ div {
     align-items: center;
     align-self: stretch;
     background-color: #1a1a1a;
-    border: 2px solid var(--red45);
-    border-color: var(--red45);
+    border: 2px solid #830213;
+    border-color: #830213;
     border-radius: 8px;
     display: flex;
     flex: 0 0 auto;
@@ -880,7 +881,7 @@ div {
 }
 
 .red-button-common:hover {
-    background-color: var(--red45);
+    background-color: #830213;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -890,7 +891,7 @@ div {
     /* Flexbox 사용 */
     align-items: center;
     /* 수직 중앙 정렬 */
-    background-color: var(--red45);
+    background-color: #830213;
     /* 버튼 배경색 */
     border: none;
     /* 기본 테두리 제거 */
