@@ -7,7 +7,7 @@
         <div class="modal-dialog modal-dialog-scrollable modal-xl">
             <div class="modal-content modal-content-htp">
                 <div class="modal-header modal-header-htp d-flex justify-content-between align-items-center">
-                    <button type="button" class="invisible btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="invisible btn btn-secondary close-btn-htp" data-bs-dismiss="modal">Close</button>
                     <h1 class="modal-title fs-1 m-0 modal-title-htp" id="HowToPlayLabel">How To Play</h1>
                     <button type="button" class="btn btn-secondary close-btn-htp" data-bs-dismiss="modal">Close</button>
                 </div>
@@ -140,16 +140,23 @@ body {
 }
 
 .indicator-btn.active {
-    background-color: #830213;
+    background-color: var(--red45);
 }
 
 .btn.btn-secondary.close-btn-htp {
-    background-color: #999999;
+    background-color: var(--black15);
+    border: 2px solid var(--grey60);
+    width: 60px;
+}
+.btn.btn-secondary.close-btn-htp:hover {
+    background-color: var(--grey60);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .btn.btn-secondary {
     background-color: var(--black15);
-    border: 2px solid #830213;
+    border: 2px solid var(--red45);
     transition: all 0.3s ease;
     width: 300px;
     height: 40px;
@@ -158,7 +165,7 @@ body {
 }
 
 .btn.btn-secondary:hover {
-    background-color: #830213;
+    background-color: var(--red45);
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(131, 2, 19, 0.4);
 }

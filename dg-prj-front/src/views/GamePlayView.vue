@@ -46,8 +46,8 @@
             <div class="scenario-container">
                 <div class="scenario-box" style="font-size: larger;">
                     <p>시나리오 설명창</p>
-                    <p v-if="gamestore.next_situation">{{ gamestore.next_situation }}</p>
-                    <p v-else>{{ gamestore.initial_question }}</p>
+                    <p class="scenario-p" v-if="gamestore.next_situation">{{ gamestore.next_situation }}</p>
+                    <p class="scenario-p" v-else>{{ gamestore.initial_question }}</p>
                 </div>
 
                 <div class="prompt-box">
@@ -101,7 +101,7 @@ const goEval = function () {
 
 <style scoped>
 .high-bar {
-    background: linear-gradient(to right, #1A1A1A, #2d2d2d);
+    background-color: var(--black10);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     padding: 1.5rem;
@@ -150,11 +150,12 @@ const goEval = function () {
 }
 
 .info-row i {
-    color: #830213;
+    color: var(--red45);
     font-size: 1.2rem;
 }
 
 .info-label {
+    font-size: larger;
     color: #8B8680;
     font-weight: 500;
     min-width: 60px;
@@ -164,6 +165,7 @@ const goEval = function () {
     color: #fff;
     font-weight: 500;
     flex-grow: 1;
+    font-size: larger;
 }
 
 /* 진행 상황 섹션 */
@@ -172,6 +174,7 @@ const goEval = function () {
 }
 
 .date-display {
+    font-size: larger;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -184,7 +187,7 @@ const goEval = function () {
 }
 
 .date-display i {
-    color: #830213;
+    color: var(--red45);
 }
 
 .progress-indicators {
@@ -203,7 +206,7 @@ const goEval = function () {
 }
 
 .progress-dot.active {
-    background: #830213;
+    background: var(--red45);
     box-shadow: 0 0 10px rgba(131, 2, 19, 0.5);
 }
 
@@ -234,36 +237,13 @@ const goEval = function () {
     padding: 0;
 }
 
-.submit-btn {
-    padding: 10px 20px;
-    font-size: large;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    color: white;
-    background-color: red;
-}
 
-.playgame-container {
-    
-}
 
 .high-bar {
-    border: 1px gray solid;
+    border: 1px solid var(--abbey);
     border-radius: 10px;
-    background-color: black;
+    background-color: var(--black06);
     color: white;
-}
-
-.description-game {
-
-    border: 1px gray solid;
-    border-radius: 10px;
-    background-color: black;
-    color: white;
-    width: fit-content;
-    margin: 20px auto;
-    padding: 5px 50px;
 }
 
 .scenario-container {
@@ -277,6 +257,7 @@ const goEval = function () {
     margin-top: 40px;
     /* 추가 여백 */
 }
+
 
 .scenario-box,
 .prompt-box {
@@ -299,13 +280,13 @@ const goEval = function () {
 
 .bigbig-container {
     padding: 3rem;
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    background-color: var(--black10);
     min-height: 100vh;
 }
 
 .description-game {
-    background: linear-gradient(to right, #1A1A1A, #2d2d2d);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: var(--black06);
+    border: 1px solid var(--abbey);
     border-radius: 12px;
     padding: 1rem 2rem;
     margin: 2rem auto;
@@ -326,7 +307,7 @@ const goEval = function () {
 .description-game h4::before {
     content: '\F4DD';
     font-family: bootstrap-icons;
-    color: #830213;
+    color: var(--red45);
     font-size: 1.2rem;
 }
 
@@ -341,8 +322,8 @@ const goEval = function () {
 .scenario-box, .prompt-box {
     flex: 1;
     max-width: 500px;
-    background: linear-gradient(to right, #1A1A1A, #2d2d2d);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: var(--black06);
+    border: 1px solid var(--abbey);
     border-radius: 15px;
     padding: 1.5rem;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -352,7 +333,7 @@ const goEval = function () {
 }
 
 .scenario-box p:first-child, .prompt-box p:first-child {
-    color: #830213;
+    color: var(--red45);
     font-weight: 600;
     font-size: 1.1rem;
     margin-bottom: 1rem;
@@ -376,7 +357,6 @@ const goEval = function () {
     line-height: 1.6;
     flex-grow: 1;
     overflow-y: auto;
-    padding: 1rem;
     background: rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     text-align: left;
@@ -396,15 +376,15 @@ const goEval = function () {
 }
 
 .prompt-box textarea:focus {
-    outline: 1px solid #830213;
+    outline: 1px solid var(--red45);
 }
 
 .submit-btn {
-    background: linear-gradient(to right, #830213, #9f0217);
     color: white;
     padding: 1rem 2rem;
     font-size: 1.1rem;
-    border: none;
+    border: 2px solid var(--red45);
+    background-color: var(--black06);
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -420,6 +400,7 @@ const goEval = function () {
 }
 
 .submit-btn:hover {
+    background-color: var(--red45);
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(131, 2, 19, 0.4);
 }
@@ -438,7 +419,7 @@ const goEval = function () {
 
 .scenario-box p:not(:first-child)::-webkit-scrollbar-thumb,
 .prompt-box textarea::-webkit-scrollbar-thumb {
-    background: #830213;
+    background: var(--red45);
     border-radius: 3px;
 }
 </style>

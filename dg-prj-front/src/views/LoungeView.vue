@@ -4,9 +4,9 @@
         <!-- 헤더 섹션 -->
 
         <div class="header-section" style="position: relative; text-align: center;">
-            <button class="back-icon" @click="gohome">
-                <i style="font-size: 3rem;color: #830213; " class="bi bi-house-fill"></i>
-            </button>
+            <!-- <button class="back-icon" @click="gohome">
+                <i style="font-size: 3rem;color: var(--red45); " class="bi bi-house-fill"></i>
+            </button> -->
             <h1 class="title">Type to Ending </h1>
 
             <div class="theater-code">
@@ -117,7 +117,7 @@ const gohome = function () {
 
 .bigbig-container {
     padding: 5rem 10rem;
-    background-color: #1A1A1A;
+    background-color: var(--black10);
     min-height: 100vh;
 }
 
@@ -138,7 +138,7 @@ const gohome = function () {
 }
 
 .theater-code {
-    background-color: #830213;
+    background-color: var(--red45);
     display: inline-flex;
     padding: 0.8rem 1.5rem;
     border-radius: 8px;
@@ -181,7 +181,7 @@ const gohome = function () {
 }
 
 .btn-select {
-    background-color: #830213;
+    background-color: var(--red45);
     color: white;
     padding: 0.8rem 1.5rem;
     border: none;
@@ -204,6 +204,7 @@ const gohome = function () {
     margin-bottom: 1.5rem;
     color: #ffffff;
     line-height: 1.6;
+    overflow-y: auto;
 }
 
 .btn-start {
@@ -218,7 +219,7 @@ const gohome = function () {
 }
 
 .btn-start.active {
-    background-color: #830213;
+    background-color: var(--red45);
 }
 
 .btn-start.active:hover {
@@ -228,7 +229,7 @@ const gohome = function () {
 
 /* 정보 섹션 */
 .howtoplay {
-    background-color: #830213;
+    background-color: var(--red45);
     color: white;
     padding: 1rem 2rem;
     border-radius: 8px;
@@ -253,7 +254,7 @@ const gohome = function () {
 
 .cast-info h3 {
     margin-bottom: 1.5rem;
-    color: #830213;
+    color: var(--red45);
 }
 
 .cast-list {

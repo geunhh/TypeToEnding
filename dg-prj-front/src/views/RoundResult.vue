@@ -43,21 +43,20 @@
                 </div>
             </div>
             <!-- 시나리오를 채택/폐기합니다. -->
-                <div class="description-box"> 시나리오를
-                    <span v-if="result.is_valid" style="color: blue;  font-weight: 800;">채택</span>
-                    <span v-else style="color: red; font-weight: 800;">폐기</span>합니다.
-                </div>
-            
+            <div class="description-box">
+                <p class="selected" v-if="result.is_valid">시나리오를 채택 합니다</p>
+                <p class="discarded" v-else>시나리오를 폐기 합니다</p>
+            </div>
+
             <!-- 유저가 작성한 시나리오 및 평가 결과-->
             <div class="scenario-container">
                 <div class="scenario-box">
                     <p>{{ gamestore.user_action1 }}</p>
+                    <!-- {{ gamestore.user_action1 }} -->
                 </div>
 
                 <div class="prompt-box">
                     <p>{{ result.reason }}</p>
-
-                    <p> </p>
                 </div>
 
             </div>
@@ -111,9 +110,24 @@ const nextStage = function () {
 </script>
 
 <style scoped>
-.description-box {
+.selected {
+    font-size: larger;
+    padding: 0px;
+    color: blue;
+    margin-bottom: 0px;
 
-    border: 1px gray solid;
+}
+
+.discarded {
+    font-size: larger;
+    padding: 0px;
+    color: var(--red45);
+    margin-bottom: 0px;
+
+}
+
+.description-box {
+    border: 2px solid var(--abbey);
     border-radius: 10px;
     background-color: black;
     color: white;
@@ -123,8 +137,8 @@ const nextStage = function () {
 }
 
 .high-bar {
-    background: linear-gradient(to right, #1A1A1A, #2d2d2d);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: var(--black06);
+    border: 1px solid var(--abbey);
     border-radius: 15px;
     padding: 1.5rem;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -161,6 +175,7 @@ const nextStage = function () {
 }
 
 .date-display {
+    font-size: larger;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -173,7 +188,7 @@ const nextStage = function () {
 }
 
 .date-display i {
-    color: #830213;
+    color: var(--red45);
 }
 
 .progress-indicators {
@@ -192,12 +207,13 @@ const nextStage = function () {
 }
 
 .progress-dot.active {
-    background: #830213;
+    background: var(--red45);
     box-shadow: 0 0 10px rgba(131, 2, 19, 0.5);
 }
 
 /* 정보 섹션 */
 .info-section {
+    font-size: larger;
     border-left: 1px solid rgba(255, 255, 255, 0.1);
     border-right: 1px solid rgba(255, 255, 255, 0.1);
     padding: 0 2rem;
@@ -215,7 +231,7 @@ const nextStage = function () {
 }
 
 .info-row i {
-    color: #830213;
+    color: var(--red45);
     font-size: 1.2rem;
 }
 
@@ -226,14 +242,16 @@ const nextStage = function () {
 }
 
 .info-value {
-    color: #fff;
+    color: #FFFFFF;
     font-weight: 500;
     flex-grow: 1;
+    font-size: larger;
 }
 
 .bigbig-container {
     padding: 5rem;
     text-align: center;
+    background-color: var(--black10);
 }
 
 .btn-loc {
@@ -253,16 +271,9 @@ const nextStage = function () {
 .playgame-container {
     margin: 20px;
     max-width: 1320px;
-    margin : 0 auto
-
+    margin: 0 auto
 }
 
-.high-bar {
-    border: 1px gray solid;
-    border-radius: 10px;
-    background-color: black;
-    color: white;
-}
 
 /* .scenario-container {
     display: flex;
@@ -274,6 +285,7 @@ const nextStage = function () {
 
 .scenario-box,
 .prompt-box {
+    overflow-y: auto;
     padding: 20px;
     font-size: medium;
     border-radius: 10px;
@@ -293,8 +305,8 @@ const nextStage = function () {
 /* 결과 섹션 스타일링 */
 
 .description-box {
-    background: linear-gradient(to right, #1A1A1A, #2d2d2d);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: var(--black06);
+    border: 1px solid var(--abbey);
     border-radius: 12px;
     padding: 1rem 2rem;
     margin: 2rem auto;
@@ -302,6 +314,7 @@ const nextStage = function () {
     width: auto;
     display: inline-block;
 }
+
 .description-box span {
     padding: 0.5rem 1.5rem;
     border-radius: 24px;
@@ -327,10 +340,11 @@ const nextStage = function () {
     max-width: 1200px;
 }
 
-.scenario-box, .prompt-box {
+.scenario-box,
+.prompt-box {
     flex: 1;
-    background: linear-gradient(to right, #1A1A1A, #2d2d2d);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: var(--black06);
+    border: 1px solid var(--abbey);
     border-radius: 15px;
     padding: 1.5rem;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -342,16 +356,7 @@ const nextStage = function () {
 
 .scenario-box::before {
     content: '유저 시나리오';
-    color: #830213;
-    font-weight: 600;
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-.prompt-box::before {
-    content: '평가 결과';
-    color: #830213;
+    color: #FFFFFF;
     font-weight: 600;
     font-size: 1.2rem;
     margin-bottom: 1rem;
@@ -359,9 +364,21 @@ const nextStage = function () {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.scenario-box p, .prompt-box p {
+.prompt-box::before {
+    content: '평가 결과';
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.scenario-box p,
+.prompt-box p {
     flex-grow: 1;
     overflow-y: auto;
+    overflow-x: auto;
     padding: 1rem;
     margin: 0;
     text-align: left;
@@ -372,11 +389,11 @@ const nextStage = function () {
 }
 
 /* 다음 버튼 */
-.btn-danger {
-    background: linear-gradient(to right, #830213, #9f0217);
+.btn.btn-danger {
+    background-color: var(--black06);
     color: white;
     padding: 0.8rem 1.5rem;
-    border: none;
+    border: 2px solid var(--red45);
     border-radius: 8px;
     font-size: 1.1rem;
     font-weight: 500;
@@ -385,10 +402,11 @@ const nextStage = function () {
     display: inline-flex;
     align-items: center;
     gap: 0.8rem;
-    margin-left: auto;
+    transition: all 0.3s ease;
 }
 
-.btn-danger:hover {
+.btn.btn-danger:hover {
+    background-color: var(--red45);
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(131, 2, 19, 0.4);
 }
@@ -407,8 +425,7 @@ const nextStage = function () {
 
 .scenario-box p::-webkit-scrollbar-thumb,
 .prompt-box p::-webkit-scrollbar-thumb {
-    background: #830213;
+    background: var(--red45);
     border-radius: 3px;
 }
-
 </style>
