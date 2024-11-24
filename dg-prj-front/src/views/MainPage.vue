@@ -370,7 +370,7 @@ div {
 .black-bg {
     width: 100%;
     height: 100%;
-    background: #1a1a1a;
+    background: var(--black10);
     position: fixed;
     top: 100;
     /* 화면의 최상단 */
@@ -677,8 +677,7 @@ div {
 .main .form {
     align-items: flex-start;
     background-color: var(--black06);
-    border: 1px solid;
-    border-color: var(--black15);
+    border: 1px solid var(--abbey);
     border-radius: 12px;
     display: flex;
     flex-direction: column;
@@ -866,9 +865,9 @@ div {
 .red-button-common {
     align-items: center;
     align-self: stretch;
-    background-color: #1a1a1a;
-    border: 2px solid #830213;
-    border-color: #830213;
+    background-color: var(--black10);
+    border: 2px solid var(--red45);
+    border-color: var(--red45);
     border-radius: 8px;
     display: flex;
     flex: 0 0 auto;
@@ -881,7 +880,7 @@ div {
 }
 
 .red-button-common:hover {
-    background-color: #830213;
+    background-color: var(--red45);
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -891,7 +890,7 @@ div {
     /* Flexbox 사용 */
     align-items: center;
     /* 수직 중앙 정렬 */
-    background-color: #830213;
+    background-color: var(--red45);
     /* 버튼 배경색 */
     border: none;
     /* 기본 테두리 제거 */
@@ -916,7 +915,7 @@ div {
 .grey-button-common {
     align-items: center;
     align-self: stretch;
-    background-color: #1a1a1a;
+    background-color: var(--black10);
     border: 2px solid var(--grey60);
     border-radius: 8px;
     display: flex;

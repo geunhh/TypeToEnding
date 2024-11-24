@@ -632,23 +632,23 @@ const selectSex = (sex) => {
 }
 
 .btn-group .dropdown-menu {
-    background-color: #1a1a1a;
+    background-color: var(--black10);
     min-width: 100%;
 }
 
 .btn-group .dropdown-item {
     color: var(--grey60);
-    background-color: #1a1a1a;
+    background-color: var(--black10);
 }
 
 .btn-group .dropdown-item:hover {
-    background-color: #830213;
+    background-color: var(--red45);
     color: #FFFFFF;
 }
 
 .btn-group .btn-secondary {
     background-color: var(--black08);
-    border: 1px solid #262626;
+    border: 1px solid var(--black15);
     color: var(--grey60);
 }
 
@@ -656,7 +656,7 @@ const selectSex = (sex) => {
 .btn-group .btn-secondary:focus,
 .btn-group .btn-secondary:active {
     background-color: var(--black08) !important;
-    border-color: #262626 !important;
+    border-color: var(--black15) !important;
     box-shadow: none !important;
     color: var(--grey60);
 }
@@ -695,21 +695,21 @@ const selectSex = (sex) => {
 
 
 .dropdown-menu {
-    background-color: #1a1a1a;
+    background-color: var(--black10);
 }
 
 .dropdown-item {
     color: var(--grey60);
-    background-color: #1a1a1a;
+    background-color: var(--black10);
 }
 
 .dropdown-item:hover {
-    background-color: #830213;
+    background-color: var(--red45);
     color: #FFFFFF;
 }
 
 .dropdown-divider {
-    border-top: 1px solid #262626;
+    border-top: 1px solid var(--black15);
     margin: 0;
 }
 
@@ -725,7 +725,7 @@ const selectSex = (sex) => {
 }
 
 .div-wrapper {
-    background-color: #1a1a1a;
+    background-color: var(--black10);
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -733,7 +733,7 @@ const selectSex = (sex) => {
 }
 
 .div-wrapper .div {
-    background-color: #1a1a1a;
+    background-color: var(--black10);
     width: 1440px;
     height: 1024px;
     position: relative;
@@ -875,7 +875,7 @@ const selectSex = (sex) => {
     padding: 6px 12px;
     position: relative;
     flex: 0 0 auto;
-    background-color: #1a1a1a;
+    background-color: var(--black10);
     border-radius: 6px;
     border: 1px solid;
     border-color: #4e4e4e;
@@ -902,7 +902,7 @@ const selectSex = (sex) => {
     position: relative;
     flex: 0 0 auto;
     margin-right: -94.00px;
-    background-color: #1a1a1a;
+    background-color: var(--black10);
     border-radius: 6px;
     border: 1px solid;
     border-color: #4e4e4e;
@@ -1393,7 +1393,7 @@ const selectSex = (sex) => {
 .div-wrapper .span {
     font-family: "Manrope", Helvetica;
     font-weight: 400;
-    color: #999999;
+    color: var(--grey60);
     font-size: 18px;
     letter-spacing: 0;
     line-height: 27px;

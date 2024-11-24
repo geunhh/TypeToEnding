@@ -173,24 +173,25 @@ button:hover {
 
 /* Primary 버튼 (강조된 스타일) */
 .btn-primary {
-    background: linear-gradient(to right, #830213, #9f0217);
-    color: #fff;
+    background-color: var(--black10);
+    color: #FFFFFF;
+    border: 2px solid var(--red45);
 }
 
 .btn-primary:hover {
-    background: linear-gradient(to right, #9f0217, #830213);
+    background: var(--red45)
 }
 
 /* Secondary 버튼 (보조 스타일) */
 .btn-secondary {
-    background: rgba(255, 255, 255, 0.1);
-    color: #8B8680;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: var(--black10);
+    color: #ffffff;
+    border: 1px solid var(--grey60);
+    transition: all 0.3s ease;
 }
 
 .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.2);
-    color: #fff;
+    background: var(--grey60);
 }
 
 /* 버튼 크기 조정 */
@@ -218,7 +219,7 @@ button i {
 }
 
 .description {
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--black15);
     max-height: 32vh;
     overflow-y: auto;
     border-radius: 10px;
@@ -226,7 +227,7 @@ button i {
     font-size: small;
     padding: 1rem;
     scrollbar-width: thin;
-    scrollbar-color: #830213 transparent;
+    scrollbar-color: var(--red45) transparent;
 }
 
 /* 크롬, Edge, Safari용 스크롤바 커스터마이징 */
@@ -241,7 +242,7 @@ button i {
 }
 
 .description::-webkit-scrollbar-thumb {
-    background: #830213;
+    background: var(--red45);
     /* 스크롤바 색상 */
     border-radius: 10px;
     /* 둥근 모서리 */
@@ -255,7 +256,7 @@ button i {
 
 .create-container {
     padding: 3rem;
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    background: var(--black10);
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -263,13 +264,13 @@ button i {
 }
 
 .form-wrapper {
-    background: linear-gradient(to right, #1A1A1A, #2d2d2d);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--black06);
+    border: 1px solid var(--abbey);
     border-radius: 15px;
     padding: 2.5rem;
     width: 100%;
     max-width: 1200px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 15px var(--black10);
 }
 
 .page-title {
@@ -289,17 +290,18 @@ button i {
     resize: vertical;
     line-height: 1.6;
     font-size: 1rem;
-    resize: none
+    resize: none;
+    background: var(--black10);
 }
 
 .page-title i {
-    color: #830213;
+    color: var(--red45);
 }
 
 .divider {
     border: none;
     height: 2px;
-    background: linear-gradient(to right, transparent, #830213, transparent);
+    background: var(--red45);
     margin: 1.5rem 0;
 }
 
@@ -334,8 +336,8 @@ button i {
 
 .form-input,
 .form-textarea {
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--black10);
+    border: 1px solid var(--abbey);
     border-radius: 8px;
     padding: 0.8rem;
     color: #fff;
@@ -353,12 +355,12 @@ button i {
 .form-input:focus,
 .form-textarea:focus {
     outline: none;
-    border-color: #830213;
+    border-color: var(--red45);
     box-shadow: 0 0 0 2px rgba(131, 2, 19, 0.2);
 }
 
 .submit-btn {
-    background: linear-gradient(to right, #830213, #9f0217);
+    background-color: var(--red45);
     color: white;
     padding: 0.8rem 1.5rem;
     /* 버튼 패딩 축소 */

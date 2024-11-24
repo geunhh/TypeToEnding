@@ -42,24 +42,24 @@
                 <p class="new-result-final-result">최종 결과</p>
             </div>
             <div class="new-result-container">
-                <div class="new-result-result" v-for="(res, index) in result.history" :key="index" >
-                        <div class="new-result-round" v-if="index!=0">{{ index }}</div>
-                        <div class="new-result-paragraph" v-if="index!=0">
-                            <div class="new-result-evaluation">
-                                <img v-if="res.evaluation === '적절함'" class="new-result-selected-or-discarded"
-                                    src="@/assets/icons/selected.png" alt="selected">
-                                <img v-else class="new-result-selected-or-discarded" src="@/assets/icons/discarded.png"
-                                    alt="discarded">
-                            </div>
-                            <p class="category-heading">상황</p>
-                            <p class="category-paragraph">{{ res.situation }}</p>
-                            <p class="category-heading">당신의 대답</p>
-                            <p class="category-paragraph">{{ res.user_action }}</p>
-                            <p class="category-heading">이유</p>
-                            <p class="category-paragraph">{{ res.reason }}</p>
-                            <p class="category-heading">결과</p>
-                            <p class="category-paragraph">{{ res.next_situation }}</p>
+                <div class="new-result-result" v-for="(res, index) in result.history" :key="index">
+                    <div class="new-result-round" v-if="index > 0">{{ index }}</div>
+                    <div class="new-result-paragraph" v-if="index > 0">
+                        <div class="new-result-evaluation">
+                            <img v-if="res.evaluation === '적절함'" class="new-result-selected-or-discarded"
+                                src="@/assets/icons/selected.png" alt="selected">
+                            <img v-else class="new-result-selected-or-discarded" src="@/assets/icons/discarded.png"
+                                alt="discarded">
                         </div>
+                        <p class="category-heading">상황</p>
+                        <p class="category-paragraph">{{ res.situation }}</p>
+                        <p class="category-heading">당신의 대답</p>
+                        <p class="category-paragraph">{{ res.user_action }}</p>
+                        <p class="category-heading">이유</p>
+                        <p class="category-paragraph">{{ res.reason }}</p>
+                        <p class="category-heading">결과</p>
+                        <p class="category-paragraph">{{ res.next_situation }}</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -233,7 +233,7 @@ const backToMain = () => {
 
 
 .recommend-btn {
-    background-color: #1A1A1A;
+    background-color: var(--black10);
     color: #ffffff;
     padding: 0.8rem 1.5rem;
     border: 2px solid #500010;
@@ -284,7 +284,7 @@ const backToMain = () => {
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin-bottom: 2rem;
-    border-top: 4px solid #830213;
+    border-top: 4px solid var(--red45);
     transition: transform 0.2s ease;
 }
 
@@ -424,7 +424,7 @@ const backToMain = () => {
     height: 40px;
     flex-shrink: 0;
     margin-top: 0;
-    
+
 }
 
 .category-heading {
@@ -439,7 +439,7 @@ const backToMain = () => {
 }
 
 .category-paragraph {
-    color: #999999;
+    color: var(--grey60);
     font-family: 'Gowun Dodum', sans-serif;
 }
 
@@ -496,7 +496,7 @@ const backToMain = () => {
 }
 
 .modal-content.back-to-main-page {
-    background-color: #1A1A1A;
+    background-color: var(--black10);
 }
 
 .modal-content.back-to-main-page {
@@ -547,6 +547,7 @@ const backToMain = () => {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
 /* 스크롤 바 */
 /* 옵션 3: 미니멀 컨셉 */
 ::-webkit-scrollbar {
@@ -566,5 +567,4 @@ const backToMain = () => {
 ::-webkit-scrollbar-thumb:hover {
     background: #6b0012;
 }
-
 </style>
