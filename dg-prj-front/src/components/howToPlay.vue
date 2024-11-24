@@ -1,14 +1,14 @@
 <template>
-    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#HowToPlayModal">
         How To Play
     </button>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="HowToPlayModal" tabindex="-1" aria-labelledby="HowToPlayLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-xl">
             <div class="modal-content modal-content-htp">
                 <div class="modal-header modal-header-htp d-flex justify-content-between align-items-center">
                     <button type="button" class="invisible btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <h1 class="modal-title fs-1 m-0 modal-title-htp" id="exampleModalLabel">How To Play</h1>
+                    <h1 class="modal-title fs-1 m-0 modal-title-htp" id="HowToPlayLabel">How To Play</h1>
                     <button type="button" class="btn btn-secondary close-btn-htp" data-bs-dismiss="modal">Close</button>
                 </div>
                 <div class="modal-body modal-body-htp modal-body-htp-images">
@@ -146,13 +146,20 @@ body {
 .btn.btn-secondary.close-btn-htp {
     background-color: #999999;
 }
+
 .btn.btn-secondary {
-    background-color: #830213;
+    background-color: var(--black15);
+    border: 2px solid #830213;
+    transition: all 0.3s ease;
+    width: 300px;
+    height: 40px;
+    text-align: center;
+    font-size: larger;
 }
+
 .btn.btn-secondary:hover {
-    background-color: #252223;
+    background-color: #830213;
     transform: translateY(-2px);
-    border: #830213 2px solid;
     box-shadow: 0 4px 15px rgba(131, 2, 19, 0.4);
 }
 </style>

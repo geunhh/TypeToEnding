@@ -4,9 +4,9 @@
         <!-- 헤더 섹션 -->
 
         <div class="header-section" style="position: relative; text-align: center;">
-            <div class="back-icon" @click="gohome">
+            <button class="back-icon" @click="gohome">
                 <i style="font-size: 3rem;color: #830213; " class="bi bi-house-fill"></i>
-            </div>
+            </button>
             <h1 class="title">Type to Ending </h1>
 
             <div class="theater-code">
@@ -105,6 +105,8 @@ const gohome = function () {
 
 <style scoped>
 .back-icon {
+    background-color: transparent;
+    border: 0px;
     position: fixed;
     top: 5rem;
     right: 5rem;

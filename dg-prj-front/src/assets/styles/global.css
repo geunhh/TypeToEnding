@@ -22,7 +22,7 @@ h1, h2, h3, h4, h5, h6 {
 .btn {
     all: unset; /* 기본 스타일 제거 */
     display: inline-block; /* 기본 블록 설정 */
-    background-color: #e50000; /* 원하는 배경색 */
+    background-color: #830213; /* 원하는 배경색 */
     color: #ffffff; /* 글자색 */
     border-radius: 8px; /* 모서리 둥글기 */
     padding: 10px 20px; /* 여백 설정 */
@@ -52,7 +52,7 @@ body{
     --black15: #262626;
     --eerie-black: #1a1a1a;
     --grey60: #999999;
-    --red45: #e50000;
+    --red45: #830213;
     --abbey: #4e4e4e;
 
     --font-size-s: 13px;
