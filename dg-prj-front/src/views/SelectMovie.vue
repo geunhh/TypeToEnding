@@ -1,5 +1,5 @@
 <template>
-  <div class="bigbig-container">
+  <div class="bigbig-container" v-if="moviestore.movies!=null">
     <div style="text-align: center;">
       <h1 class="title">Type to Ending</h1>
       <!-- {{ originalMovielist }} -->

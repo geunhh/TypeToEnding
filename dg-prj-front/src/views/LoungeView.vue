@@ -67,10 +67,6 @@
                             <span class="cast-role">조연 3</span>
                             <span class="cast-player">player X</span>
                         </div>
-                        <div class="cast-item">
-                            <span class="cast-role">조연 4</span>
-                            <span class="cast-player">player X</span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -247,6 +243,7 @@ const gohome = function () {
     padding: 2rem;
     border-radius: 12px;
     color: white;
+    margin-top: 30px;
 }
 
 .cast-info h3 {

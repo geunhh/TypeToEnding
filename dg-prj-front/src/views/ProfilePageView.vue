@@ -642,7 +642,7 @@ const selectSex = (sex) => {
 }
 
 .btn-group .dropdown-item:hover {
-    background-color: #e50000;
+    background-color: #830213;
     color: #FFFFFF;
 }
 
@@ -704,7 +704,7 @@ const selectSex = (sex) => {
 }
 
 .dropdown-item:hover {
-    background-color: #e50000;
+    background-color: #830213;
     color: #FFFFFF;
 }
 
@@ -714,15 +714,13 @@ const selectSex = (sex) => {
 }
 
 .dropdown .btn-secondary {
-    background-color: var(--red45);
-    border-color: var(--red45);
+    background-color: #830213;
 }
 
 .dropdown .btn-secondary:hover,
 .dropdown .btn-secondary:focus,
 .dropdown .btn-secondary:active {
-    background-color: var(--red45);
-    border-color: var(--red45);
+    background-color: #af0d22;
     box-shadow: none !important;
 }
 
@@ -1709,7 +1707,7 @@ const selectSex = (sex) => {
     margin-bottom: 0px;
 
     position: relative;
-    background-color: var(--red45);
+    background-color: #830213;
 }
 
 .grey-button-common {
@@ -1784,9 +1782,9 @@ const selectSex = (sex) => {
 .red-button-common {
     align-items: center;
     align-self: stretch;
-    background-color: var(--red45);
+    background-color: #830213;
     border: 1px solid;
-    border-color: var(--red45);
+    border-color: #830213;
     border-radius: 8px;
     display: flex;
     flex: 0 0 auto;
@@ -2217,7 +2215,7 @@ const selectSex = (sex) => {
 
 .record .button-4 {
     align-items: flex-start;
-    background-color: var(--red45);
+    background-color: #830213;
     border-radius: 8px;
     display: flex;
     gap: 10px;
@@ -2228,7 +2226,7 @@ const selectSex = (sex) => {
 
 .button-4-game-info {
     align-items: center;
-    background-color: var(--red45);
+    background-color: #830213;
     border: 1px solid;
     border-color: var(--black15);
     border-radius: 8px;
