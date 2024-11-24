@@ -194,6 +194,7 @@ onMounted(() => {
     moviestore.movieId = null
     modalStore.isHowToPlayModalOpen = false
     gamesStore.game_round = 0
+    gamesStore.initial_question = null
 })
 
 // 회원 가입폼에 입력한 정보 초기화하는 함수
