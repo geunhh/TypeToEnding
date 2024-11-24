@@ -1,6 +1,11 @@
 <template>
     <div class="bigbig-container">
         <h1 class="h1">시나리오 생성중...</h1>
+        <div class="text-center">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -17,28 +22,29 @@ onMounted(() => {
     if (gamestore.game_round === 0) {
         gamestore.getInitial()
         setTimeout(() => {
-            router.push({name:'GamePlayView', params: { roomId : moviestore.roomId}})  
-        }, 2000);        
+            router.push({ name: 'GamePlayView', params: { roomId: moviestore.roomId } })
+        }, 2000);
     }
     else {
         console.log(router)
         setTimeout(() => {
-            router.push({name:'GamePlayView', params: { roomId : moviestore.roomId}, 
-                        state: { next_problem:router.next_problem }})  
+            router.push({
+                name: 'GamePlayView', params: { roomId: moviestore.roomId },
+                state: { next_problem: router.next_problem }
+            })
         }, 2000);
     }
-            
-    
+
+
 })
 
- 
+
 
 </script>
 
 <style scoped>
-.bigbig-container{
-  padding : 5rem;
-  text-align: center;
+.bigbig-container {
+    padding: 5rem;
+    text-align: center;
 }
-
 </style>

@@ -101,7 +101,7 @@ const submitFunc = function () {
         alert('모든 항목을 입력해주세요.')
         return
     }
-    if (new_title.description.length < 20) {
+    if (new_description.value.length < 20) {
         alert('줄거리는 최소 20글자 이상 입력해주세요.')
         return
     }
@@ -146,6 +146,7 @@ const submitFunc = function () {
         .then(res => {
             console.log(res)
             console.log('영화 및 질문 제작 성공')
+            alert('커스텀 영화 제작에 성공했습니다. 메인페이지로 돌아갑니다.')
             router.push({ name: 'main' })
         })
         .catch(err => console.log(err))
