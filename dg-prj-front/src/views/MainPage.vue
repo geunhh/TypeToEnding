@@ -42,7 +42,7 @@
                         <div class="items-container">
                             <div class="container">
                                 <button @click.prevent="loginFunc" class="red-button-common">
-                                    <input type="submit" class="option-common" value="log in">
+                                    <span type="submit" class="option-common">log in</span>
                                 </button>
                             </div>
                         </div>
@@ -95,12 +95,12 @@
                                 </button>
                             </div>
                         </div>
-                        <img class="generic-avatar" src="@/assets/icons/generic-avatar.png" alt="generic-avatar"
+                        <!-- <img class="generic-avatar" src="@/assets/icons/generic-avatar.png" alt="generic-avatar"
                             @click.prevent="moveToProfilePage">
                         <img class="add-circle" src="@/assets/icons/add-circle.png" alt="add-circle"
                             @click.prevent="GameStart">
                         <img class="forward" src="@/assets/icons/forward.png" alt="forward"
-                            @click.prevent="isEnterRoomModalOpen = true">
+                            @click.prevent="isEnterRoomModalOpen = true"> -->
                     </div>
                 </div>
                 <form class="form-1" v-if="!accountStore.token && isSignUpModalOpen">
@@ -183,7 +183,7 @@ const newPassword2 = ref(null)
 const newNickname = ref(null)
 
 const isSignUpModalOpen = ref(false)
-
+const isEnterRoomModalOpen = ref(false)
 
 // 초기 설정
 onMounted(() => {
@@ -810,11 +810,9 @@ div {
     line-height: 27px;
     margin-top: -1.00px;
     position: relative;
-    background-color: var(--red45);
 }
 
 .log-out {
-    border: 0px;
     padding: 0px;
     color: var(--absolutewhite);
     text-align: center;
@@ -826,14 +824,11 @@ div {
     line-height: 27px;
     margin-top: -1.00px;
     position: relative;
-    background-color: var(--grey60);
 }
 
 .sign-up {
     margin: 0;
-    /* 기본 마진 제거 추가 */
     text-align: center;
-    /* 텍스트 중앙 정렬 추가 */
     border: 0px;
     padding: 0px;
     color: var(--absolutewhite);
@@ -845,15 +840,14 @@ div {
     line-height: 27px;
     margin-top: -1.00px;
     position: relative;
-    background-color: var(--grey60);
 }
 
 
 .red-button-common {
     align-items: center;
     align-self: stretch;
-    background-color: var(--red45);
-    border: 1px solid;
+    background-color: #1a1a1a;
+    border: 2px solid var(--red45);
     border-color: var(--red45);
     border-radius: 8px;
     display: flex;
@@ -863,7 +857,12 @@ div {
     padding: 20px;
     position: relative;
     width: 100%;
-
+    transition: all 0.3s ease;
+}
+.red-button-common:hover {
+    background-color: var(--red45);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .how-to-play-button-common {
@@ -896,9 +895,8 @@ div {
 .grey-button-common {
     align-items: center;
     align-self: stretch;
-    background-color: var(--grey60);
-    border: 1px solid;
-    border-color: var(--grey60);
+    background-color: #1a1a1a;
+    border: 2px solid var(--grey60);
     border-radius: 8px;
     display: flex;
     flex: 0 0 auto;
@@ -913,6 +911,12 @@ div {
     padding: 0px 0px;
     width: 362px;
     height: 68px;
+    transition: all 0.3s ease;
+}
+.grey-button-common:hover {
+    background-color: var(--grey60);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /***************************************************/

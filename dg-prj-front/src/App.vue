@@ -59,6 +59,7 @@ function toggleMusic() {
   font-size: 16px;
   background: transparent;
   border: 0px;
+  z-index: 1000;
 }
 
 .music-button-icon {

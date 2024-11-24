@@ -194,6 +194,8 @@
             <!-- 아래부터는 전적검색 모달 -->
             <div class="overlap-group-game-info" v-if="isGameInfoSearchModalOpen">
                 <div class="container-7-game-info">
+                    
+                    <!-- 영화 필터링 기능 -->
                     <div class="sub-container-9-game-info">
                         <div class="text-container">
                             <p class="game-result">{{ name }}'s game record</p>
@@ -212,6 +214,8 @@
                             </ul>
                         </div>
                     </div>
+
+                    <!-- 전적 띄워주는 기능 -->
                     <div class="sub-container-10">
                         <div class="container-8-game-info">
                             <div class="number-game-info-summary">요약</div>
@@ -315,8 +319,6 @@
                         </button>
                     </div>
                 </div>
-                <!-- 추가적인 요소 -->
-                <div class="rectangle-521"></div>
             </div>
 
         </div>

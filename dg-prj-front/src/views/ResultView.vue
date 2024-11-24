@@ -1,23 +1,6 @@
 <template>
-    <div class="bigbig-container">
-
-        <!-- <h1>최종 결과 페이지</h1> -->
-        <div class="page-header">
-            <h1 class="title">
-                <span class="title-main">최종 결과</span>
-                <span class="title-sub" style="font-size: xx-large;">FINAL RESULT</span>
-            </h1>
-        </div>
-        
+    <div>
         <!-- 모달 -->
-        <!-- Button trigger modal -->
-        <button type="button" class="recommend-btn" :disabled="!recommend" data-bs-toggle="modal"
-            data-bs-target="#staticBackdrop" @click="recommend_toggle">
-            <i class="bi bi-film"></i>
-            영화 추천 받기
-        </button>
-
-        <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
             aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
@@ -51,58 +34,90 @@
                 </div>
             </div>
         </div>
-
-
-        <div v-if="!result">로딩 중 입니다..</div>
-        <div v-else class="history-container">
-            <div v-for="(res, index) in result.history" :key="index">
-                <div v-if="index > 0" class="round-card">
-                    <!-- 라운드 헤더 -->
-                    <div class="round-header">
-                        <span class="round-number">ROUND {{ index }}</span>
-                    </div>
-
-                    <!-- 라운드 컨텐츠 -->
-                    <div class="round-content">
-                        <!-- 상황 섹션 -->
-                        <div class="content-section">
-                            <h5 class="section-title">
-                                <i class="bi bi-bookmark-fill"></i> 상황
-                            </h5>
-                            <div class="section-text">{{ res.situation }}</div>
+    </div>
+    <div v-if="!result">로딩 중 입니다...</div>
+    <div v-else class="new-result-container-main">
+        <div class="new-result-container-rounds">
+            <div class="new-result-header">
+                <p class="new-result-final-result">최종 결과</p>
+            </div>
+            <div class="new-result-container">
+                <div class="new-result-result" v-for="(res, index) in result.history" :key="index">
+                    <div class="new-result-round">{{ index + 1 }}</div>
+                    <div class="new-result-paragraph">
+                        <div class="new-result-evaluation">
+                            <img v-if="res.evaluation === '적절함'" class="new-result-selected-or-discarded"
+                                src="@/assets/icons/selected.png" alt="selected">
+                            <img v-else class="new-result-selected-or-discarded" src="@/assets/icons/discarded.png"
+                                alt="discarded">
                         </div>
-
-                        <!-- 답변 섹션 -->
-                        <div class="content-section">
-                            <h5 class="section-title">
-                                <i class="bi bi-chat-square-text-fill"></i> 나의 선택
-                            </h5>
-                            <div class="section-text">{{ res.user_action }}</div>
-                        </div>
-
-                        <!-- 평가 섹션 -->
-                        <div class="content-section">
-                            <h5 class="section-title">
-                                <i class="bi bi-star-fill"></i> 평가
-                            </h5>
-                            <div class="evaluation-box">
-                                <div class="evaluation-result">{{ res.evaluation }}</div>
-                                <div class="evaluation-reason">{{ res.reason }}</div>
-                            </div>
-                        </div>
-
-                        <!-- 결과 섹션 -->
-                        <div class="content-section">
-                            <h5 class="section-title">
-                                <i class="bi bi-flag-fill"></i> 결과
-                            </h5>
-                            <div class="section-text">{{ res.next_situation }}</div>
-                        </div>
+                        <p class="category-heading">상황</p>
+                        <p class="category-paragraph">{{ res.situation }}</p>
+                        <p class="category-heading">당신의 대답</p>
+                        <p class="category-paragraph">{{ res.user_action }}</p>
+                        <p class="category-heading">이유</p>
+                        <p class="category-paragraph">{{ res.reason }}</p>
+                        <p class="category-heading">결과</p>
+                        <p class="category-paragraph">{{ res.next_situation }}</p>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="new-result-recommend-summary-button">
+            <div class="new-result-recommend-summary">
+                <div>
+                    <button type="button" class="recommend-btn" :disabled="!recommend" @click="isRecommend = true">
+                        <i class="bi bi-film"></i>
+                        영화 추천 받기
+                    </button>
+                </div>
+                <div class="new-result-movie-recommendation" v-if="isRecommend">
+                    <p class="category-heading"> 스토리 요약</p>
+                    <p class="category-paragraph"> {{ recommend.story_summary }}</p>
+                    <hr>
+                    <p class="category-heading">감정 분석</p>
+                    <p class="category-paragraph">{{ recommend.psychological_analysis }}</p>
+                    <hr>
+                    <p class="category-heading">영화 추천</p>
+                    <img :src="`https://image.tmdb.org/t/p/w400${recommend_info.results[0].poster_path}`"
+                        alt="추천 영화 포스터" v-if="recommend_info.results[0].poster_path">
+                    <img class="poster" src='@/assets/selectimg.jpeg' v-else><br>
+                    <br>
+                    <p class="category-heading">제목</p>
+                    <p class="category-paragraph"> {{ recommend.recommended_movie.title }}</p>
+                    <p class="category-heading">추천 이유</p>
+                    <p class="category-paragraph">{{ recommend.recommended_movie.reason }}</p>
+                    <p class="category-heading">테마 : </p>
+                    <p class="category-paragraph">{{ recommend.recommended_movie.theme }}</p>
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary new-result-to-main" data-bs-toggle="modal"
+                data-bs-target="#AreSurelyBackToMain">
+                <p class="new-result-to-main-p">메인화면으로</p>
+            </button>
+        </div>
     </div>
+
+    <!-- 메인화면으로 돌아갈건지 묻는 모달 -->
+    <div class="modal fade" id="AreSurelyBackToMain" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content back-to-main-page">
+                <div class="modal-header back-to-main-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">정말로 메인화면으로 돌아가시겠습니까?</h1>
+                </div>
+                <div class="modal-footer back-to-main-footer">
+                    <button type="button" class="btn btn-primary yes" @click="backToMain" data-bs-dismiss="modal">
+                        <p class="choose-back-to-main">네 메인화면으로 갈래요</p>
+                    </button>
+                    <button type="button" class="btn btn-primary no" data-bs-dismiss="modal">
+                        <p class="choose-back-to-main">아뇨 여기 남아있을게요</p>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </template>
 
 <script setup>
@@ -110,7 +125,9 @@ import { useAccountStore } from '@/stores/accountStore';
 import { useGameStore, useUserStore } from '@/stores/counter';
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
 const result = ref()
+const router = useRouter()
 const gamestore = useGameStore()
 const userstore = useUserStore()
 const isRecommend = ref(false)
@@ -120,12 +137,6 @@ const accountstore = useAccountStore()
 
 
 
-const recommend_toggle = function () {
-    isRecommend.value = !isRecommend.value
-    console.log(result.value)
-
-
-}
 
 onMounted(() => {
     console.log('gamenum:', gamestore.game_id)
@@ -187,16 +198,16 @@ onMounted(() => {
         .catch(err => console.log(err))
 })
 
+
+// 메인 화면으로 돌아가주는 함수
+const backToMain = () => {
+    router.push({ name: 'main' })
+}
+
+
 </script>
 
 <style scoped>
-.page-header {
-    text-align: center;
-    padding: 2rem 0 3rem 0;
-    margin-bottom: 2rem;
-    position: relative;
-}
-
 .title {
     display: flex;
     flex-direction: column;
@@ -204,43 +215,8 @@ onMounted(() => {
     gap: 0.5rem;
 }
 
-.title-main {
-    color: #1A1A1A;
-    font-size: 2.8rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    position: relative;
-    padding-bottom: 0.5rem;
-}
 
-.title-main::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 4px;
-    background-color: #830213;
-}
 
-.title-sub {
-    color: #8B8680;
-    font-size: 1rem;
-    letter-spacing: 5px;
-    font-weight: 500;
-}
-
-/* 반응형 디자인 */
-@media (max-width: 768px) {
-    .title-main {
-        font-size: 2rem;
-    }
-    
-    .title-sub {
-        font-size: 0.9rem;
-    }
-}
 
 /* 선택적: 애니메이션 효과 추가 */
 @keyframes slideIn {
@@ -248,20 +224,19 @@ onMounted(() => {
         opacity: 0;
         transform: translateY(-20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-.page-header {
-    animation: slideIn 0.8s ease-out;
-}
+
 .recommend-btn {
     background-color: #1A1A1A;
     color: #ffffff;
     padding: 0.8rem 1.5rem;
-    border: 2px solid #830213;
+    border: 2px solid var(--red45);
     border-radius: 8px;
     font-weight: 600;
     font-size: 1.1rem;
@@ -272,7 +247,7 @@ onMounted(() => {
 }
 
 .recommend-btn:hover:not(:disabled) {
-    background-color: #830213;
+    background-color: var(--red45);
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -297,10 +272,6 @@ onMounted(() => {
     font-size: smaller;
 }
 
-p {
-    font-size: smaller;
-}
-
 .history-container {
     max-width: 1000px;
     margin: 0 auto;
@@ -321,18 +292,6 @@ p {
     transform: translateY(-5px);
 }
 
-.round-header {
-    background-color: black;
-    padding: 1rem 1.5rem;
-    border-radius: 6px 6px 0 0;
-}
-
-.round-number {
-    color: #ffffff;
-    font-weight: 600;
-    font-size: 1.2rem;
-    letter-spacing: 1px;
-}
 
 .round-content {
     padding: 1.5rem;
@@ -344,44 +303,6 @@ p {
     background-color: #f8f8f8;
     border-radius: 8px;
     border-left: 4px solid #8B8680;
-}
-
-.section-title {
-    color: #1A1A1A;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.section-title i {
-    color: #830213;
-}
-
-.section-text {
-    color: #333333;
-    line-height: 1.6;
-    font-size: 0.95rem;
-}
-
-.evaluation-box {
-    background-color: #ffffff;
-    padding: 1rem;
-    border-radius: 6px;
-    border-left: 4px solid #830213;
-}
-
-.evaluation-result {
-    font-weight: 600;
-    color: #830213;
-    margin-bottom: 0.5rem;
-}
-
-.evaluation-reason {
-    color: #666666;
-    font-size: 0.9rem;
-    line-height: 1.5;
 }
 
 /* 반응형 디자인 */
@@ -397,5 +318,232 @@ p {
     .content-section {
         padding: 0.8rem;
     }
+}
+
+.new-result-final-result {
+    font-size: 40px;
+    font-family: 'Gowun Dodum', sans-serif;
+    margin-bottom: 0px;
+}
+
+.new-result-container-main {
+    align-items: flex-start;
+    background-color: var(--black10);
+    display: flex;
+    gap: 71px;
+    height: 100%;
+    padding: 31px 35px;
+    width: 100%;
+    color: #ffffff;
+}
+
+.new-result-to-main-p {
+    color: #FFFFFF;
+    margin-bottom: 0px;
+    font-family: var(--font-family-manrope);
+    font-size: 20px;
+}
+
+.new-result-container-rounds {
+    align-items: flex-start;
+    background-color: var(--black06);
+    border: 1px solid;
+    border-color: var(--black15);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    height: 960px;
+    padding: 50px;
+    width: 755px;
+    overflow: hidden;
+}
+
+.new-result-header {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.new-result-container {
+    overflow-y: auto;
+    max-height: calc(100% - 80px);
+    width: 100%;
+}
+
+.new-result-result {
+    align-items: center;
+    align-self: stretch;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-color: var(--black15);
+    border-top-style: solid;
+    border-top-width: 1px;
+    display: flex;
+    flex: 0 0 auto;
+    gap: 20px;
+    padding: 20px 0px;
+    position: relative;
+    width: 100%;
+}
+
+.new-result-round {
+    color: var(--grey60);
+    font-family: var(--font-family-manrope);
+    font-weight: 600;
+    letter-spacing: 0;
+    width: 60px;
+    text-align: center;
+    height: 100%;
+    font-size: 40px;
+    flex-shrink: 0;
+}
+
+.new-result-paragraph {
+    color: var(--grey60);
+    font-family: var(--profile-font-family-manrope);
+    font-size: var(--profile-font-size-m);
+    font-style: normal;
+    font-weight: 400;
+    flex-grow: 1;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+}
+
+.new-result-evaluation {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    height: 100%;
+}
+
+.new-result-selected-or-discarded {
+    width: 80px;
+    height: 40px;
+    flex-shrink: 0;
+    margin-top: 0;
+}
+
+.category-heading {
+    color: var(--absolutewhite);
+    font-size: var(--font-size-m);
+    font-weight: 600;
+    line-height: 30px;
+    font-family: 'Gowun Dodum', sans-serif;
+    letter-spacing: 0;
+    position: relative;
+    margin-bottom: 5px;
+}
+
+.category-paragraph {
+    color: #999999;
+    font-family: 'Gowun Dodum', sans-serif;
+}
+
+.new-result-recommend-summary-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 1px;
+    gap: 50px;
+    min-height: 942px;
+    width: 500px;
+}
+
+.new-result-recommend-summary {
+    align-items: flex-start;
+    background-color: var(--black06);
+    border: 1px solid;
+    border-color: var(--black15);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    height: 843px;
+    padding: 40px;
+    width: 500px;
+    gap: 20px;
+}
+
+.btn.btn-primary.new-result-to-main {
+    align-items: center;
+    background-color: var(--black06);
+    border: 2px solid var(--red45);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    padding: 18px 0px;
+    width: 496px;
+    /* width: 100%; */
+    color: #FFFFFF;
+    transition: all 0.3s ease;
+}
+
+.btn.btn-primary.new-result-to-main:hover {
+    background-color: var(--red45);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.choose-back-to-main {
+    margin-bottom: 0px;
+}
+
+.new-result-movie-recommendation {
+    overflow-y: auto;
+}
+
+.modal-content.back-to-main-page {
+    background-color: #1A1A1A;
+}
+
+.modal-content.back-to-main-page {
+    background-color: var(--black06);
+    border: 1px solid var(--black15);
+}
+
+.modal-header.back-to-main-header,
+.modal-footer.back-to-main-footer {
+    background-color: var(--black06);
+    border: 1px solid var(--black15);
+    text-align: center;
+    justify-content: center;
+}
+
+.modal-footer.back-to-main-footer {
+    display: flex;
+    gap: 24px;
+    justify-content: space-between;
+}
+
+.btn.btn-primary.yes {
+    flex: 1;
+    max-width: calc(50% - 5px);
+    background-color: var(--black06);
+    border: 2px solid var(--red45);
+    transition: all 0.3s ease;
+}
+
+.btn.btn-primary.no {
+    flex: 1;
+    max-width: calc(50% - 5px);
+    background-color: var(--black06);
+    border: 2px solid var(--grey60);
+    transition: all 0.3s ease;
+}
+
+
+.btn.btn-primary.yes:hover {
+    background-color: var(--red45);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+.btn.btn-primary.no:hover {
+    background-color: var(--grey60);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 </style>

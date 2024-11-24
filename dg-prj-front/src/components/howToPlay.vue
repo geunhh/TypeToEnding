@@ -9,7 +9,7 @@
                 <div class="modal-header modal-header-htp d-flex justify-content-between align-items-center">
                     <button type="button" class="invisible btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <h1 class="modal-title fs-1 m-0 modal-title-htp" id="exampleModalLabel">How To Play</h1>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary close-btn-htp" data-bs-dismiss="modal">Close</button>
                 </div>
                 <div class="modal-body modal-body-htp modal-body-htp-images">
                     <div id="carouselExampleCaptions" class="carousel slide">
@@ -105,30 +105,25 @@ body {
 
 .modal-footer.modal-footer-htp {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    padding: 0.5rem;
+    gap: 1rem;
 }
 
 .carousel-control-prev,
 .carousel-control-next {
     position: static;
     width: auto;
+    padding: 0.5rem;
 }
+
 
 .carousel-indicators {
     position: static;
     margin: 0;
-    display: flex;
     justify-content: center;
-    align-items: center;
 }
-
-/* .modal-title.fs-5.m-0.modal-title-htp{
-    color: #FFFFFF;
-    font-size: 40px;
-} */
-
-.explanation-title-htp {}
 
 .explanation-context-htp {
     color: var(--grey60);
@@ -146,5 +141,9 @@ body {
 
 .indicator-btn.active {
     background-color: #e50000;
+}
+
+.btn.btn-secondary.close-btn-htp {
+    background-color: #999999;
 }
 </style>
