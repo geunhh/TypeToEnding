@@ -18,7 +18,7 @@
 
           </div>
           
-          <div class="carousel-item" v-for="(movie, index) in customMovielist" :key="movie.id"
+          <div class="carousel-item" v-for="(movie, index) in customMovielist"
             :class="{ active: index === 0 }" v-else>
             <img class="poster" :src="`http://127.0.0.1:8000${customMovielist[index].poster_path}`"
               style="height:60rem ;" v-if="movie.poster_path">
