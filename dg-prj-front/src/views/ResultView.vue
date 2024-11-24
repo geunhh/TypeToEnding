@@ -34,6 +34,35 @@
                 </div>
             </div>
         </div>
+
+        <!-- 댓글 모달 -->
+        <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header comment-modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">재밌게 플레이하셨나요? 후기로 댓글을 남겨주세요</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body comment-modal-body">
+                        <div>
+                            <div class="mb-3">
+                                <input v-model="userComment" type="text" class="form-control comment-modal-form"
+                                    id="message-text" @keyup.enter="sendComment">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer comment-modal-footer">
+                        <button type="button" class="btn btn-primary leave-comment" @click.prevent="sendComment">댓글
+                            남기기</button>
+                        <button type="button" class="btn btn-secondary comment-close"
+                            data-bs-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
     </div>
     <div v-if="!result">로딩 중 입니다...</div>
     <div v-else class="new-result-container-main">
@@ -65,11 +94,21 @@
         </div>
         <div class="new-result-recommend-summary-button">
             <div class="new-result-recommend-summary">
-                <div>
+                <div class="buttons">
                     <button type="button" class="recommend-btn" :disabled="!recommend" @click="isRecommend = true">
                         <i class="bi bi-film"></i>
                         영화 추천 받기
                     </button>
+
+
+
+
+                    <button type="button" class="comment-btn" data-bs-toggle="modal" data-bs-target="#commentModal">
+                        <i class="bi bi-chat-left-dots-fill"></i> 댓글 남기기
+                    </button>
+
+
+
                 </div>
                 <div class="new-result-movie-recommendation" v-if="isRecommend">
                     <p class="category-heading"> 스토리 요약</p>
@@ -122,10 +161,12 @@
 
 <script setup>
 import { useAccountStore } from '@/stores/accountStore';
-import { useGameStore, useUserStore } from '@/stores/counter';
+import { useGameStore, useMovieStore, useUserStore } from '@/stores/counter';
 import axios from 'axios';
+// import { send } from 'vite';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+
 const result = ref()
 const router = useRouter()
 const gamestore = useGameStore()
@@ -133,9 +174,10 @@ const userstore = useUserStore()
 const isRecommend = ref(false)
 const recommend = ref(null)
 const recommend_info = ref(null)
+const movieStore = useMovieStore
 const accountstore = useAccountStore()
-
-
+const userComment = ref('')
+const BASE_URL = useAccountStore.BASE_URL
 
 
 onMounted(() => {
@@ -204,8 +246,31 @@ const backToMain = () => {
     router.push({ name: 'main' })
 }
 
+// 플레이했던 영화에 댓글을 남기는 함수
+const sendComment = () => {
+    // console.log(MovieStore.movieId)
+    if (userComment.value) {
+        axios({
+            method: 'POST',
+            url: `${BASE_URL}/gameApp/comment/${movieStore.movieId}/`,
+            headers: {
+                Authorization: `Token ${accountstore.token}`,
+                "Content-Type": "application/json"
+            },
+            data: { content: userComment.value }
+        }).then(res => {
+            console.log(userComment.value)
+            window.alert('댓글이 작성되었습니다.')
+        }
+        ).catch(err => window.alert('댓글을 남기는데 실패했습니다'))
+    } else {
+        window.alert('내용을 작성해주세요')
+    }
+    userComment.value = ""
+}
 
 </script>
+
 
 <style scoped>
 .title {
@@ -215,7 +280,25 @@ const backToMain = () => {
     gap: 0.5rem;
 }
 
+.comment-btn {
+    border: 2px solid var(--red45);
+    background-color: var(--black10);
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    padding: 0.8rem 1.5rem;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    align-items: center;
+    gap: 0.5rem;
+}
 
+.comment-btn:hover {
+    background-color: var(--red45);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
 
 /* 선택적: 애니메이션 효과 추가 */
@@ -231,12 +314,17 @@ const backToMain = () => {
     }
 }
 
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+}
 
 .recommend-btn {
     background-color: var(--black10);
     color: #ffffff;
     padding: 0.8rem 1.5rem;
-    border: 2px solid #500010;
+    border: 2px solid var(--red45);
     border-radius: 8px;
     font-weight: 600;
     font-size: 1.1rem;
@@ -253,8 +341,8 @@ const backToMain = () => {
 }
 
 .recommend-btn:disabled {
-    background-color: #8B8680;
-    border-color: #8B8680;
+    background-color: var(--grey60);
+    border-color: var(--grey60);
     cursor: not-allowed;
     opacity: 0.7;
 }
@@ -300,9 +388,9 @@ const backToMain = () => {
 .content-section {
     margin-bottom: 1.5rem;
     padding: 1rem;
-    background-color: #f8f8f8;
+    background-color: #FFFFFF;
     border-radius: 8px;
-    border-left: 4px solid #8B8680;
+    border-left: 4px solid var(--grey60);
 }
 
 /* 반응형 디자인 */
@@ -467,10 +555,35 @@ const backToMain = () => {
     gap: 20px;
 }
 
+.btn.btn-primary.leave-comment {
+    background-color: var(--black06);
+    border: 2px solid var(--red45);
+    transition: all 0.3s ease;
+    margin-right: 20px;
+}
+
+.btn.btn-primary.leave-comment:hover {
+    background-color: var(--red45);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn.btn-secondary.comment-close {
+    background-color: var(--black06);
+    border: 2px solid var(--grey60);
+    transition: all 0.3s ease;
+}
+
+.btn.btn-secondary.comment-close:hover {
+    background-color: var(--grey60);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 .btn.btn-primary.new-result-to-main {
     align-items: center;
     background-color: var(--black06);
-    border: 2px solid #6b0012;
+    border: 2px solid var(--red45);
     border-radius: 8px;
     display: flex;
     justify-content: center;
@@ -504,12 +617,30 @@ const backToMain = () => {
     border: 1px solid var(--black15);
 }
 
+.modal-header.comment-modal-header,
 .modal-header.back-to-main-header,
 .modal-footer.back-to-main-footer {
     background-color: var(--black06);
     border: 1px solid var(--black15);
     text-align: center;
     justify-content: center;
+}
+
+.modal-body.comment-modal-body {
+    background-color: var(--black06);
+    border: 1px solid var(--black15);
+}
+
+.form-control.comment-modal-form {
+    background-color: var(--black06);
+    color: #FFFFFF;
+    border: 2px solid var(--black15);
+}
+
+.modal-footer.comment-modal-footer {
+    background-color: var(--black06);
+    border: 1px solid var(--black15);
+    /* justify-content: center; */
 }
 
 .modal-footer.back-to-main-footer {
@@ -522,7 +653,7 @@ const backToMain = () => {
     flex: 1;
     max-width: calc(50% - 5px);
     background-color: var(--black06);
-    border: 2px solid #500010;
+    border: 2px solid var(--red45);
     transition: all 0.3s ease;
 }
 
@@ -560,11 +691,11 @@ const backToMain = () => {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #500010;
+    background: var(--red45);
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #6b0012;
+    background: var(--red45);
 }
 </style>

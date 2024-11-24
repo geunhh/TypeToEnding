@@ -185,7 +185,7 @@ button:hover {
 /* Secondary 버튼 (보조 스타일) */
 .btn-secondary {
     background: var(--black10);
-    color: #ffffff;
+    color: #FFFFFF;
     border: 1px solid var(--grey60);
     transition: all 0.3s ease;
 }
@@ -223,7 +223,7 @@ button i {
     max-height: 32vh;
     overflow-y: auto;
     border-radius: 10px;
-    background-color: #1A1A1A;
+    background-color: var(--black10);
     font-size: small;
     padding: 1rem;
     scrollbar-width: thin;
@@ -249,7 +249,7 @@ button i {
 }
 
 .description::-webkit-scrollbar-thumb:hover {
-    background: #9f0217;
+    background: var(--red45);
     /* 스크롤바 호버 시 색상 */
 }
 
@@ -274,7 +274,7 @@ button i {
 }
 
 .page-title {
-    color: #fff;
+    color: #FFFFFF;
     font-size: 2rem;
     margin-bottom: 1rem;
     text-align: center;
@@ -324,7 +324,7 @@ button i {
 }
 
 .form-group label {
-    color: #8B8680;
+    color: var(--grey60);
     font-weight: 500;
 }
 
@@ -340,7 +340,7 @@ button i {
     border: 1px solid var(--abbey);
     border-radius: 8px;
     padding: 0.8rem;
-    color: #fff;
+    color: #FFFFFF;
     font-size: 1rem;
     transition: all 0.3s ease;
     resize: none

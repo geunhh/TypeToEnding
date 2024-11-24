@@ -23,7 +23,7 @@
 
           </div>
 
-          <div class="carousel-item" v-for="(movie, index) in customMovielist" :key="movie.id"
+          <div class="carousel-item" v-for="(movie, index) in customMovielist"
             :class="{ active: index === 0 }" v-else>
             <img class="poster" :src="`http://127.0.0.1:8000${customMovielist[index].poster_path}`"
               style="height:60rem ;" v-if="movie.poster_path">
@@ -263,7 +263,7 @@ const submitMovie = () => {
 
 /* 영화 제목 스타일링 (포스터 없을 때) */
 .carousel-item h1 {
-  background: linear-gradient(to right, var(--black10), #2d2d2d);
+  background: linear-gradient(to right, var(--black10), var(--black06));
   padding: 2rem;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.1);

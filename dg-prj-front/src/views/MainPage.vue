@@ -94,6 +94,13 @@
                             </div>
                             <div class="items-container">
                                 <div class="container">
+                                    <button @click.prevent="logOutFunc" class="invisible grey-button-common log-out-button">
+                                        <p style="padding: 0px 0px; margin: 0px" class="log-out">Log Out</p>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="items-container">
+                                <div class="container">
                                     <button @click.prevent="logOutFunc" class="grey-button-common log-out-button">
                                         <p style="padding: 0px 0px; margin: 0px" class="log-out">Log Out</p>
                                     </button>
@@ -352,7 +359,7 @@ const toggleSignUpModal = () => {
 
 .howtoplay-container {
     border: 1px white solid;
-    background-color: #500010;
+    background-color: var(--red45);
     font-weight: 600;
     padding: 10px;
     height: fit-content;
@@ -400,8 +407,8 @@ div {
     border-radius: 12px;
     display: flex;
     flex-direction: column;
-    gap: 50px;
-    height: 621px;
+    gap: 45px;
+    height: 620px;
     margin-left: 27px;
     padding: 50px;
     position: relative;
@@ -488,7 +495,7 @@ div {
 
 .button-5 {
     align-items: center;
-    background-color: #500010;
+    background-color: var(--red45);
     border-radius: 8px;
     display: flex;
     flex: 1;
@@ -621,7 +628,7 @@ div {
     margin-top: 87px;
     min-height: 248px;
     min-width: 816px;
-    text-shadow: 0px 4px 4px #00000040;
+    text-shadow: 0px 4px 4px var(--black06); 
 }
 
 .main .overlap-group-container {
@@ -681,8 +688,8 @@ div {
     border-radius: 12px;
     display: flex;
     flex-direction: column;
-    gap: 50px;
-    height: 621px;
+    gap: 45px;
+    height: 620px;
     left: 0;
     padding: 50px;
     position: absolute;
@@ -768,7 +775,7 @@ div {
 
 .main .button {
     align-items: flex-start;
-    background-color: #500010;
+    background-color: var(--red45);
     border-radius: 8px;
     display: flex;
     gap: 10px;
@@ -908,8 +915,8 @@ div {
     /* 텍스트 줄 바꿈 방지 */
 }
 
-.log-out-button {
-    margin-top: 81px;
+.log-out-button{
+    /* margin-top: 72px; */
 }
 
 .grey-button-common {

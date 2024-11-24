@@ -180,7 +180,7 @@ const nextStage = function () {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    color: #fff;
+    color: #FFFFFF;
     font-weight: 500;
     margin-bottom: 1rem;
     padding: 0.5rem;
@@ -236,7 +236,7 @@ const nextStage = function () {
 }
 
 .info-label {
-    color: #8B8680;
+    color: var(--grey60);
     font-weight: 500;
     min-width: 60px;
 }
@@ -385,7 +385,7 @@ const nextStage = function () {
     line-height: 1.6;
     background: rgba(0, 0, 0, 0.2);
     border-radius: 8px;
-    color: #fff;
+    color: #FFFFFF;
 }
 
 /* 다음 버튼 */

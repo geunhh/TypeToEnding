@@ -3,7 +3,7 @@
   <div>
 
     <button class="home-icon" @click.prevent="goHome">
-      <i style="font-size: 3rem;color: #830213; " class="bi bi-house-fill"></i>
+      <i style="font-size: 3rem;color: var(--red45); " class="bi bi-house-fill"></i>
     </button>
 
     <button class="music-button" v-if="isPlaying">

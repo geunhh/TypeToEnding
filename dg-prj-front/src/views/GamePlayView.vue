@@ -156,13 +156,13 @@ const goEval = function () {
 
 .info-label {
     font-size: larger;
-    color: #8B8680;
+    color: var(--grey60);
     font-weight: 500;
     min-width: 60px;
 }
 
 .info-value {
-    color: #fff;
+    color: #FFFFFF;
     font-weight: 500;
     flex-grow: 1;
     font-size: larger;
@@ -179,7 +179,7 @@ const goEval = function () {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    color: #fff;
+    color: #FFFFFF;
     font-weight: 500;
     margin-bottom: 1rem;
     padding: 0.5rem;
@@ -296,7 +296,7 @@ const goEval = function () {
 }
 
 .description-game h4 {
-    color: #fff;
+    color: #FFFFFF;
     font-weight: 500;
     margin: 0;
     display: flex;
@@ -353,7 +353,7 @@ const goEval = function () {
 }
 
 .scenario-box p:not(:first-child) {
-    color: #fff;
+    color: #FFFFFF;
     line-height: 1.6;
     flex-grow: 1;
     overflow-y: auto;
@@ -368,7 +368,7 @@ const goEval = function () {
     border: none;
     border-radius: 8px;
     padding: 1rem;
-    color: #fff;
+    color: #FFFFFF;
     font-size: 1rem;
     line-height: 1.6;
     resize: none;

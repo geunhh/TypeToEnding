@@ -51,13 +51,13 @@ export const useAccountStore = defineStore('account', () => {
       .then(res => {
         // console.log('로그인 성공..')
         // console.log(res.data)
-        window.alert("로그인 하였습니다")
+        window.alert(`환영합니다 ${email}님`)
         token.value = res.data.key
         getUserInfo()
         router.push({ name: 'main' }) // 로그인 성공시 메인 페이지로 이동
         // 원래는 없어도 되지만 회원 가입후 로그인 + 메인페이지 이동을 위해 필요
       })
-      .catch(err => console.log(err))
+      .catch(err => window.alert('이메일 또는 비밀번호가 일치하지 않습니다.'))
   }
 
   // 유저 정보 가져오기

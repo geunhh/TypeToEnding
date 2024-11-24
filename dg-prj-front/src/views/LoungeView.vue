@@ -140,7 +140,7 @@ const gohome = function () {
     font-weight: 400;
     letter-spacing: 0;
     line-height: normal;
-    text-shadow: 0px 4px 4px #00000040;
+    text-shadow: 0px 4px 4px var(--black06);
 }
 
 .theater-code {
@@ -197,13 +197,13 @@ const gohome = function () {
 }
 
 .btn-select:hover {
-    background-color: #9f0217;
+    background-color: var(--red45);
     transform: translateY(-2px);
 }
 
 /* 설명 섹션 */
 .description-box {
-    background-color: #2d2d2d;
+    background-color: var(--black26);
     padding: 2rem;
     border-radius: 12px;
     height: 90%;
@@ -214,7 +214,7 @@ const gohome = function () {
 }
 
 .btn-start {
-    background-color: #8B8680;
+    background-color: var(--grey60);
     color: white;
     padding: 1rem 2rem;
     border: none;
@@ -229,7 +229,7 @@ const gohome = function () {
 }
 
 .btn-start.active:hover {
-    background-color: #9f0217;
+    background-color: var(--red45);
     transform: translateY(-2px);
 }
 
@@ -247,12 +247,12 @@ const gohome = function () {
 }
 
 .howtoplay:hover {
-    background-color: #9f0217;
+    background-color: var(--red45);
     transform: translateY(-2px);
 }
 
 .cast-info {
-    background-color: #2d2d2d;
+    background-color: var(--black26);
     padding: 2rem;
     border-radius: 12px;
     color: white;

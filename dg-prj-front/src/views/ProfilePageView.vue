@@ -424,6 +424,10 @@ const fetchGameRecords = () => {
                     halfStar.value = avg_win_rate.value % 1 >= 0.5 ? 1 : 0;
                     grayStars.value = 5 - redStars.value - halfStar.value;
 
+                    // playedMovies 중복 제거
+
+                    playedMovies.value = [...new Set(playedMovies.value)];
+
                     totalGameRecordsFiltered.value = totalGameRecordsAll.value;
                     totalGameRecordsFilteredPages.value = totalGameRecordsAllPages.value;
                     window.alert(`${store.userInfo.name}님의 전적을 가져왔습니다!`);
@@ -752,7 +756,7 @@ const selectSex = (sex) => {
     background-color: #808080;
     border-radius: 6px;
     border: 1px solid;
-    border-color: #1e1e1e;
+    border-color: var(--black10);
 }
 
 .div-wrapper .skip-previous-filled {
@@ -788,10 +792,10 @@ const selectSex = (sex) => {
     position: absolute;
     top: 0;
     left: 0;
-    background-color: #0f0f0f;
+    background-color: var(--black06);
     border-radius: 10px;
     border: 1px solid;
-    border-color: var(--black-15);
+    border-color: var(--black15);
 }
 
 .div-wrapper .container {
@@ -952,7 +956,7 @@ const selectSex = (sex) => {
     position: relative;
     flex: 1;
     flex-grow: 1;
-    background-color: var(--black-08);
+    background-color: var(--black08);
     border-radius: 8px;
     border: 1px solid;
     border-color: #4e4e4e;
@@ -1051,7 +1055,7 @@ const selectSex = (sex) => {
     background-color: #808080;
     border-radius: 6px;
     border: 1px solid;
-    border-color: #1e1e1e;
+    border-color: var(--black10);
     transform: rotate(-180.00deg);
 }
 
@@ -1089,10 +1093,10 @@ const selectSex = (sex) => {
     position: absolute;
     top: 0;
     left: 4px;
-    background-color: var(--black-06);
+    background-color: var(--black06);
     border-radius: 12px;
     border: 1px solid;
-    border-color: var(--black-15);
+    border-color: var(--black15);
 }
 
 .number-game-info {
@@ -1191,10 +1195,10 @@ const selectSex = (sex) => {
     padding: 14px 16px;
     position: relative;
     flex: 0 0 auto;
-    background-color: var(--black-08);
+    background-color: var(--black08);
     border-radius: 8px;
     border: 1px solid;
-    border-color: var(--black-15);
+    border-color: var(--black15);
 }
 
 .div-wrapper .text-3 {
@@ -1244,7 +1248,7 @@ const selectSex = (sex) => {
     border-top-style: solid;
     border-bottom-width: 1px;
     border-bottom-style: solid;
-    border-color: var(--black-15);
+    border-color: var(--black15);
 }
 
 .container-8-game-info {
@@ -1328,10 +1332,10 @@ const selectSex = (sex) => {
     padding: 8px 10px;
     position: relative;
     flex: 0 0 auto;
-    background-color: var(--black-08);
+    background-color: var(--black08);
     border-radius: 8px;
     border: 1px solid;
-    border-color: var(--black-15);
+    border-color: var(--black15);
 }
 
 .sub-container-9-game-info {
@@ -1340,9 +1344,9 @@ const selectSex = (sex) => {
     display: flex;
     align-items: center;
     position: relative;
-    background-color: var(--black-08);
+    background-color: var(--black08);
     justify-content: space-between;
-    border-color: var(--black-15);
+    border-color: var(--black15);
 }
 
 .sub-container-10 {
@@ -1414,7 +1418,7 @@ const selectSex = (sex) => {
     flex: 0 0 auto;
     border-bottom-width: 1px;
     border-bottom-style: solid;
-    border-color: var(--black-15);
+    border-color: var(--black15);
 }
 
 .div-wrapper .container-11 {
@@ -1487,10 +1491,10 @@ const selectSex = (sex) => {
     padding: 14px;
     position: relative;
     flex: 0 0 auto;
-    background-color: var(--black-08);
+    background-color: var(--black08);
     border-radius: 100px;
     border: 1px solid;
-    border-color: var(--black-15);
+    border-color: var(--black15);
 }
 
 .page-move-button-game-info {
@@ -1563,7 +1567,7 @@ const selectSex = (sex) => {
     flex: 1;
     flex-grow: 1;
     height: 4px;
-    background-color: var(--black-20);
+    background-color: var(--black20);
     border-radius: 100px;
 }
 
@@ -1575,11 +1579,11 @@ const selectSex = (sex) => {
     position: absolute;
     top: 877px;
     left: 0;
-    background-color: var(--black-06);
+    background-color: var(--black06);
     border-radius: 12px;
     overflow: hidden;
     border: 4px solid;
-    border-color: var(--black-12);
+    border-color: var(--black12);
 }
 
 .div-wrapper .button-7 {
@@ -1591,10 +1595,10 @@ const selectSex = (sex) => {
     padding: 14px 24px;
     position: relative;
     flex: 0 0 auto;
-    background-color: var(--black-10);
+    background-color: var(--black10);
     border-radius: 8px;
     border: 1px solid;
-    border-color: var(--black-10);
+    border-color: var(--black10);
 }
 
 .div-wrapper .text-5 {
@@ -1729,6 +1733,7 @@ const selectSex = (sex) => {
     height: 68px;
     transition: all 0.3s ease;
 }
+
 .game-record-button:hover {
     background-color: var(--grey60);
     transform: translateY(-2px);
@@ -1757,7 +1762,7 @@ const selectSex = (sex) => {
     transition: all 0.3s ease;
 }
 
-.cancel-button:hover{
+.cancel-button:hover {
     background-color: var(--grey60);
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
