@@ -90,15 +90,15 @@ const backgroundVideo = ref(null);
 onMounted(() => {
     // 재생 속도를 느리게 설정
     if (backgroundVideo.value) {
-    backgroundVideo.value.playbackRate = 0.5; // 0.5배속으로 설정
-  }
+        backgroundVideo.value.playbackRate = 0.5; // 0.5배속으로 설정
+    }
 });
 const gogoSelect = function () {
     router.push({ name: 'SelectMovie' })
 }
 
 const startGame = function () {
-    console.log('게임을 시작합니다.')
+    // console.log('게임을 시작합니다.')
     router.push({ name: 'loading' })
 }
 
@@ -110,6 +110,18 @@ const gohome = function () {
 </script>
 
 <style scoped>
+.background-video {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -1;
+    object-fit: cover;
+}
+
 .back-icon {
     background-color: transparent;
     border: 0px;
@@ -123,7 +135,8 @@ const gohome = function () {
 
 .bigbig-container {
     padding: 5rem 10rem;
-    background-color: var(--black10);
+    /* background-color: var(--black10); */
+    background-color: transparent;
     min-height: 100vh;
 }
 

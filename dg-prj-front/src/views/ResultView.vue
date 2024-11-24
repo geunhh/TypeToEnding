@@ -174,14 +174,14 @@ const userstore = useUserStore()
 const isRecommend = ref(false)
 const recommend = ref(null)
 const recommend_info = ref(null)
-const movieStore = useMovieStore
+const movieStore = useMovieStore()
 const accountstore = useAccountStore()
 const userComment = ref('')
-const BASE_URL = useAccountStore.BASE_URL
+const BASE_URL = accountstore.BASE_URL
 
 
 onMounted(() => {
-    console.log('gamenum:', gamestore.game_id)
+    // console.log('gamenum:', gamestore.game_id)
     axios({
         method: 'get',
         url: `http://127.0.0.1:8000/gameApp/record/${gamestore.game_id}/`,
@@ -191,7 +191,7 @@ onMounted(() => {
         }
     })
         .then(res => {
-            console.log(res.data); // 이러면 JSON 문자열 그대로 반환됨. 
+            // console.log(res.data); // 이러면 JSON 문자열 그대로 반환됨. 
             result.value = res.data;
 
             // history가 JSON 문자열인 경우 파싱
@@ -212,7 +212,7 @@ onMounted(() => {
                     result: result.value
                 }
             }).then(res => {
-                console.log(res)
+                // console.log(res)
                 recommend.value = res.data.result
             })
                 .then(res => {
@@ -231,7 +231,7 @@ onMounted(() => {
                             query: recommend.value.recommended_movie.title,
                         }
                     }).then(res => {
-                        console.log('ggg', res)
+                        // console.log('ggg', res)
                         recommend_info.value = res.data
 
                     })
@@ -248,18 +248,18 @@ const backToMain = () => {
 
 // 플레이했던 영화에 댓글을 남기는 함수
 const sendComment = () => {
-    // console.log(MovieStore.movieId)
+    // console.log(movieStore.movieId)
     if (userComment.value) {
         axios({
             method: 'POST',
-            url: `${BASE_URL}/gameApp/comment/${movieStore.movieId}/`,
+            url: `http://127.0.0.1:8000/gameApp/comment/${movieStore.movieId}/`,
             headers: {
                 Authorization: `Token ${accountstore.token}`,
                 "Content-Type": "application/json"
             },
             data: { content: userComment.value }
         }).then(res => {
-            console.log(userComment.value)
+            // console.log(userComment.value)
             window.alert('댓글이 작성되었습니다.')
         }
         ).catch(err => window.alert('댓글을 남기는데 실패했습니다'))

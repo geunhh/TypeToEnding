@@ -27,26 +27,26 @@
                         <form class="form" v-if="!accountStore.token">
                             <div class="items-container">
                                 <div class="container">
-                                    <div class="heading manrope-semi-bold-white-18px">E-mail</div>
+                                    <div class="heading manrope-semi-bold-white-18px">이메일</div>
                                     <div class="input-field">
                                         <input v-model="email" type="text" class="text email-pw-input"
-                                            placeholder="Enter your email">
+                                            placeholder="이메일을 입력해주세요">
                                     </div>
                                 </div>
                             </div>
                             <div class="items-container">
                                 <div class="container">
-                                    <div class="heading manrope-semi-bold-white-18px">Password</div>
+                                    <div class="heading manrope-semi-bold-white-18px">비밀번호</div>
                                     <div class="input-field">
                                         <input v-model="password" type="password" class="text email-pw-input"
-                                            placeholder="Enter your password">
+                                            placeholder="비밀번호를 입력해주세요">
                                     </div>
                                 </div>
                             </div>
                             <div class="items-container">
                                 <div class="container">
                                     <button @click.prevent="loginFunc" class="red-button-common">
-                                        <span type="submit" class="option-common">log in</span>
+                                        <span type="submit" class="option-common">로그인</span>
                                     </button>
                                 </div>
                             </div>
@@ -63,7 +63,7 @@
                             <div class="items-container">
                                 <div class="container">
                                     <button class="grey-button-common" @click.prevent="toggleSignUpModal">
-                                        <span class="sign-up">{{ isSignUpModalOpen ? "Close Form" : "Sign Up" }}</span>
+                                        <span class="sign-up">{{ isSignUpModalOpen ? "가입 취소" : "회원 가입" }}</span>
                                     </button>
                                 </div>
                             </div>
@@ -74,28 +74,29 @@
                             <div class="items-container">
                                 <div class="container">
                                     <button @click.prevent="moveToProfilePage" class="red-button-common">
-                                        <p style="padding: 0px 0px; margin: 0px" class="option-common">Profile</p>
+                                        <p style="padding: 0px 0px; margin: 0px" class="option-common">프로필</p>
                                     </button>
                                 </div>
                             </div>
                             <div class="items-container">
                                 <div class="container">
                                     <button @click.prevent="GameStart" class="red-button-common">
-                                        <p style="padding: 0px 0px; margin: 0px" class="option-common">Game Start</p>
+                                        <p style="padding: 0px 0px; margin: 0px" class="option-common">게임 시작</p>
                                     </button>
                                 </div>
                             </div>
                             <div class="items-container">
                                 <div class="container">
                                     <button @click.prevent="CreateMovie" class="red-button-common">
-                                        <p style="padding: 0px 0px; margin: 0px" class="option-common">Make Movie</p>
+                                        <p style="padding: 0px 0px; margin: 0px" class="option-common">영화 만들기</p>
                                     </button>
                                 </div>
                             </div>
                             <div class="items-container">
                                 <div class="container">
-                                    <button @click.prevent="logOutFunc" class="invisible grey-button-common log-out-button">
-                                        <p style="padding: 0px 0px; margin: 0px" class="log-out">Log Out</p>
+                                    <button @click.prevent="logOutFunc"
+                                        class="invisible grey-button-common log-out-button">
+                                        <p style="padding: 0px 0px; margin: 0px" class="log-out">로그아웃</p>
                                     </button>
                                 </div>
                             </div>
@@ -119,7 +120,7 @@
                             <div class="container">
                                 <div class="input-field">
                                     <input v-model.trim="newEmail" type="email" class="text email-pw-input"
-                                        placeholder="Enter your email">
+                                        placeholder="이메일을 입력해주세요">
                                 </div>
                             </div>
                         </div>
@@ -127,7 +128,7 @@
                             <div class="container">
                                 <div class="input-field">
                                     <input v-model.trim="newNickname" type="text" class="text email-pw-input"
-                                        placeholder="Enter your nickname">
+                                        placeholder="닉네임을 입력해주세요">
                                 </div>
                             </div>
                         </div>
@@ -135,7 +136,7 @@
                             <div class="container">
                                 <div class="input-field">
                                     <input v-model.trim="newPassword1" type="password" class="text email-pw-input"
-                                        placeholder="Enter your password">
+                                        placeholder="비밀번호를 입력해주세요">
                                 </div>
                             </div>
                         </div>
@@ -143,14 +144,14 @@
                             <div class="container">
                                 <div class="input-field">
                                     <input v-model.trim="newPassword2" type="password" class="text email-pw-input"
-                                        placeholder="Confirm your password">
+                                        placeholder="비밀번호를 확인해주세요">
                                 </div>
                             </div>
                         </div>
                         <div class="items-container">
                             <div class="container">
                                 <button class="red-button-common" @click.prevent="signUpFunc">
-                                    <div class="option-common manrope-semi-bold-white-18px">Sign Up</div>
+                                    <div class="option-common manrope-semi-bold-white-18px">가입하기</div>
                                 </button>
                             </div>
                         </div>
@@ -296,25 +297,9 @@ const howToPlayHandler = (event) => {
     }
 }
 
-// 게임 설명 모달을 닫아주는 함수 >> 모달 외부 클릭하면 닫아짐
-// 내가 의도한 것 : 모달 창 외부를 클릭 >> 흰 화면 바깥 어디를 클릭해도 닫아져야함
-// 모달의 배경은 배경색상과 똑같음 >> 체감상 없다고 생각할 수 있음 >> 여기 클릭하면 닫아지는거 완료
-// 그런데 제목은 보여야함 >> 제목에는 모달 배경이 안덮여있음 >> 따라서 "모달 배경"의 외부를 클릭해도 닫아져야함
-// 그러느니 그냥 흰 모달창 외부 or X 버튼 클릭시 닫아버리자
-
-// 대기실로 입장하는 함수
-const moveToWaitingRoom = () => {
-    router.push({
-        name: 'WaitingRoomView',
-        params: { roomCode: "3F7D" }
-    })
-}
-
 // 영화 생성 페이지로 이동하는 함수
 const CreateMovie = function () {
-    console.log('ggg')
     router.push({ name: 'CreateMovie' })
-
 }
 
 // 회원 가입 폼을 열고 닫는 함수, sign up 버튼에 적용됨
@@ -403,7 +388,7 @@ div {
     align-items: flex-start;
     background-color: var(--black06);
     border: 1px solid;
-    border-color: var(--black15);
+    border-color: var(--abbey);
     border-radius: 12px;
     display: flex;
     flex-direction: column;
@@ -459,21 +444,6 @@ div {
     gap: 20px;
     position: relative;
     width: 100%;
-}
-
-.button-4 {
-    align-items: center;
-    background-color: var(--black08);
-    border: 1px solid;
-    border-color: var(--black15);
-    border-radius: 8px;
-    display: flex;
-    gap: 10px;
-    height: 59px;
-    justify-content: center;
-    padding: 0px 24px;
-    position: relative;
-    width: 328px;
 }
 
 .text-3 {
@@ -628,7 +598,7 @@ div {
     margin-top: 87px;
     min-height: 248px;
     min-width: 816px;
-    text-shadow: 0px 4px 4px var(--black06); 
+    text-shadow: 0px 4px 4px var(--black06);
 }
 
 .main .overlap-group-container {
@@ -669,17 +639,6 @@ div {
     width: 60px;
 }
 
-.main .remember-me {
-    color: var(--eerie-black);
-    font-family: var(--font-family-inter);
-    font-size: var(--font-size-s);
-    font-weight: 400;
-    left: 52px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 306px;
-}
 
 .main .form {
     align-items: flex-start;
@@ -728,9 +687,8 @@ div {
 .main .input-field {
     align-items: center;
     align-self: stretch;
-    background-color: var(--black08);
-    border: 1px solid;
-    border-color: var(--black15);
+    background-color: var(--black10);
+    border: 1px solid var(--abbey);
     border-radius: 8px;
     display: flex;
     flex: 0 0 auto;
@@ -751,14 +709,15 @@ div {
     line-height: 27px;
     margin-top: -1.00px;
     position: relative;
+    border: 0px;
 }
 
 
 
 .email-pw-input {
     z-index: 1000;
-    border: 0px;
     padding: 0px;
+    background-color: var(--black10);
 }
 
 
@@ -794,13 +753,6 @@ div {
     width: 280px;
 }
 
-.main .icon-media-play {
-    height: 27px;
-    left: 253px;
-    position: absolute;
-    top: 0;
-    width: 27px;
-}
 
 
 .main .icon {
@@ -810,10 +762,6 @@ div {
     position: relative;
     width: 28px;
 }
-
-
-
-
 
 .manrope-semi-bold-white-18px {
     color: var(--absolutewhite);
@@ -915,7 +863,7 @@ div {
     /* 텍스트 줄 바꿈 방지 */
 }
 
-.log-out-button{
+.log-out-button {
     /* margin-top: 72px; */
 }
 

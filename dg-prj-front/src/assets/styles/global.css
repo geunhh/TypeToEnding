@@ -1,8 +1,11 @@
 /* global.css */
 body {
-    background-color: #1a1a1a; /* 원하는 배경 색상 */
-    color: #ffffff; /* 기본 글자 색상 */
-    font-family: Arial, sans-serif; /* 기본 폰트 설정 */
+    background-color: #1a1a1a;
+    /* 원하는 배경 색상 */
+    color: #ffffff;
+    /* 기본 글자 색상 */
+    font-family: Arial, sans-serif;
+    /* 기본 폰트 설정 */
 }
 
 /* 기본 스타일 초기화 및 오버라이드 */
@@ -14,44 +17,59 @@ body {
 
 /* h1~h6 태그 스타일 오버라이드 */
 h1, h2, h3, h4, h5, h6 {
-    font-weight: normal; /* 기본 글자 굵기 초기화 */
-    margin-bottom: 0.5rem; /* 원하는 여백 설정 */
+    font-weight: normal;
+    /* 기본 글자 굵기 초기화 */
+    margin-bottom: 0.5rem;
+    /* 원하는 여백 설정 */
 }
 
 /* 버튼 스타일 오버라이드 */
 .btn {
-    all: unset; /* 기본 스타일 제거 */
-    display: inline-block; /* 기본 블록 설정 */
-    background-color: #830213; /* 원하는 배경색 */
-    color: #ffffff; /* 글자색 */
-    border-radius: 8px; /* 모서리 둥글기 */
-    padding: 10px 20px; /* 여백 설정 */
-    cursor: pointer; /* 커서 변경 */
+    all: unset;
+    /* 기본 스타일 제거 */
+    display: inline-block;
+    /* 기본 블록 설정 */
+    background-color: #830213;
+    /* 원하는 배경색 */
+    color: #ffffff;
+    /* 글자색 */
+    border-radius: 8px;
+    /* 모서리 둥글기 */
+    padding: 10px 20px;
+    /* 여백 설정 */
+    cursor: pointer;
+    /* 커서 변경 */
 }
 
 /* 입력 필드 스타일 오버라이드 */
 input, textarea {
-    background-color: #141414; /* 원하는 배경색 */
-    border: 1px solid #262626; /* 테두리 색상 */
-    color: #ffffff; /* 글자색 */
-    padding: 10px; /* 패딩 설정 */
-    border-radius: 4px; /* 모서리 둥글기 */
+    background-color: #141414;
+    /* 원하는 배경색 */
+    border: 1px solid #262626;
+    /* 테두리 색상 */
+    color: #ffffff;
+    /* 글자색 */
+    padding: 10px;
+    /* 패딩 설정 */
+    border-radius: 4px;
+    /* 모서리 둥글기 */
 }
 
-body{
-    font-family: 'Gowun Dodum', sans-serif; 
+body {
+    font-family: 'Gowun Dodum', sans-serif;
 }
 
 :root {
     --absolutewhite: #ffffff;
     --black: #000000;
     --black06: #0f0f0f;
-    --black08: #141414;
+    /* --black08: #141414; */
     --black10: #1a1a1a;
-    --black12: #1e1e1e;
+    /* --black12: #1e1e1e; */
     --black15: #262626;
-    --eerie-black: #1a1a1a;
+    /* --eerie-black: #1a1a1a; */
     --grey60: #999999;
+    /* --red45: #e50000; */
     --red45: #830213;
     --abbey: #4e4e4e;
 
@@ -60,7 +78,7 @@ body{
     --font-size-l: 32px;
     --font-size-xl: 36px;
     --font-size-xxl: 96px;
-  
+
     --font-family-inknut_antiqua: "Inknut Antiqua", Helvetica;
     --font-family-inter: "Inter", Helvetica;
     --font-family-manrope: "Manrope", Helvetica;
@@ -71,14 +89,15 @@ body{
     --profile-font-size-xl: 24px;
     --profile-font-size-xs: 14px;
     --profile-font-size-xxl: 32px;
-    --profile-font-size-xxxl: 96px;   
+    --profile-font-size-xxxl: 96px;
 
     --profile-font-family-inknut_antiqua-regular: "Inknut Antiqua-Regular", Helvetica;
     --profile-font-family-inter-regular: "Inter-Regular", Helvetica;
     --profile-font-family-manrope: "Manrope", Helvetica;
     --profile-font-family-manrope-bold: "Manrope-Bold", Helvetica;
-  }
-  .background-video {
+}
+
+.background-video {
     position: fixed;
     right: 0;
     bottom: 0;
@@ -89,3 +108,8 @@ body{
     z-index: -1;
     object-fit: cover;
 }
+
+/* 0f : 06 : 컨테이너
+1a : 10 : 배경
+26 : 15 : 컨테이너 내부 소스
+--abbey: 테두리 */

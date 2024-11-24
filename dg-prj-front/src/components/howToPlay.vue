@@ -1,6 +1,6 @@
 <template>
     <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#HowToPlayModal">
-        How To Play
+        튜토리얼
     </button>
 
     <div class="modal fade" id="HowToPlayModal" tabindex="-1" aria-labelledby="HowToPlayLabel" aria-hidden="true">
@@ -8,8 +8,8 @@
             <div class="modal-content modal-content-htp">
                 <div class="modal-header modal-header-htp d-flex justify-content-between align-items-center">
                     <button type="button" class="invisible btn btn-secondary close-btn-htp" data-bs-dismiss="modal">Close</button>
-                    <h1 class="modal-title fs-1 m-0 modal-title-htp" id="HowToPlayLabel">How To Play</h1>
-                    <button type="button" class="btn btn-secondary close-btn-htp" data-bs-dismiss="modal">Close</button>
+                    <h1 class="modal-title fs-1 m-0 modal-title-htp" id="HowToPlayLabel">튜토리얼</h1>
+                    <button type="button" class="btn btn-secondary close-btn-htp" data-bs-dismiss="modal">닫기</button>
                 </div>
                 <div class="modal-body modal-body-htp modal-body-htp-images">
                     <div id="carouselExampleCaptions" class="carousel slide">

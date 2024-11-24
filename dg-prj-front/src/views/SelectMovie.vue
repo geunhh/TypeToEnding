@@ -118,8 +118,8 @@ onMounted(async () => {
   await moviestore.getMovies()
   customMovielist.value = moviestore.movies.filter((movie) => movie.creator !== null)
   originalMovielist.value = moviestore.movies.filter((movie) => movie.creator === null)
-  console.log('커스텀', customMovielist)
-  console.log(originalMovielist)
+  // console.log('커스텀', customMovielist)
+  // console.log(originalMovielist)
 
   // 첫 번째 영화 댓글 가져오기
   if (originalMovielist.value.length > 0) {
@@ -148,7 +148,7 @@ const getComments = function (movieId) {
     }
   })
   .then(res => {
-    console.log(res)
+    // console.log(res)
     comments.value = res.data
     return res.data
   })
@@ -163,7 +163,7 @@ const getComments = function (movieId) {
 // 캐러셀 버튼 누르면 이벤트 발생하면서 함수 실행
 const updateSelectedMovie = function (event) {
   const currentList = isCustom.value ? customMovielist.value : originalMovielist.value;
-  console.log('먀먀먀')
+  // console.log('먀먀먀')
   // 현재 보고 있는 리스트에 따라 총 영화 수 설정
   totalMovies.value = isCustom.value ? customMovielist.value.length : originalMovielist.value.length
   
@@ -175,11 +175,11 @@ const updateSelectedMovie = function (event) {
   }
 
   const selectedmovie = currentList[selectedMovieIndex.value]
-  console.log(selectedmovie)
+  // console.log(selectedmovie)
   if (selectedmovie) {
     getComments(selectedmovie.id)
     .then(data => {
-      console.log('댓글 업데이트',data)
+      // console.log('댓글 업데이트',data)
       comments.value = data
   })
     .catch(err => console.log('댓글 업데이트 실패',err))

@@ -1,8 +1,11 @@
 <template>
     <div class="container-center-horizontal--profile">
+        <video autoplay loop muted class="background-video">
+            <source src="@/assets/movies/sample5.mp4" type="video/mp4">
+        </video>
         <div class="record screen">
             <div class="flex-col">
-                <button class="button-1" @click.prevent="backToMain">
+                <button class="invisible button-1" @click.prevent="backToMain">
                     <!-- <img class="previous" src="@/assets/icons/previous.png" alt="previous" /> -->
                 </button>
                 <div class="overlap-group">
@@ -10,13 +13,13 @@
                         <div class="container">
                             <div class="sub-container-3">
                                 <h1 class="heading-2 valign-text-middle heading-4 manrope-medium-mountain-mist-24px">
-                                    {{ name }}’s Profile Page
+                                    {{ name }}님의 프로필 페이지
                                 </h1>
                             </div>
                         </div>
                         <div class="container">
                             <div class="sub-container">
-                                <div class="heading manrope-medium-mountain-mist-16px">Nickname</div>
+                                <div class="heading manrope-medium-mountain-mist-16px">닉네임</div>
                             </div>
                             <div class="sub-container-1">
                                 <div class="container-1">
@@ -26,7 +29,7 @@
                         </div>
                         <div class="container">
                             <div class="sub-container">
-                                <div class="heading manrope-medium-mountain-mist-16px">Age</div>
+                                <div class="heading manrope-medium-mountain-mist-16px">나이</div>
                             </div>
                             <div class="sub-container-1">
                                 <div class="container-1">
@@ -36,7 +39,7 @@
                         </div>
                         <div class="container">
                             <div class="sub-container">
-                                <div class="heading manrope-medium-mountain-mist-16px">Sex</div>
+                                <div class="heading manrope-medium-mountain-mist-16px">성별</div>
                             </div>
                             <div class="sub-container-1">
                                 <div class="container-1">
@@ -46,7 +49,7 @@
                         </div>
                         <div class="container">
                             <div class="sub-container">
-                                <div class="heading manrope-medium-mountain-mist-16px">Email</div>
+                                <div class="heading manrope-medium-mountain-mist-16px">이메일</div>
                             </div>
                             <div class="sub-container-1">
                                 <div class="container-4">
@@ -56,12 +59,12 @@
                         </div>
                         <div class="container-5">
                             <div class="sub-container-4">
-                                <div class="heading manrope-medium-mountain-mist-16px">Win rate</div>
+                                <div class="heading manrope-medium-mountain-mist-16px">채택률</div>
                             </div>
                             <div class="sub-container-5">
                                 <div class="container-6">
                                     <div class="heading-3 heading-4 manrope-semi-bold-white-16px">
-                                        {{ avg_win_point !== null ? avg_win_point : "0 Slct / 0 Disc" }}
+                                        {{ avg_win_point !== null ? avg_win_point : "0 채택 / 0 폐기" }}
                                     </div>
                                     <div class="sub-container-6">
                                         <div class="container-7">
@@ -84,24 +87,24 @@
                         </div>
                         <div class="container-2">
                             <button class="red-button-common" @click.prevent="handleUpdatePasswordModal">
-                                <p class="option-common">Change Password</p>
+                                <p class="option-common">비밀번호 변경</p>
                             </button>
                         </div>
                         <div class="container-2">
                             <button class="red-button-common" @click.prevent="handleUpdateUserInfoModal">
-                                <p class="option-common">Update Profile</p>
+                                <p class="option-common">프로필 수정</p>
                             </button>
                         </div>
                     </div>
                     <button class="game-record-button" @click.prevent="handleGameInfoSearchModal">
-                        <p class="cancel">{{ !isGameInfoSearchModalOpen ? "Open Record" : "Close Record" }}</p>
+                        <p class="cancel">{{ !isGameInfoSearchModalOpen ? "전적 보기" : "전적 닫기" }}</p>
                     </button>
                 </div>
             </div>
             <form class="form" v-if="isUpdateUserInfoModalOpen && !isUpdatePasswordModalOpen">
                 <div class="items-container">
                     <div class="container-3">
-                        <div class="heading-1 heading-4 manrope-semi-bold-white-18px">Nickname</div>
+                        <div class="heading-1 heading-4 manrope-semi-bold-white-18px">닉네임</div>
                         <div class="input-field">
                             <input class="text-2 text-5 input-box manrope-normal-mountain-mist-18px" type="text"
                                 v-model="newNickname" :placeholder="store.userInfo.name">
@@ -110,7 +113,7 @@
                 </div>
                 <div class="items-container">
                     <div class="container-3">
-                        <div class="heading-1 heading-4 manrope-semi-bold-white-18px">Age</div>
+                        <div class="heading-1 heading-4 manrope-semi-bold-white-18px">나이</div>
                         <div class="input-field">
                             <input class="text-2 text-5 input-box manrope-medium-mountain-mist-18px" v-model="newAge"
                                 :placeholder="store.userInfo.age || '?'">
@@ -120,7 +123,7 @@
 
                 <div class="items-container">
                     <div class="container-3">
-                        <div class="heading-1 heading-4 manrope-semi-bold-white-18px">Sex</div>
+                        <div class="heading-1 heading-4 manrope-semi-bold-white-18px">성별</div>
                         <div class="btn-group">
                             <button class="sex button-sex-select btn btn-secondary btn-lg" type="button">
                                 {{ newSex === 'M' ? '남자' : newSex === 'F' ? '여자' : '?' }}
@@ -140,12 +143,12 @@
 
                 <div class="container-2">
                     <button class="red-button-common" @click.prevent="updateUserInfo">
-                        <p class="option-common">Update</p>
+                        <p class="option-common">수정하기</p>
                     </button>
                 </div>
                 <div class="container-2">
                     <button class="cancel-button" @click.prevent="closeUpdateUserInfoModal">
-                        <p class="cancel">Cancel</p>
+                        <p class="cancel">취소</p>
                     </button>
                 </div>
             </form>
@@ -154,39 +157,39 @@
             <form class="form" v-if="isUpdatePasswordModalOpen && !isUpdateUserInfoModalOpen">
                 <div class="items-container">
                     <div class="container-3">
-                        <div class="heading-1 heading-4 manrope-semi-bold-white-18px">Old Password</div>
+                        <div class="heading-1 heading-4 manrope-semi-bold-white-18px">이전 비밀번호</div>
                         <div class="input-field">
                             <input type="password" class="input-box text-2 text-5 manrope-normal-mountain-mist-18px"
-                                placeholder="Enter your old password" v-model="currentPassword">
+                                placeholder="이전 비밀번호를 입력해주세요" v-model="currentPassword">
                         </div>
                     </div>
                 </div>
                 <div class="items-container">
                     <div class="container-3">
-                        <div class="heading-1 heading-4 manrope-semi-bold-white-18px">New Password</div>
+                        <div class="heading-1 heading-4 manrope-semi-bold-white-18px">새 비밀번호</div>
                         <div class="input-field">
                             <input type="password" class="input-box text-2 text-5 manrope-normal-mountain-mist-18px"
-                                placeholder="Enter your new password" v-model="newPassword1">
+                                placeholder="새 비밀번호를 입력해주세요" v-model="newPassword1">
                         </div>
                     </div>
                 </div>
                 <div class="items-container">
                     <div class="container-3">
-                        <div class="heading-1 heading-4 manrope-semi-bold-white-18px">Confirm</div>
+                        <div class="heading-1 heading-4 manrope-semi-bold-white-18px">비밀번호 확인</div>
                         <div class="input-field">
                             <input type="password" class="input-box text-2 text-5 manrope-normal-mountain-mist-18px"
-                                placeholder="Confirm your new password" v-model="newPassword2">
+                                placeholder="비밀번호를 확인해주세요" v-model="newPassword2">
                         </div>
                     </div>
                 </div>
                 <div class="container-2">
                     <button class="red-button-common" @click.prevent="updatePassword">
-                        <p class="option-common manrope-semi-bold-white-18px">Update</p>
+                        <p class="option-common manrope-semi-bold-white-18px">변경</p>
                     </button>
                 </div>
                 <div class="container-2">
                     <button class="cancel-button" @click.prevent="isUpdatePasswordModalOpen = false">
-                        <p class="cancel manrope-semi-bold-white-18px">Cancel</p>
+                        <p class="cancel manrope-semi-bold-white-18px">취소</p>
                     </button>
                 </div>
             </form>
@@ -198,7 +201,7 @@
                     <!-- 영화 필터링 기능 -->
                     <div class="sub-container-9-game-info">
                         <div class="text-container">
-                            <p class="game-result">{{ name }}'s game record</p>
+                            <p class="game-result">{{ name }}님의 전적</p>
                         </div>
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle button-4-game-info" type="button"
@@ -392,7 +395,7 @@ const fetchGameRecords = () => {
             url: `${BASE_URL}/gameApp/user_record/${store.userId}/`,
             headers: { "Authorization": `Token ${store.token}` },
         }).then((res) => {
-            console.log(res)
+            // console.log(res)
             // API 응답 데이터가 존재하는지 확인
             if (res.data && res.data.game_records) {
                 totalGameRecordsAll.value = res.data.game_records;
@@ -418,7 +421,7 @@ const fetchGameRecords = () => {
                     });
 
                     // 평균 승률 및 별 개수 계산
-                    avg_win_point.value = `${wins.value} Slct / ${loss.value} Disc`;
+                    avg_win_point.value = `${wins.value} 채택 / ${loss.value} 폐기`;
                     avg_win_rate.value = Number(((wins.value / (wins.value + loss.value)) * 5).toFixed(1));
                     redStars.value = Math.floor(avg_win_rate.value);
                     halfStar.value = avg_win_rate.value % 1 >= 0.5 ? 1 : 0;
@@ -439,7 +442,7 @@ const fetchGameRecords = () => {
             }
         }).catch(err => {
             window.alert('전적 검색에 실패했습니다.');
-            console.log(err)
+            // console.log(err)
             isGameInfoSearchModalOpen.value = false;
         });
     }
@@ -530,7 +533,7 @@ const updateUserInfo = () => {
 // 이스케이프 문자를 제거합니다.
 const removeEscapeCharacters = (inputString) => {
     if (typeof inputString !== 'string') {
-        console.warn("removeEscapeCharacters: Non-string input received", inputString);
+        // console.warn("removeEscapeCharacters: Non-string input received", inputString);
         return inputString; // 문자열이 아니면 그대로 반환
     }
     return inputString
@@ -625,6 +628,18 @@ const selectSex = (sex) => {
 /***************************************************/
 /***************************************************/
 
+.background-video {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -1;
+    object-fit: cover;
+}
+
 .star-rating {
     display: flex;
 }
@@ -650,19 +665,16 @@ const selectSex = (sex) => {
     color: #FFFFFF;
 }
 
-.btn-group .btn-secondary {
-    background-color: var(--black08);
-    border: 1px solid var(--black15);
-    color: var(--grey60);
+.btn-group .btn.btn-secondary {
+    background-color: var(--black10);
+    color: #FFFFFF;
 }
 
 .btn-group .btn-secondary:hover,
 .btn-group .btn-secondary:focus,
 .btn-group .btn-secondary:active {
-    background-color: var(--black08) !important;
-    border-color: var(--black15) !important;
-    box-shadow: none !important;
-    color: var(--grey60);
+    background-color: var(--red45) !important;
+    color: #FFFFFF;
 }
 
 .button-sex-select {
@@ -717,15 +729,11 @@ const selectSex = (sex) => {
     margin: 0;
 }
 
-.dropdown .btn-secondary {
-    background-color: #830213;
-}
 
 .dropdown .btn-secondary:hover,
 .dropdown .btn-secondary:focus,
 .dropdown .btn-secondary:active {
-    background-color: #af0d22;
-    box-shadow: none !important;
+    background-color: var(--red45);
 }
 
 .div-wrapper {
@@ -753,7 +761,7 @@ const selectSex = (sex) => {
     position: absolute;
     top: 50px;
     left: 50px;
-    background-color: #808080;
+    background-color: var(--grey60);
     border-radius: 6px;
     border: 1px solid;
     border-color: var(--black10);
@@ -823,7 +831,7 @@ const selectSex = (sex) => {
     flex: 1;
     margin-top: -1.00px;
     font-weight: 500;
-    color: var(--grey-60);
+    color: var(--grey60);
     font-size: 24px;
     line-height: 36px;
     position: relative;
@@ -856,7 +864,7 @@ const selectSex = (sex) => {
     margin-top: -1.00px;
     font-family: "Manrope", Helvetica;
     font-weight: 500;
-    color: var(--grey-60);
+    color: var(--grey60);
     font-size: 16px;
     letter-spacing: 0;
     line-height: 24px;
@@ -882,7 +890,7 @@ const selectSex = (sex) => {
     background-color: var(--black10);
     border-radius: 6px;
     border: 1px solid;
-    border-color: #4e4e4e;
+    border-color: var(--abbey);
 }
 
 .div-wrapper .text {
@@ -909,7 +917,7 @@ const selectSex = (sex) => {
     background-color: var(--black10);
     border-radius: 6px;
     border: 1px solid;
-    border-color: #4e4e4e;
+    border-color: var(--abbey);
 }
 
 .div-wrapper .container-4 {
@@ -956,10 +964,10 @@ const selectSex = (sex) => {
     position: relative;
     flex: 1;
     flex-grow: 1;
-    background-color: var(--black08);
+    background-color: var(--black10);
     border-radius: 8px;
     border: 1px solid;
-    border-color: #4e4e4e;
+    border-color: var(--abbey);
 }
 
 .div-wrapper .heading-2 {
@@ -1021,7 +1029,7 @@ const selectSex = (sex) => {
     gap: 10px;
     padding: 18px 24px;
     position: relative;
-    background-color: var(--red-45);
+    background-color: var(--red45);
     border-radius: 8px;
 }
 
@@ -1052,7 +1060,7 @@ const selectSex = (sex) => {
     position: absolute;
     top: 526px;
     left: 283px;
-    background-color: #808080;
+    background-color: var(--grey60);
     border-radius: 6px;
     border: 1px solid;
     border-color: var(--black10);
@@ -1156,7 +1164,7 @@ const selectSex = (sex) => {
     gap: 10px;
     position: relative;
     flex: 0 0 auto;
-    color: var(--grey-60)
+    color: var(--grey60)
 }
 
 .game-result {
@@ -1195,7 +1203,7 @@ const selectSex = (sex) => {
     padding: 14px 16px;
     position: relative;
     flex: 0 0 auto;
-    background-color: var(--black08);
+    background-color: var(--black10);
     border-radius: 8px;
     border: 1px solid;
     border-color: var(--black15);
@@ -1291,7 +1299,7 @@ const selectSex = (sex) => {
     width: 60px;
     font-family: "Manrope", Helvetica;
     font-weight: 600;
-    color: var(--grey-60);
+    color: var(--grey60);
     font-size: 30px;
     letter-spacing: 0;
     line-height: 45px;
@@ -1332,7 +1340,7 @@ const selectSex = (sex) => {
     padding: 8px 10px;
     position: relative;
     flex: 0 0 auto;
-    background-color: var(--black08);
+    background-color: var(--black10);
     border-radius: 8px;
     border: 1px solid;
     border-color: var(--black15);
@@ -1344,7 +1352,7 @@ const selectSex = (sex) => {
     display: flex;
     align-items: center;
     position: relative;
-    background-color: var(--black08);
+    /* background-color: var(--black10); */
     justify-content: space-between;
     border-color: var(--black15);
 }
@@ -1376,7 +1384,7 @@ const selectSex = (sex) => {
     margin-top: -1.00px;
     font-family: "Manrope", Helvetica;
     font-weight: 500;
-    color: var(--grey-60);
+    color: var(--grey60);
     font-size: 16px;
     letter-spacing: 0;
     line-height: 24px;
@@ -1388,7 +1396,7 @@ const selectSex = (sex) => {
     align-self: stretch;
     font-family: "Manrope", Helvetica;
     font-weight: 400;
-    color: var(--grey-60);
+    color: var(--grey60);
     font-size: 18px;
     letter-spacing: 0;
     line-height: 27px;
@@ -1491,7 +1499,7 @@ const selectSex = (sex) => {
     padding: 14px;
     position: relative;
     flex: 0 0 auto;
-    background-color: var(--black08);
+    background-color: var(--black10);
     border-radius: 100px;
     border: 1px solid;
     border-color: var(--black15);
@@ -1558,7 +1566,7 @@ const selectSex = (sex) => {
     position: relative;
     width: 23px;
     height: 4px;
-    background-color: var(--red-45);
+    background-color: var(--red45);
     border-radius: 100px;
 }
 
@@ -1619,7 +1627,7 @@ const selectSex = (sex) => {
     width: fit-content;
     font-family: "Manrope", Helvetica;
     font-weight: 400;
-    color: var(--grey-75);
+    color: var(--grey75);
     font-size: 18px;
     letter-spacing: 0;
     line-height: 27px;
@@ -1632,7 +1640,7 @@ const selectSex = (sex) => {
     height: 175px;
     top: 138px;
     left: 888px;
-    background-color: #d9d9d947;
+    background-color: var(--grey60);
     border-radius: 10px;
 }
 
@@ -1656,7 +1664,7 @@ const selectSex = (sex) => {
     width: 200px;
     height: 68px;
     position: absolute;
-    background-color: var(--black08);
+    background-color: var(--black10);
     /* color: white; */
     color: var(--black15);
     border: 1px solid;
@@ -1676,6 +1684,7 @@ const selectSex = (sex) => {
 .input-box {
     border: 0px;
     padding: 0px;
+    background-color: var(--black10);
 }
 
 .cancel {
@@ -1708,10 +1717,9 @@ const selectSex = (sex) => {
     /* margin-top: -1.00px; */
     margin-bottom: 0px;
     position: relative;
-    background-color: #830213;
 }
 
-.grey-button-common {
+.greybutton-common {
     align-items: center;
     align-self: stretch;
     background-color: var(--black15);
@@ -1743,7 +1751,7 @@ const selectSex = (sex) => {
 .cancel-button {
     align-items: center;
     align-self: stretch;
-    background-color: var(--black15);
+    background-color: var(--black10);
     border: 2px solid var(--grey60);
     border-radius: 8px;
     display: flex;
@@ -1771,12 +1779,11 @@ const selectSex = (sex) => {
 .game-record-button {
     align-items: center;
     align-self: stretch;
-    background-color: var(--black15);
+    background-color: var(--black10);
     border: 2px solid var(--grey60);
     border-radius: 8px;
     display: flex;
     flex: 0 0 auto;
-    /* gap: 77px; */
     overflow: hidden;
     padding: 20px;
     position: absolute;
@@ -1796,9 +1803,8 @@ const selectSex = (sex) => {
 .red-button-common {
     align-items: center;
     align-self: stretch;
-    background-color: #830213;
-    border: 1px solid;
-    border-color: #830213;
+    background-color: var(--black10);
+    border: 2px solid var(--red45);
     border-radius: 8px;
     display: flex;
     flex: 0 0 auto;
@@ -2003,9 +2009,9 @@ const selectSex = (sex) => {
 .input-field {
     align-items: center;
     align-self: stretch;
-    background-color: var(--black08);
+    background-color: var(--black10);
     border: 1px solid;
-    border-color: var(--black15);
+    border-color: var(--abbey);
     border-radius: 8px;
     display: flex;
     flex: 0 0 auto;
@@ -2031,7 +2037,8 @@ const selectSex = (sex) => {
 
 .record {
     align-items: flex-start;
-    background-color: var(--black10);
+    background-color: transparent;
+    /* background-color: var(--black10); */
     display: flex;
     gap: 74px;
     height: 1024px;
@@ -2056,7 +2063,7 @@ const selectSex = (sex) => {
 
 .button-1-game-info {
     align-items: center;
-    background-color: var(--black08);
+    background-color: var(--black10);
     border: 1px solid;
     border-color: var(--black15);
     border-radius: 100px;
@@ -2129,7 +2136,7 @@ const selectSex = (sex) => {
 
 .record .container-6 {
     align-items: flex-start;
-    background-color: var(--black08);
+    background-color: var(--black10);
     border: 1px solid;
     border-color: var(--abbey);
     border-radius: 8px;
@@ -2237,7 +2244,7 @@ const selectSex = (sex) => {
 
 .record .button-4 {
     align-items: flex-start;
-    background-color: #830213;
+    background-color: var(--red45);
     border-radius: 8px;
     display: flex;
     gap: 10px;
@@ -2246,11 +2253,10 @@ const selectSex = (sex) => {
     width: 314px;
 }
 
-.button-4-game-info {
+.btn.btn-secondary.dropdown-toggle.button-4-game-info {
     align-items: center;
-    background-color: #830213;
-    border: 1px solid;
-    border-color: var(--black15);
+    background-color: var(--black10);
+    border: 2px solid var(--red45);
     border-radius: 8px;
     display: inline-flex;
     flex: 0 0 auto;
@@ -2261,7 +2267,9 @@ const selectSex = (sex) => {
     transition: all 0.3s ease;
 }
 
-.button-4-game-info:hover {
+.btn.btn-secondary.dropdown-toggle.button-4-game-info:focus,
+.btn.btn-secondary.dropdown-toggle.button-4-game-info:active,
+.btn.btn-secondary.dropdown-toggle.button-4-game-info:hover {
     background-color: var(--red45);
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
