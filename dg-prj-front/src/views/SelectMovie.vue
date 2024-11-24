@@ -84,8 +84,10 @@ onMounted(async () => {
   await moviestore.getMovies()
   
   // 영화 리스트 구분. 일단 14번이 admin이라 이렇게 적어둠. 나중에 db갈거나 하면 1로 바꾸면 될듯.
-  customMovielist.value = moviestore.movies.filter((movie) => movie.creator !== 14)
-  originalMovielist.value = moviestore.movies.filter((movie) => movie.creator === 14)
+  customMovielist.value = moviestore.movies.filter((movie) => movie.creator !== null)
+  originalMovielist.value = moviestore.movies.filter((movie) => movie.creator === null)
+  console.log('커스텀',customMovielist)
+  console.log(originalMovielist)
   
   // 초기 총 영화 수 설정
   totalMovies.value = originalMovielist.value.length

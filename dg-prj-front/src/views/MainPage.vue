@@ -83,8 +83,8 @@
                         </div>
                         <div class="items-container">
                             <div class="container">
-                                <button @click.prevent="isEnterRoomModalOpen = false" class="red-button-common">
-                                    <p style="padding: 0px 0px; margin: 0px" class="option-common">Enter Room</p>
+                                <button @click.prevent="CreateMovie" class="red-button-common">
+                                    <p style="padding: 0px 0px; margin: 0px" class="option-common">Make Movie</p>
                                 </button>
                             </div>
                         </div>
@@ -182,7 +182,6 @@ const newPassword1 = ref(null)
 const newPassword2 = ref(null)
 const newNickname = ref(null)
 
-const isEnterRoomModalOpen = ref(false)
 const isSignUpModalOpen = ref(false)
 
 
@@ -281,6 +280,27 @@ const howToPlayHandler = (event) => {
         // 모달이 닫혀있고, 모달 버튼을 클릭했으면 열어줘
         modalStore.isHowToPlayModalOpen = true;
     }
+}
+
+// 게임 설명 모달을 닫아주는 함수 >> 모달 외부 클릭하면 닫아짐
+// 내가 의도한 것 : 모달 창 외부를 클릭 >> 흰 화면 바깥 어디를 클릭해도 닫아져야함
+// 모달의 배경은 배경색상과 똑같음 >> 체감상 없다고 생각할 수 있음 >> 여기 클릭하면 닫아지는거 완료
+// 그런데 제목은 보여야함 >> 제목에는 모달 배경이 안덮여있음 >> 따라서 "모달 배경"의 외부를 클릭해도 닫아져야함
+// 그러느니 그냥 흰 모달창 외부 or X 버튼 클릭시 닫아버리자
+
+// 대기실로 입장하는 함수
+const moveToWaitingRoom = () => {
+    router.push({
+        name: 'WaitingRoomView',
+        params: { roomCode: "3F7D" }
+    })
+}
+
+// 영화 생성 페이지로 이동하는 함수
+const CreateMovie = function () {
+    console.log('ggg')
+    router.push({name : 'CreateMovie'})
+    
 }
 
 // 회원 가입 폼을 열고 닫는 함수, sign up 버튼에 적용됨

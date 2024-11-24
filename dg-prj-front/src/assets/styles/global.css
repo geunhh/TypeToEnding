@@ -38,6 +38,9 @@ input, textarea {
     border-radius: 4px; /* 모서리 둥글기 */
 }
 
+body{
+    font-family: 'Gowun Dodum', sans-serif; 
+}
 
 :root {
     --absolutewhite: #ffffff;

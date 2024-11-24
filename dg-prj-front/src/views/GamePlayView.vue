@@ -119,27 +119,16 @@ const goEval = function () {
 .round-circle {
     width: 80px;
     height: 80px;
-    border-radius: 50%;
-    border: 2px solid #830213;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: rgba(131, 2, 19, 0.1);
     margin: 0 auto;
-}
-
-.round-label {
-    font-size: 0.7rem;
-    color: #830213;
-    text-transform: uppercase;
-    letter-spacing: 2px;
 }
 
 .round-number {
     font-size: 2rem;
     font-weight: 700;
-    color: #830213;
 }
 
 /* 정보 섹션 */

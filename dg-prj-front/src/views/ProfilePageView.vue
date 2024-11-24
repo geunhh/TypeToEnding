@@ -390,6 +390,7 @@ const fetchGameRecords = () => {
             url: `${BASE_URL}/gameApp/user_record/${store.userId}/`,
             headers: { "Authorization": `Token ${store.token}` },
         }).then((res) => {
+            console.log(res)
             // API 응답 데이터가 존재하는지 확인
             if (res.data && res.data.game_records) {
                 totalGameRecordsAll.value = res.data.game_records;
@@ -432,6 +433,7 @@ const fetchGameRecords = () => {
             }
         }).catch(err => {
             window.alert('전적 검색에 실패했습니다.');
+            console.log(err)
             isGameInfoSearchModalOpen.value = false;
         });
     }
@@ -530,6 +532,7 @@ const removeEscapeCharacters = (inputString) => {
         .replace(/\\n/g, '')
         .replace(/\\"/g, '"');
 };
+
 
 // 객체배열형태로 반환
 const parseStringToObjectArray = (inputString) => {

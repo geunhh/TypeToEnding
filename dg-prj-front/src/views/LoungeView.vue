@@ -30,7 +30,7 @@
 
             <!-- 설명 섹션 -->
             <div class="description-section">
-                <div class="description-box">
+                <div class="description-box" style="font-family: 'Gowun Dodum', serif; font-size: larger;">
                     <p v-if="moviestore.movieId">{{ moviestore.description }}</p>
                     <p v-else>영화 줄거리가 들어갈 공간입니다.</p>
                 </div>
