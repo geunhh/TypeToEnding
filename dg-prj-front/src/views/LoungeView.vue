@@ -2,7 +2,9 @@
 
     <div class="bigbig-container">
         <!-- 헤더 섹션 -->
-
+        <video autoplay loop muted class="background-video" ref="backgroundVideo">
+            <source src="@/assets/movies/sample5.mp4" type="video/mp4">
+        </video>
         <div class="header-section" style="position: relative; text-align: center;">
             <!-- <button class="back-icon" @click="gohome">
                 <i style="font-size: 3rem;color: var(--red45); " class="bi bi-house-fill"></i>
@@ -67,10 +69,6 @@
                             <span class="cast-role">조연 3</span>
                             <span class="cast-player">player X</span>
                         </div>
-                        <div class="cast-item">
-                            <span class="cast-role">조연 4</span>
-                            <span class="cast-player">player X</span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -82,11 +80,19 @@
 import howToPlay from '@/components/howToPlay.vue';
 import { useAccountStore } from '@/stores/accountStore';
 import { useMovieStore, useUserStore } from '@/stores/counter';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 const router = useRouter()
 const store = useAccountStore()
 const moviestore = useMovieStore()
+const backgroundVideo = ref(null);
 
+onMounted(() => {
+    // 재생 속도를 느리게 설정
+    if (backgroundVideo.value) {
+    backgroundVideo.value.playbackRate = 0.5; // 0.5배속으로 설정
+  }
+});
 const gogoSelect = function () {
     router.push({ name: 'SelectMovie' })
 }
@@ -250,6 +256,7 @@ const gohome = function () {
     padding: 2rem;
     border-radius: 12px;
     color: white;
+    margin-top: 30px;
 }
 
 .cast-info h3 {

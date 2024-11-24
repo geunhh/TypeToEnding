@@ -1,5 +1,10 @@
 <template>
-  <div class="bigbig-container">
+  <video autoplay loop muted class="background-video">
+            <source src="@/assets/movies/sample5.mp4" type="video/mp4">
+        </video>
+  <div class="bigbig-container" v-if="moviestore.movies!=null">
+    
+    
     <div style="text-align: center;">
       <h1 class="title">Type to Ending</h1>
       <!-- {{ originalMovielist }} -->
