@@ -23,7 +23,8 @@
 
           </div>
 
-          <div class="carousel-item" v-for="(movie, index) in customMovielist" :class="{ active: index === 0 }" v-else>
+          <div class="carousel-item" v-for="(movie, index) in customMovielist"
+            :class="{ active: index === 0 }" v-else>
             <img class="poster" :src="`http://127.0.0.1:8000${customMovielist[index].poster_path}`"
               style="height:35rem ;" v-if="movie.poster_path">
             <!-- <img class="poster" src='@/assets/selectimg.jpeg' v-else style="height: 60rem;"> -->
@@ -66,7 +67,7 @@
       </div>
     </div>
   </div>
-
+  
   <!-- 댓글 창  -->
   <div class="comment-container">
     <p class="d-inline-flex gap-1">
@@ -93,7 +94,7 @@
 import { useAccountStore } from '@/stores/accountStore';
 import { useMovieStore } from '@/stores/counter';
 import axios from 'axios';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter()
@@ -103,11 +104,10 @@ const accountstore = useAccountStore()
 const selectedMovieIndex = ref(0)
 const totalMovies = ref(null)
 
-
 const isCustom = ref(false)
 
-const customMovielist = ref()
-const originalMovielist = ref()
+const customMovielist = ref([])
+const originalMovielist = ref([])
 
 // 댓글 목록
 const comments = ref([])
@@ -123,7 +123,6 @@ onMounted(async () => {
   // 첫 번째 영화 댓글 가져오기
   if (originalMovielist.value.length > 0) {
     getComments(originalMovielist.value[0].id)
-
   }
 
   // 초기 총 영화 수 설정
@@ -137,6 +136,16 @@ onMounted(async () => {
   })
 })
 
+// 감시
+watch(
+  () => moviestore.movies,
+  (newMovies) => {
+    customMovielist.value = newMovies.filter((movie) => movie.creator !==1)
+    originalMovielist.value = newMovies.filter((movie) => movie.creator === 1);
+  }
+)
+
+
 // 댓글 가져오는 함수
 const getComments = function (movieId) {
   return axios({
@@ -146,15 +155,15 @@ const getComments = function (movieId) {
       Authorization: `Token ${accountstore.token}`
     }
   })
-    .then(res => {
-      console.log(res)
-      comments.value = res.data
-      return res.data
-    })
-    .catch(err => {
-      console.log(err)
-      comments.value = []
-    })
+  .then(res => {
+    console.log(res)
+    comments.value = res.data
+    return res.data
+  })
+  .catch(err => {
+    console.log(err)
+    comments.value = []
+})
 
 
 }
@@ -165,7 +174,7 @@ const updateSelectedMovie = function (event) {
   // console.log('먀먀먀')
   // 현재 보고 있는 리스트에 따라 총 영화 수 설정
   totalMovies.value = isCustom.value ? customMovielist.value.length : originalMovielist.value.length
-
+  
   // 방향에 따라 선택된 영화 인덱스 업데이트
   if (event.direction === "left") {
     selectedMovieIndex.value = (selectedMovieIndex.value + 1) % totalMovies.value;
@@ -177,12 +186,12 @@ const updateSelectedMovie = function (event) {
   // console.log(selectedmovie)
   if (selectedmovie) {
     getComments(selectedmovie.id)
-      .then(data => {
-        // console.log('댓글 업데이트',data)
-        comments.value = data
-      })
-      .catch(err => console.log('댓글 업데이트 실패', err))
-
+    .then(data => {
+      // console.log('댓글 업데이트',data)
+      comments.value = data
+  })
+    .catch(err => console.log('댓글 업데이트 실패',err))
+    
   }
 
 }
@@ -216,80 +225,80 @@ const submitMovie = () => {
 
 <style scoped>
 .comment-container {
-  position: fixed;
-  right: 10rem;
-  top: 10rem;
-  z-index: 9999;
+    position: fixed;
+    right: 10rem;
+    top: 10rem;
+    z-index: 9999;
 }
 
 .btn-primary {
-  background: #1A1A1A;
-  border: 1px solid #500010;
-  padding: 0.8rem 1.5rem;
-  border-radius: 8px;
-  color: #fff;
-  font-weight: 500;
-  transition: all 0.3s ease;
+    background: #1A1A1A;
+    border: 1px solid #500010;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 500;
+    transition: all 0.3s ease;
 }
 
 .btn-primary:hover {
-  background: #500010;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(80, 0, 10, 0.4);
+    background: #500010;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(80, 0, 10, 0.4);
 }
 
 .collapse-panel {
-  position: absolute;
-  top: 3rem;
-  left: 0;
-  width: 300px;
+    position: absolute;
+    top: 3rem;
+    left: 0;
+    width: 300px;
 }
 
 .card {
-  background: #1A1A1A;
-  border: 1px solid rgba(173, 154, 157, 0.3);
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    background: #1A1A1A;
+    border: 1px solid rgba(173, 154, 157, 0.3);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .card-body {
-  padding: 1.5rem;
-  color: #fff !important;
+    padding: 1.5rem;
+    color: #fff !important;
 }
 
 .card-body h5 {
-  color: #830213;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid rgba(131, 2, 19, 0.3);
+    color: #830213;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(131, 2, 19, 0.3);
 }
 
 .card-body ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .card-body li {
-  padding: 0.8rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.3s ease;
+    padding: 0.8rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
 }
 
 .card-body li:hover {
-  background: rgba(131, 2, 19, 0.1);
+    background: rgba(131, 2, 19, 0.1);
 }
 
 .card-body strong {
-  color: #830213;
-  margin-right: 0.5rem;
+    color: #830213;
+    margin-right: 0.5rem;
 }
 
 .card-body p {
-  color: #8B8680;
-  text-align: center;
-  margin: 1rem 0 0;
+    color: #8B8680;
+    text-align: center;
+    margin: 1rem 0 0;
 }
 
 .collapse-panel {
