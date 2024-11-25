@@ -67,14 +67,14 @@ const router = createRouter({
       component: RoundResult,
     },
     {
-      path : '/ResultPage',
-      name : 'ResultPage',
-      component : ResultView,
+      path: '/ResultPage',
+      name: 'ResultPage',
+      component: ResultView,
     },
     {
-      path : '/CreateMovie',
-      name : 'CreateMovie',
-      component : CreateMovie
+      path: '/CreateMovie',
+      name: 'CreateMovie',
+      component: CreateMovie
     }
   ],
 

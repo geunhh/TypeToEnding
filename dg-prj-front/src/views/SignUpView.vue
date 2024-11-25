@@ -22,22 +22,22 @@
         <!-- No Longer Used!!! Deprecated!!! -->
         <h1>회원가입</h1>
         <div style="text-align: left; margin-left: 10%;">
-        <form @submit.prevent="signUp">
-            <label for="email">email : </label>
-            <input type="text" id="email" v-model.trim="email"><br>
-            
-            <label for="password1">password : </label>
-            <input type="text" id="password1" v-model.trim="password1"><br>
-            
-            <label for="password2">confirm_password : </label>
-            <input type="text" id="password2" v-model.trim="password2"><br>
+            <form @submit.prevent="signUp">
+                <label for="email">email : </label>
+                <input type="text" id="email" v-model.trim="email"><br>
 
-            <!-- 회원 가입시 닉네임 입력도 추가 -->
-            <label for="name">name : </label>
-            <input type="text" id="name" v-model.trim="name"><br>
+                <label for="password1">password : </label>
+                <input type="text" id="password1" v-model.trim="password1"><br>
 
-            <input type="submit" value="회원가입">
-        </form>
+                <label for="password2">confirm_password : </label>
+                <input type="text" id="password2" v-model.trim="password2"><br>
+
+                <!-- 회원 가입시 닉네임 입력도 추가 -->
+                <label for="name">name : </label>
+                <input type="text" id="name" v-model.trim="name"><br>
+
+                <input type="submit" value="회원가입">
+            </form>
         </div>
     </div>
 </template>
@@ -55,17 +55,14 @@ const name = ref(null)
 // 닉네임 필드 추가
 const signUp = function () {
     const payload = {
-        email : email.value,
-        password1 : password1.value,
-        password2 : password2.value,
-        name : name.value,
+        email: email.value,
+        password1: password1.value,
+        password2: password2.value,
+        name: name.value,
     }
     store.signUp(payload)
 }
 
 </script>
 
-<style scoped>
-
-
-</style>
+<style scoped></style>

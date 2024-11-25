@@ -16,7 +16,12 @@ body {
 }
 
 /* h1~h6 태그 스타일 오버라이드 */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-weight: normal;
     /* 기본 글자 굵기 초기화 */
     margin-bottom: 0.5rem;
@@ -42,7 +47,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* 입력 필드 스타일 오버라이드 */
-input, textarea {
+input,
+textarea {
     background-color: #141414;
     /* 원하는 배경색 */
     border: 1px solid #262626;

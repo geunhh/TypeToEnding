@@ -1,8 +1,0 @@
-[
-{
-  "model": "gameApp.gamerecord",
-  "pk": 1,
-  "fields": {
-    "user": 5,
-    "movie": 5,
-    "history": "[{\"round\": 0, \"situation\": \"ī

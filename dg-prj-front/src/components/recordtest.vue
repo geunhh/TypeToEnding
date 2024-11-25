@@ -6,7 +6,7 @@
             <div v-for=" in record"></div>
             <p style="font-size: small;">{{ record.history }}</p>
         </div>
-        
+
 
     </div>
 </template>
@@ -22,22 +22,20 @@ const accountstore = useAccountStore()
 const records = ref()
 
 onMounted(() => {
-axios({
-    method : 'get',
-    url:' http://127.0.0.1:8000/gameApp/test/',
-    headers : {
-        Authorization: `Token ${accountstore.token}`
-    },
-}).then(res => {
-    console.log(res)
-    records.value = res.data
-})
+    axios({
+        method: 'get',
+        url: ' http://127.0.0.1:8000/gameApp/test/',
+        headers: {
+            Authorization: `Token ${accountstore.token}`
+        },
+    }).then(res => {
+        console.log(res)
+        records.value = res.data
+    })
 
-.catch(err => console.log(err))
+        .catch(err => console.log(err))
 })
 
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -30,7 +30,7 @@
                     <div class="progress-section">
                         <div class="date-display">
                             <i class="bi bi-calendar3"></i>
-                            <span>{{year}} / {{ month }} / {{ day }}</span>
+                            <span>{{ year }} / {{ month }} / {{ day }}</span>
                         </div>
                         <div class="progress-indicators">
                             <div v-for="n in 5" :key="n" class="progress-dot"
@@ -228,6 +228,7 @@ const goEval = function () {
         margin: 0 auto;
     }
 }
+
 .row span {
     padding: 0 2px;
 }
@@ -276,6 +277,7 @@ const goEval = function () {
     background-color: gray;
     /* prompt-box만 다른 배경색으로 설정 */
 }
+
 /* 기존 high-bar 관련 스타일은 유지하고, 아래 스타일을 추가/수정합니다 */
 
 .bigbig-container {
@@ -319,7 +321,8 @@ const goEval = function () {
     margin-top: 2rem;
 }
 
-.scenario-box, .prompt-box {
+.scenario-box,
+.prompt-box {
     flex: 1;
     max-width: 500px;
     background-color: var(--black06);
@@ -332,7 +335,8 @@ const goEval = function () {
     flex-direction: column;
 }
 
-.scenario-box p:first-child, .prompt-box p:first-child {
+.scenario-box p:first-child,
+.prompt-box p:first-child {
     color: var(--red45);
     font-weight: 600;
     font-size: 1.1rem;

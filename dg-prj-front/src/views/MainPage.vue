@@ -863,10 +863,6 @@ div {
     /* 텍스트 줄 바꿈 방지 */
 }
 
-.log-out-button {
-    /* margin-top: 72px; */
-}
-
 .grey-button-common {
     align-items: center;
     align-self: stretch;

@@ -13,8 +13,9 @@ load_dotenv()
 # API 키 가져오기
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
+
 def get_movie_context(movie_id):
-    #movie = Movie.objects.get(id=movie_id)
+    # movie = Movie.objects.get(id=movie_id)
     movie = Movie.objects.get(id=movie_id)
     return movie.context
 
@@ -23,15 +24,13 @@ def get_movie_context(movie_id):
 chat = ChatOpenAI(temperature=0.5, openai_api_key=OPENAI_API_KEY)
 
 
-game_record = [  # 각 라운드의 기록
-    
-]
+game_record = []  # 각 라운드의 기록
 
 # 프롬프트 템플릿 정의
 # 프롬프트를 잘 만지자. 답변 형식도 지정해줘야 할 듯.
 evaluation_prompt = PromptTemplate(
     input_variables=["situation", "user_action", "context"],
-    template = (
+    template=(
         "상황: {situation}\n"
         "세계관 정보: {context}\n"
         "유저의 행동: {user_action}\n\n"
@@ -50,7 +49,7 @@ evaluation_prompt = PromptTemplate(
         "주의2: 새로운 문제 상황은 상황에 따른 유저의 행동으로 발생할 상황에 대해 자세하게 적어야 합니다.\n"
         "참고1: 응답은 영화 시나리오 작성자의 관점에서, 사건의 서사적 전개와 캐릭터 간의 갈등 및 협력 요소를 강화하도록 작성하세요.\n"
         "참고2: 유저의 선택과 선택에 대한 이유가 합당하다면, 기존의 시나리오와 세계관에서 크게 벗어나는 새로운 스토리를 구성해주세요.\n"
-        "참고3: 5번째 라운드는 마지막 라운드로 5번째 새로운 문제상황은 결말을 지어주세요."        
+        "참고3: 5번째 라운드는 마지막 라운드로 5번째 새로운 문제상황은 결말을 지어주세요."
         "참고4: 5번째 라운드 결말의 비극 희극 여부는 유저의 점수를 기준으로 판단하여 작성해주세요"
         "예시 응답 1:\n"
         "1. 점수: 20 (False)\n"
@@ -64,18 +63,18 @@ evaluation_prompt = PromptTemplate(
         "1. 점수: 80 (True)"
         "2. 이유: 유저의 행동은 캐릭터의 감정적 동기를 이해하고, 상대방과의 갈등을 해결하려는 성숙한 접근 방식을 보여줍니다. 이는 서사적으로도 관계의 발전을 돕고 관객의 공감을 불러일으키는 선택입니다."
         "3. 새로운 문제 상황: 주인공은 사랑하는 사람이 큰 오해로 인해 멀어지려는 순간, 상대방이 중요한 발표를 앞두고 극도로 불안해하고 있다는 사실을 알게 됩니다. 유저는 두 가지 선택지가 있을 수 있습니다. 상대방의 오해를 풀기 위해 직접 진심을 담은 편지를 쓰고 발표 직전에 전달하거나 발표장에서 상대방을 조용히 응원하며 발표가 끝난 뒤 오해를 풀기 위한 대화를 시도한다."
-
-))
+    ),
+)
 
 # 게임 진행 요약을 위한 프롬프트
 summary_prompt = PromptTemplate(
-    input_variables = ["history"],
-    template = (
+    input_variables=["history"],
+    template=(
         "다음은 유저와의 대화 기록입니다:\n"
         "{history}\n\n"
         "이 기록을 기반으로 전체 이야기를 요약하세요. 요약은 한 편의 영화 줄거리처럼 작성되어야 하며, "
         "유저가 해결한 문제와 그 행동, 그리고 상황의 흐름을 포함해야 합니다. "
-    )
+    ),
 )
 
 # 영화 추천을 위한 프롬프트
@@ -104,9 +103,9 @@ eval_prompt = PromptTemplate(
         "   - 제목: <추천 영화 제목>\n"
         "   - 테마: <영화의 주요 테마>\n"
         "   - 추천 이유: <유저의 심리적 상태와의 연관성 및 영화가 제공할 심리적 만족>\n"
-        
-    )
+    ),
 )
+
 
 def analyze_parsing(response_text, game_id):
     """
@@ -115,7 +114,7 @@ def analyze_parsing(response_text, game_id):
     try:
         # 텍스트를 줄 단위로 분리
         lines = response_text.split("\n")
-        
+
         # 각 항목을 초기화
         story_summary = ""
         psychological_analysis = ""
@@ -126,7 +125,7 @@ def analyze_parsing(response_text, game_id):
 
         for line in lines:
             line = line.strip()  # 공백 제거
-            
+
             if line.startswith("1. 이야기 요약:"):
                 current_section = "summary"
                 story_summary = line.replace("1. 이야기 요약:", "").strip()
@@ -143,48 +142,52 @@ def analyze_parsing(response_text, game_id):
                 elif line.startswith("- 테마:"):
                     recommended_movie["theme"] = line.replace("- 테마:", "").strip()
                 elif line.startswith("- 추천 이유:"):
-                    recommended_movie["reason"] = line.replace("- 추천 이유:", "").strip()
+                    recommended_movie["reason"] = line.replace(
+                        "- 추천 이유:", ""
+                    ).strip()
             else:
                 # 해당 섹션에 내용 추가
                 if current_section == "summary":
                     story_summary += f" {line}"
                 elif current_section == "psychology":
                     psychological_analysis += f" {line}"
-        
+
         # 파싱한 뒤에 DB에 추가하기
         game_record = GameRecord.objects.get(id=game_id)
 
         game_record.total_summary = story_summary
         game_record.emotion = psychological_analysis
-        game_record.recommend_movie = recommended_movie['title']
-        game_record.recommend_movie_reason = recommended_movie['reason']
-        game_record.recommend_movie_theme = recommended_movie['theme']
+        game_record.recommend_movie = recommended_movie["title"]
+        game_record.recommend_movie_reason = recommended_movie["reason"]
+        game_record.recommend_movie_theme = recommended_movie["theme"]
 
         game_record.save()
-
 
         # 결과 반환
         return {
             "story_summary": story_summary.strip(),
             "psychological_analysis": psychological_analysis.strip(),
-            "recommended_movie": recommended_movie
+            "recommended_movie": recommended_movie,
         }
-    
+
     except Exception as e:
         print(f"Error parsing response: {e}")
         return None
 
+
 # 5라운드에 대한 결과 분석
-def anlayze_result(round1, round2,round3,round4,round5, game_id):
-    
+def anlayze_result(round1, round2, round3, round4, round5, game_id):
+
     llm_chain = LLMChain(llm=chat, prompt=eval_prompt)
-    result = llm_chain.run({
-        "round1": round1,
-        "round2": round2,
-        "round3": round3,
-        "round4": round4,
-        "round5": round5,
-    })
+    result = llm_chain.run(
+        {
+            "round1": round1,
+            "round2": round2,
+            "round3": round3,
+            "round4": round4,
+            "round5": round5,
+        }
+    )
     print(result)
     result1 = analyze_parsing(result, game_id)
     print(result1)
@@ -192,18 +195,21 @@ def anlayze_result(round1, round2,round3,round4,round5, game_id):
 
 
 # 행동 평가 및 다음 상황 생성 함수
-def evaluate_and_generate_next(situation, user_action,context):
+def evaluate_and_generate_next(situation, user_action, context):
     """
     사용자 행동을 평가하고 다음 상황을 생성하는 함수
     """
     llm_chain = LLMChain(llm=chat, prompt=evaluation_prompt)
-    result = llm_chain.run({
-        "situation": situation,
-        "user_action": user_action,
-        "context" : context,
-    })
+    result = llm_chain.run(
+        {
+            "situation": situation,
+            "user_action": user_action,
+            "context": context,
+        }
+    )
     print(result)
     return result
+
 
 # 평가 결과 처리
 def process_evaluation_and_next(result):
@@ -214,16 +220,16 @@ def process_evaluation_and_next(result):
     try:
         # 점수를 포함한 텍스트에서 숫자만 추출
         score_text = lines[0].split(":")[1].split("(")[0].strip()
-        print('디버깅',score_text)
+        print("디버깅", score_text)
         score = int(score_text)  # 정수로 변환
-        is_valid = score >=50
+        is_valid = score >= 50
     except (ValueError, IndexError):
         score = 0  # 오류 발생 시 기본값 설정
-    
+
     is_valid = "True" in lines[0]
     reason = lines[1].replace("2. ", "").strip()
     next_problem = lines[2].replace("3. 새로운 문제 상황: ", "").strip()
-    
+
     return score, is_valid, reason, next_problem
 
 
@@ -233,11 +239,8 @@ def generate_summary(history):
     게임 진행 기록을 바탕으로 전체 스토리 요약을 생성하는 함수
     """
     llm_chain = LLMChain(llm=chat, prompt=summary_prompt)
-    result = llm_chain.run({
-        "history":history
-    })
+    result = llm_chain.run({"history": history})
     return result
-
 
 
 def play_game_round(game_record, user_action):
@@ -255,12 +258,14 @@ def play_game_round(game_record, user_action):
 
     # 현재 상황 가져오기
     if history:
-        current_situation = history[-1]['next_situation']
+        current_situation = history[-1]["next_situation"]
     else:
         # 초기 질문 설정
-        initial_question = game_record.movie.initial_questions.order_by('?').first()
+        initial_question = game_record.movie.initial_questions.order_by("?").first()
         if not initial_question:
-            return Response({"error": "No initial questions available for this movie."}, status=400)
+            return Response(
+                {"error": "No initial questions available for this movie."}, status=400
+            )
         current_situation = initial_question.question
 
     # 행동 평가 및 다음 상황 생성
@@ -269,10 +274,11 @@ def play_game_round(game_record, user_action):
         user_action=user_action,
         context=get_movie_context(game_record.movie.id),
     )
-    
 
     # 응답 처리
-    score, is_valid, reason, next_problem = process_evaluation_and_next(evaluation_result)
+    score, is_valid, reason, next_problem = process_evaluation_and_next(
+        evaluation_result
+    )
 
     # 새로운 라운드 데이터 추가
     round_data = {
@@ -282,28 +288,31 @@ def play_game_round(game_record, user_action):
         "score": score,
         "evaluation": "적절함" if is_valid else "부적절함",
         "reason": reason,
-        "next_situation": next_problem
+        "next_situation": next_problem,
     }
     print(round_data)
 
     # 중복 방지: 현재 라운드가 이미 존재하는지 확인
-    if not any(entry['round'] == current_round for entry in history):
+    if not any(entry["round"] == current_round for entry in history):
         history.append(round_data)
 
     # 기록 업데이트
-    game_record.history = json.dumps(history, ensure_ascii=False)  # 직렬화하여 JSON으로 저장
+    game_record.history = json.dumps(
+        history, ensure_ascii=False
+    )  # 직렬화하여 JSON으로 저장
     game_record.total_score += score
 
     # 게임 종료 조건 확인
     is_game_over = len(history) >= 5
     if is_game_over:
         game_record.end_time = timezone.now()
-        game_record.end_status = 'COMPLETED'
+        game_record.end_status = "COMPLETED"
 
     game_record.save()
-    print('game_record 저장')
+    print("game_record 저장")
 
     return next_problem, is_game_over, reason, is_valid
+
 
 def play_game_round2(game_record, user_action):
     # history 초기화
@@ -319,17 +328,19 @@ def play_game_round2(game_record, user_action):
     # current_round = len(history) + 1
     if not history:
         current_round = 0  # 첫 라운드일 경우 0으로 설정
-    else :
-        current_round +=1
+    else:
+        current_round += 1
 
     # 현재 상황 가져오기
     if history:
-        current_situation = history[-1]['next_situation']
+        current_situation = history[-1]["next_situation"]
     else:
         # 초기 질문 설정
-        initial_question = game_record.movie.initial_questions.order_by('?').first()
+        initial_question = game_record.movie.initial_questions.order_by("?").first()
         if not initial_question:
-            return Response({"error": "No initial questions available for this movie."}, status=400)
+            return Response(
+                {"error": "No initial questions available for this movie."}, status=400
+            )
 
         # 첫 라운드 생성
         current_situation = initial_question.question
@@ -340,7 +351,7 @@ def play_game_round2(game_record, user_action):
             "score": 0,
             "evaluation": None,
             "reason": None,
-            "next_situation": None
+            "next_situation": None,
         }
         history.append(round_data)
 
@@ -352,7 +363,9 @@ def play_game_round2(game_record, user_action):
     )
 
     # 응답 처리
-    score, is_valid, reason, next_problem = process_evaluation_and_next(evaluation_result)
+    score, is_valid, reason, next_problem = process_evaluation_and_next(
+        evaluation_result
+    )
 
     # 라운드 데이터 생성
     round_data = {
@@ -362,11 +375,11 @@ def play_game_round2(game_record, user_action):
         "score": score,
         "evaluation": "적절함" if is_valid else "부적절함",
         "reason": reason,
-        "next_situation": next_problem
+        "next_situation": next_problem,
     }
 
     # 중복 방지 및 추가
-    if history and any(entry['round'] == current_round for entry in history):
+    if history and any(entry["round"] == current_round for entry in history):
         print(f"Round {current_round} already exists in history.")
     else:
         history.append(round_data)
@@ -379,7 +392,7 @@ def play_game_round2(game_record, user_action):
     is_game_over = len(history) >= 5
     if is_game_over:
         game_record.end_time = timezone.now()
-        game_record.end_status = 'COMPLETED'
+        game_record.end_status = "COMPLETED"
 
     game_record.save()
 
@@ -406,12 +419,14 @@ def play_game_round2(game_record, user_action):
 
     # 현재 상황 가져오기
     if history:
-        current_situation = history[-1]['next_situation']
+        current_situation = history[-1]["next_situation"]
     else:
         # 초기 질문 설정
-        initial_question = game_record.movie.initial_questions.order_by('?').first()
+        initial_question = game_record.movie.initial_questions.order_by("?").first()
         if not initial_question:
-            return Response({"error": "No initial questions available for this movie."}, status=400)
+            return Response(
+                {"error": "No initial questions available for this movie."}, status=400
+            )
 
         # 첫 라운드 생성
         current_situation = initial_question.question
@@ -422,7 +437,7 @@ def play_game_round2(game_record, user_action):
             "score": 0,
             "evaluation": None,
             "reason": None,
-            "next_situation": None
+            "next_situation": None,
         }
         history.append(first_round_data)
 
@@ -434,6 +449,7 @@ def play_game_round2(game_record, user_action):
     )
 
     # 응답 처리
+
 
 def play_game_round4(game_record, user_action):
     # history 초기화
@@ -450,12 +466,17 @@ def play_game_round4(game_record, user_action):
 
     # 현재 상황 가져오기
     if history:
-        current_situation = history[-1]['next_situation']
+        current_situation = history[-1]["next_situation"]
     else:
         # 초기 질문 설정
-        initial_question = game_record.movie.initial_questions.order_by('?').first()
+        initial_question = game_record.movie.initial_questions.order_by("?").first()
         if not initial_question:
-            return None, None, "No initial questions available for this movie.", False  # 기본 반환값
+            return (
+                None,
+                None,
+                "No initial questions available for this movie.",
+                False,
+            )  # 기본 반환값
         # 첫 라운드 데이터 추가
         current_situation = initial_question.question
         first_round_data = {
@@ -465,7 +486,7 @@ def play_game_round4(game_record, user_action):
             "score": 0,
             "evaluation": None,
             "reason": None,
-            "next_situation": None
+            "next_situation": None,
         }
         history.append(first_round_data)
 
@@ -476,9 +497,11 @@ def play_game_round4(game_record, user_action):
             user_action=user_action,
             context=get_movie_context(game_record.movie.id),
         )
-        
+
         # 응답 처리
-        score, is_valid, reason, next_problem = process_evaluation_and_next(evaluation_result)
+        score, is_valid, reason, next_problem = process_evaluation_and_next(
+            evaluation_result
+        )
     except Exception as e:
         return None, None, str(e), False  # 예외 발생 시 기본 반환값
 
@@ -490,7 +513,7 @@ def play_game_round4(game_record, user_action):
         "score": score,
         "evaluation": "적절함" if is_valid else "부적절함",
         "reason": reason,
-        "next_situation": next_problem
+        "next_situation": next_problem,
     }
     history.append(round_data)
 
@@ -502,7 +525,7 @@ def play_game_round4(game_record, user_action):
     is_game_over = len(history) >= 5
     if is_game_over:
         game_record.end_time = timezone.now()
-        game_record.end_status = 'COMPLETED'
+        game_record.end_status = "COMPLETED"
 
     game_record.save()
 
@@ -516,15 +539,20 @@ def play_game_round4(game_record, user_action):
     # 모든 조건에서 반환
     return next_problem, is_game_over, reason, is_valid
 
+
 def generate_game_summary(game_record):
-    history = json.loads(game_record.history) if isinstance(game_record.history, str) else game_record.history
-    
+    history = (
+        json.loads(game_record.history)
+        if isinstance(game_record.history, str)
+        else game_record.history
+    )
+
     formatted_history = "\n".join(
         f"라운드 {entry.get('round', 'N/A')}: [상황]: {entry.get('situation', 'N/A')}\n"
         f" [행동]: {entry.get('user_action', 'N/A')}\n"
         f" [평가]: {entry.get('evaluation', 'N/A')}, 점수: {entry.get('score', 0)}"
         for entry in history
     )
-    
+
     summary = generate_summary(formatted_history)
     return summary

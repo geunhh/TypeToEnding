@@ -7,7 +7,8 @@
         <div class="modal-dialog modal-dialog-scrollable modal-xl">
             <div class="modal-content modal-content-htp">
                 <div class="modal-header modal-header-htp d-flex justify-content-between align-items-center">
-                    <button type="button" class="invisible btn btn-secondary close-btn-htp" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="invisible btn btn-secondary close-btn-htp"
+                        data-bs-dismiss="modal">Close</button>
                     <h1 class="modal-title fs-1 m-0 modal-title-htp" id="HowToPlayLabel">튜토리얼</h1>
                     <button type="button" class="btn btn-secondary close-btn-htp" data-bs-dismiss="modal">닫기</button>
                 </div>
@@ -148,6 +149,7 @@ body {
     border: 2px solid var(--grey60);
     width: 60px;
 }
+
 .btn.btn-secondary.close-btn-htp:hover {
     background-color: var(--grey60);
     transform: translateY(-2px);
@@ -169,7 +171,8 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(131, 2, 19, 0.4);
 }
-.howtoimg{
+
+.howtoimg {
     max-width: 30rem;
 }
 </style>

@@ -4,9 +4,14 @@ from rest_framework.decorators import (
     authentication_classes,
 )
 from rest_framework.response import Response
-from .models import GameRecord, Movie,Comment
+from .models import GameRecord, Movie, Comment
 from .game_logic import play_game_round, generate_game_summary, anlayze_result
-from .serializers import MovieSerializer, GameRecordSerializer, InitialQuestionSerializer, CommentSerializer
+from .serializers import (
+    MovieSerializer,
+    GameRecordSerializer,
+    InitialQuestionSerializer,
+    CommentSerializer,
+)
 from rest_framework.authentication import TokenAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
@@ -15,11 +20,11 @@ import pprint
 import json
 
 
-@api_view(["GET","POST"])
+@api_view(["GET", "POST"])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def movielist(request):
-    if request.method == 'GET':
+    if request.method == "GET":
         """
         전체 영화 목록을 반환하는 API
 
@@ -29,16 +34,15 @@ def movielist(request):
         movies = Movie.objects.all()
         serializer = MovieSerializer(movies, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    elif request.method == 'POST' :
+    elif request.method == "POST":
         """
         영화 생성하는 API
 
         """
-        serializer = MovieSerializer(data=request.data)        
+        serializer = MovieSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        
 
 
 @api_view(["GET"])
@@ -223,28 +227,30 @@ def get_user_game_record(request, user_id):
 
     return Response({"game_records": serializer.data})
 
+
 @api_view(["POST"])
 def initial_question(request):
-    if request.method == 'POST' :
+    if request.method == "POST":
         """
         초기 질문 생성하는 API
         """
-        serializer = InitialQuestionSerializer(data=request.data)        
+        serializer = InitialQuestionSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-@api_view(["GET","POST"])
-def comment_list_create(request,movie_id):
+
+@api_view(["GET", "POST"])
+def comment_list_create(request, movie_id):
 
     movie = get_object_or_404(Movie, id=movie_id)
     if request.method == "GET":
         comments = Comment.objects.filter(movie=movie)
-        serializer = CommentSerializer(comments,many=True)
-        print('디버깅 ',serializer.data)
+        serializer = CommentSerializer(comments, many=True)
+        print("디버깅 ", serializer.data)
         return Response(serializer.data)
-        
-    elif request.method =="POST":
+
+    elif request.method == "POST":
         serializer = CommentSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(user=request.user, movie=movie)

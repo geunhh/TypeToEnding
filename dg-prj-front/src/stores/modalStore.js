@@ -6,5 +6,5 @@ import { useRouter } from 'vue-router'
 export const useModalStore = defineStore('modal', () => {
     let isHowToPlayModalOpen = ref(false)
 
-    return {isHowToPlayModalOpen}
+    return { isHowToPlayModalOpen }
 })

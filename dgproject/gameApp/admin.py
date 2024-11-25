@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Movie,GameRecord,InitialQuestion
+from .models import Movie, GameRecord, InitialQuestion
 
 # Register your models here.
 admin.site.register(Movie)
