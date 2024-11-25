@@ -155,7 +155,7 @@ const gohome = function () {
 }
 
 .bigbig-container {
-    padding: 5rem 8rem;
+    padding: 5rem 27rem;
     /* background-color: var(--black10); */
     background-color: transparent;
     min-height: 100vh;
