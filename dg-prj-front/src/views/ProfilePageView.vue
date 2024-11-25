@@ -1,7 +1,7 @@
 <template>
     <div class="container-center-horizontal--profile">
         <video autoplay loop muted class="background-video">
-            <source src="@/assets/movies/sample5.mp4" type="video/mp4">
+            <source src="@/assets/movies/background.mp4" type="video/mp4">
         </video>
         <div class="record screen">
             <div class="flex-col">
@@ -263,8 +263,8 @@
                         <div v-if="totalGameRecordsFiltered && totalGameRecordsFiltered[currentPage]"
                             v-for="(record, index) in totalGameRecordsFiltered[currentPage].history" :key="index"
                             class="container-8-game-info">
-                            <div class="number-game-info">{{ record.round + 1 }}</div>
-                            <div class="sub-container-2-game-info">
+                            <div class="number-game-info" v-if="record.round > 1">{{ record.round -1 }}</div>
+                            <div class="sub-container-2-game-info" v-if="record.round > 1">
                                 <div class="container-9">
                                     <div class="sub-container-3">
                                         <img v-if="record.evaluation === '적절함'" class="selected-or-discarded"

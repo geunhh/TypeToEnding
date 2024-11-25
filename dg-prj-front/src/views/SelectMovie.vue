@@ -1,6 +1,6 @@
 <template>
   <video autoplay loop muted class="background-video">
-    <source src="@/assets/movies/sample5.mp4" type="video/mp4">
+    <source src="@/assets/movies/background.mp4" type="video/mp4">
   </video>
   <div class="bigbig-container" v-if="moviestore.movies != null">
 
