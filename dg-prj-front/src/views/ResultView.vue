@@ -423,6 +423,7 @@ const sendComment = () => {
     padding: 31px 35px;
     width: 100%;
     color: #ffffff;
+    justify-content: center;
 }
 
 .new-result-to-main-p {
