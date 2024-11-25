@@ -44,8 +44,18 @@
             </div>
             <!-- 시나리오를 채택/폐기합니다. -->
             <div class="description-box">
-                <p class="selected" v-if="result.is_valid">시나리오를 채택 합니다</p>
-                <p class="discarded" v-else>시나리오를 폐기 합니다</p>
+                <span class="scenario-result">
+                    시나리오를
+                </span>
+                <span class="selected" v-if="result.is_valid">
+                    채택
+                </span>
+                <span class="discarded" v-else>
+                    폐기
+                </span>
+                <span class="scenario-result">
+                    합니다
+                </span>
             </div>
 
             <!-- 유저가 작성한 시나리오 및 평가 결과-->
@@ -110,21 +120,7 @@ const nextStage = function () {
 </script>
 
 <style scoped>
-.selected {
-    font-size: larger;
-    padding: 0px;
-    color: blue;
-    margin-bottom: 0px;
 
-}
-
-.discarded {
-    font-size: larger;
-    padding: 0px;
-    color: var(--red45);
-    margin-bottom: 0px;
-
-}
 
 .description-box {
     border: 2px solid var(--abbey);
@@ -268,6 +264,14 @@ const nextStage = function () {
     background-color: red;
 }
 
+.selected {
+    color: #2196F3;
+}
+
+.discarded {
+    color: var(--red45);
+}
+
 .playgame-container {
     margin: 20px;
     max-width: 1320px;
@@ -316,9 +320,10 @@ const nextStage = function () {
 }
 
 .description-box span {
-    padding: 0.5rem 1.5rem;
+    /* padding: 0.5rem 1.5rem; */
     border-radius: 24px;
     font-weight: 600;
+    font-size: larger;
 }
 
 .description-box span[style*="blue"] {
@@ -373,6 +378,11 @@ const nextStage = function () {
     padding-bottom: 0.5rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+.scenario-result{
+    padding: 0px;
+}
+
 
 .scenario-box p,
 .prompt-box p {

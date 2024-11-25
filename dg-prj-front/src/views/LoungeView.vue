@@ -189,13 +189,14 @@ const gohome = function () {
 
 .code-label {
     color: rgba(255, 255, 255, 0.8);
-    font-size: 0.9rem;
+    font-size: 2rem;
 }
 
 .code-value {
     color: #ffffff;
     font-weight: 600;
     letter-spacing: 2px;
+    font-size: 2rem;
 }
 
 /* 그리드 레이아웃 */

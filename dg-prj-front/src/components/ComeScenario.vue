@@ -44,7 +44,16 @@ onMounted(() => {
 
 <style scoped>
 .bigbig-container {
-    padding: 5rem;
-    text-align: center;
+    flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem;
+  text-align: center;
+}
+
+h1 {
+  margin-top: 350px;
+  margin-bottom: 50px;
 }
 </style>

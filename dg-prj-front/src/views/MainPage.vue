@@ -699,6 +699,11 @@ div {
     width: 100%;
 }
 
+.input-field:focus{
+    outline: none;
+    border: 2px solid var(--red45);
+}
+
 .main .text {
     color: var(--grey60);
     flex: 1;
@@ -720,6 +725,9 @@ div {
     background-color: var(--black10);
 }
 
+.email-pw-input:focus{
+    border: 2px solid var(--red45);
+}
 
 
 .main .container-1 {

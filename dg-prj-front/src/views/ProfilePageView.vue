@@ -215,7 +215,7 @@
                                     <li v-for="(option, index) in playedMovies" :key="index">
                                         <button class="dropdown-item" type="button" @click="selectMovie(option)">{{
                                             option
-                                            }}</button>
+                                        }}</button>
                                         <div class="dropdown-divider" v-if="index !== playedMovies.length - 1"></div>
                                     </li>
                                 </ul>
@@ -1512,8 +1512,22 @@ const selectSex = (sex) => {
 }
 
 .page-move-button-game-info {
-    border: 0px;
+    border: 2px solid transparent;
     background-color: transparent;
+    transition: border-color 0.3s ease;
+    /* width: 40px;
+    버튼의 크기를 고정
+    height: 40px;
+    버튼의 크기를 고정 */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+.page-move-button-game-info:hover {
+    border-color: var(--red45);
 }
 
 .page-move-game-info {

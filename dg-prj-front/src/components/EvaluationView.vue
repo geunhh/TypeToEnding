@@ -1,17 +1,19 @@
 <template>
   <div class="bigbig-container">
-    <h1 v-if="!isComplete">AI가 당신의 시나리오를 평가하는 중 입니다.
-      <div class="text-center">
-        <div class="spinner-border" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
+    <h1 v-if="!isComplete">AI가 당신의 시나리오를 평가하는 중 입니다. </h1>
+    <div class="text-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
       </div>
-    </h1>
-    <div v-else>
+    </div>
+
+    <!-- <div v-else>
       <h1>평가가 끝났습니다!!</h1>
       <button @click="gonextStage">확인하기</button>
+    </div> -->
+    <div class="user_action">
+      {{ gamestore.user_action1 }}
     </div>
-    {{ gamestore.user_action1 }}
   </div>
 </template>
 
@@ -64,7 +66,25 @@ onMounted(() => {
 
 <style scoped>
 .bigbig-container {
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 5rem;
   text-align: center;
+}
+
+h1 {
+  margin-top: 350px;
+  margin-bottom: 50px;
+}
+
+.user_action {
+  margin-top: 50px;
+  font-size: 3rem;
+}
+
+.visually-hidden{
+  font-size: 4rem;
 }
 </style>

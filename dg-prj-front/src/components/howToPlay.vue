@@ -4,7 +4,7 @@
     </button>
 
     <div class="modal fade" id="HowToPlayModal" tabindex="-1" aria-labelledby="HowToPlayLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content modal-content-htp">
                 <div class="modal-header modal-header-htp d-flex justify-content-between align-items-center">
                     <button type="button" class="invisible btn btn-secondary close-btn-htp"
@@ -15,26 +15,68 @@
                 <div class="modal-body modal-body-htp modal-body-htp-images">
                     <div id="carouselExampleCaptions" class="carousel slide">
                         <div class="carousel-inner">
-                            <div class="carousel-item  carousel-item-htp active">
+                            <div class="carousel-item carousel-item-htp active">
                                 <div>
                                     <h2 class="explanation-title-htp">1. 영화 선택</h2>
-                                    <p class="explanation-context-htp">플레이할 영화의 배경과 기본 시나리오를 제공할 영화를 선택합니다</p>
+                                    <p class="explanation-context-htp">대기실에서 플레이할 영화를 선택합니다</p>
                                 </div>
                                 <img src="@/assets/posters/grave.jpg" class="d-block w-100 howtoimg" alt="...">
                             </div>
                             <div class="carousel-item carousel-item-htp">
                                 <div>
-                                    <h2 class="explanation-title-htp">2. 영화 선택</h2>
-                                    <p class="explanation-context-htp">플레이할 영화의 배경과 기본 시나리오를 제공할 영화를 선택합니다</p>
+                                    <h2 class="explanation-title-htp">2. 시나리오 작성</h2>
+                                    <p class="explanation-context-htp">AI가 준비해준 시나리오에 이어질 적절한 시나리오를 작성합니다</p>
                                 </div>
-                                <img src="@/assets/posters/avengers.jpg" class="d-block w-100" alt="...">
+                                <img src="@/assets/posters/avengers.jpg" class="d-block w-100 howtoimg" alt="...">
                             </div>
                             <div class="carousel-item carousel-item-htp">
                                 <div>
-                                    <h2 class="explanation-title-htp">3. 영화 선택</h2>
-                                    <p class="explanation-context-htp">플레이할 영화의 배경과 기본 시나리오를 제공할 영화를 선택합니다</p>
+                                    <h2 class="explanation-title-htp">3. AI의 평가</h2>
+                                    <p class="explanation-context-htp">AI가 당신이 작성한 시나리오를 평가합니다</p>
                                 </div>
-                                <img src="@/assets/posters/귀멸의칼날.jpg" class="d-block w-100" alt="...">
+                                <img src="@/assets/posters/귀멸의칼날.jpg" class="d-block w-100 howtoimg" alt="...">
+                            </div>
+                            <div class="carousel-item carousel-item-htp">
+                                <div>
+                                    <h2 class="explanation-title-htp">4. 평가 결과 확인</h2>
+                                    <p class="explanation-context-htp">AI의 평가결과에 따라 당신의 시나리오가 채택 혹은 폐기됩니다</p>
+                                </div>
+                                <img src="@/assets/posters/귀멸의칼날.jpg" class="d-block w-100 howtoimg" alt="...">
+                            </div>
+                            <div class="carousel-item carousel-item-htp">
+                                <div>
+                                    <h2 class="explanation-title-htp">5. 최종 결과 확인</h2>
+                                    <p class="explanation-context-htp">마지막 라운드가 끝난 후 최종 결과를 확인 할 수 있습니다</p>
+                                </div>
+                                <img src="@/assets/posters/귀멸의칼날.jpg" class="d-block w-100 howtoimg" alt="...">
+                            </div>
+                            <div class="carousel-item carousel-item-htp">
+                                <div>
+                                    <h2 class="explanation-title-htp">6. 영화 추천</h2>
+                                    <p class="explanation-context-htp">당신이 작성한 시나리오를 토대로 감정과 성향을 분석하여 AI가 영화를 추천합니다</p>
+                                </div>
+                                <img src="@/assets/posters/귀멸의칼날.jpg" class="d-block w-100 howtoimg" alt="...">
+                            </div>
+                            <div class="carousel-item carousel-item-htp">
+                                <div>
+                                    <h2 class="explanation-title-htp">7. 댓글 남기기</h2>
+                                    <p class="explanation-context-htp">플레이한 영화의 후기를 댓글로 남길 수 있습니다</p>
+                                </div>
+                                <img src="@/assets/posters/귀멸의칼날.jpg" class="d-block w-100 howtoimg" alt="...">
+                            </div>
+                            <div class="carousel-item carousel-item-htp">
+                                <div>
+                                    <h2 class="explanation-title-htp">8. 전적 검색</h2>
+                                    <p class="explanation-context-htp">플레이한 영화의 결과를 다시 볼 수 있습니다</p>
+                                </div>
+                                <img src="@/assets/posters/귀멸의칼날.jpg" class="d-block w-100 howtoimg" alt="...">
+                            </div>
+                            <div class="carousel-item carousel-item-htp">
+                                <div>
+                                    <h2 class="explanation-title-htp">9. 영화 제작</h2>
+                                    <p class="explanation-context-htp">자신만의 영화도 만들 수 있습니다</p>
+                                </div>
+                                <img src="@/assets/posters/귀멸의칼날.jpg" class="d-block w-100 howtoimg" alt="...">
                             </div>
                         </div>
                     </div>
@@ -81,6 +123,10 @@ onMounted(() => {
 <style scoped>
 body {
     margin: 0
+}
+
+.carousel-item-htp {
+    /* display: flex; */
 }
 
 .modal-content.modal-content-htp {
@@ -173,6 +219,9 @@ body {
 }
 
 .howtoimg {
-    max-width: 30rem;
+    /* width: 30rem;
+    height: 40rem; */
+    width: 50vw;
+    height: 50vh;
 }
 </style>
