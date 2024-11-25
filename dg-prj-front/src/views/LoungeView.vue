@@ -3,7 +3,7 @@
     <div class="bigbig-container">
         <!-- 헤더 섹션 -->
         <video autoplay loop muted class="background-video" ref="backgroundVideo">
-            <source src="@/assets/movies/sample5.mp4" type="video/mp4">
+            <source src="@/assets/movies/background.mp4" type="video/mp4">
         </video>
         <div class="header-section" style="position: relative; text-align: center;">
             <!-- <button class="back-icon" @click="gohome">
