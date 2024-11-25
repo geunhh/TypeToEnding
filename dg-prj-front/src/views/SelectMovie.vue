@@ -226,8 +226,8 @@ const submitMovie = () => {
 <style scoped>
 .comment-container {
     position: fixed;
-    right: 10rem;
-    top: 10rem;
+    right: 4rem;
+    top: 11rem;
     z-index: 9999;
 }
 
@@ -250,8 +250,8 @@ const submitMovie = () => {
 .collapse-panel {
     position: absolute;
     top: 3rem;
-    left: 0;
-    width: 300px;
+    right: 0;
+    width: 200px;
 }
 
 .card {

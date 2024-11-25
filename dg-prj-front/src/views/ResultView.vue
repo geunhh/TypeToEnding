@@ -19,8 +19,8 @@
                         <hr>
                         <h3>영화 추천</h3>
                         <img :src="`https://image.tmdb.org/t/p/w400${recommend_info.results[0].poster_path}`"
-                            alt="추천 영화 포스터" v-if="recommend_info.results[0].poster_path">
-                        <img class="poster" src='@/assets/selectimg.jpeg' v-else><br>
+                            alt="추천 영화 포스터" v-if="recommend_info.results.length > 0">
+                        <img class="poster" src='@/assets/posters/NoPoster.png' v-else><br>
 
                         <!-- <img :src="`https://image.tmdb.org/t/p/w$400/z7ilT5rNN9kDo8JZmgyhM6ej2xv.jpg/`" alt=""> -->
                         <p>제목 : {{ recommend.recommended_movie.title }}</p>
@@ -119,8 +119,8 @@
                     <hr>
                     <p class="category-heading">영화 추천</p>
                     <img :src="`https://image.tmdb.org/t/p/w400${recommend_info.results[0].poster_path}`"
-                        alt="추천 영화 포스터" v-if="recommend_info.results[0].poster_path">
-                    <img class="poster" src='@/assets/selectimg.jpeg' v-else><br>
+                        alt="추천 영화 포스터" v-if="recommend_info.results.length!=0">
+                    <img class="poster" src='@/assets/selectimg.jpeg' style="width: 400px;" v-else><br>
                     <br>
                     <p class="category-heading">제목</p>
                     <p class="category-paragraph"> {{ recommend.recommended_movie.title }}</p>
@@ -181,19 +181,18 @@ const BASE_URL = accountstore.BASE_URL
 
 
 onMounted(() => {
-    // console.log('gamenum:', gamestore.game_id)
+    
     axios({
         method: 'get',
         url: `http://127.0.0.1:8000/gameApp/record/${gamestore.game_id}/`,
         headers: {
-            Authorization: `Token ${accountstore.token}`,
-
+            Authorization: `Token ${accountstore.token}`,            
         }
     })
         .then(res => {
             // console.log(res.data); // 이러면 JSON 문자열 그대로 반환됨. 
             result.value = res.data;
-
+            
             // history가 JSON 문자열인 경우 파싱
             if (typeof res.data.history === 'string') {
                 res.data.history = JSON.parse(res.data.history); // 그래서 파싱 해줌.
@@ -215,31 +214,35 @@ onMounted(() => {
                 // console.log(res)
                 recommend.value = res.data.result
             })
-                .then(res => {
-                    // 추천 받은 영화 정보를 받아와야 함. 그래서 TMDB에 axios 보낼거임.
-                    axios({
-                        method: 'get',
-                        url: `https://api.themoviedb.org/3/search/movie`,
-                        headers: {
-                            accept: 'application/json',
-                            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNmFmOGIwNGUyZTI0MTgwZGQ5NTgxMTFhOWIwMzVkOCIsIm5iZiI6MTczMjE3NDI2Ny45MTU4ODEsInN1YiI6IjY3MjEwNWE2NGJlMTU0NjllNzBlNzhkMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Hn679BEcxrEDiQhMZmHkI0oJlM93CpNmgDVxNlUwBWM'
-                        },
-                        params: {
-                            include_adult: true,
-                            language: "ko-KR",
-                            page: 1,
-                            query: recommend.value.recommended_movie.title,
-                        }
-                    }).then(res => {
-                        // console.log('ggg', res)
-                        recommend_info.value = res.data
-                        console.log(recommend_info)
-
-                    })
+            
+            .then(res => {
+                    
+                
+                // 추천 받은 영화 정보를 받아와야 함. 그래서 TMDB에 axios 보낼거임.
+                axios({
+                    method: 'get',
+                    url: `https://api.themoviedb.org/3/search/movie`,
+                    headers: {
+                        accept: 'application/json',
+                        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNmFmOGIwNGUyZTI0MTgwZGQ5NTgxMTFhOWIwMzVkOCIsIm5iZiI6MTczMjE3NDI2Ny45MTU4ODEsInN1YiI6IjY3MjEwNWE2NGJlMTU0NjllNzBlNzhkMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Hn679BEcxrEDiQhMZmHkI0oJlM93CpNmgDVxNlUwBWM'
+                    },
+                    params: {
+                        include_adult: true,
+                        language: "ko-KR",
+                        page: 1,
+                        query: recommend.value.recommended_movie.title,
+                    }
+                }).then(res => {
+                    console.log('ggg', res)
+                    recommend_info.value = res.data
+                    console.log(recommend_info)
                 })
+
+            })
         })
         .catch(err => console.log(err))
-})
+    
+    })
 
 
 // 메인 화면으로 돌아가주는 함수

@@ -88,7 +88,7 @@ def start_game(request):
 
     # User = get_user_model()         # 유저모델에서
     user = user = request.user
-
+    
     initial_question = movie.initial_questions.order_by("?").first()
 
     game_record = GameRecord.objects.create(
