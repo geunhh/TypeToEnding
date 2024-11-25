@@ -241,7 +241,7 @@
                                             totalGameRecordsFiltered[currentPage].total_summary }}</p>
                                         <p v-else>&nbsp;</p> <!-- 빈칸으로 남김 -->
 
-                                        <p class="category-heading">{{ name }} 의 감정</p>
+                                        <p class="category-heading">{{ name }} 의 감정 분석</p>
                                         <p v-if="totalGameRecordsFiltered[currentPage]">{{
                                             totalGameRecordsFiltered[currentPage].emotion }}</p>
                                         <p v-else>&nbsp;</p> <!-- 빈칸으로 남김 -->
