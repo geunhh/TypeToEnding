@@ -28,7 +28,7 @@ game_record = []  # 각 라운드의 기록
 
 # 프롬프트 템플릿 정의
 # 프롬프트를 잘 만지자. 답변 형식도 지정해줘야 할 듯.
-eval_prompt = PromptTemplate(
+evaluation_prompt = PromptTemplate(
     input_variables=["situation", "user_action", "context"],
     template=(
         "상황: {situation}\n"
@@ -43,57 +43,42 @@ eval_prompt = PromptTemplate(
         "  4) 비속어나 부적절한 표현이 포함된 경우 즉시 0점 처리\n\n"
 
         "## 2. 평가 및 응답 형식\n"
-        "유저의 행동을 평가하고, 아래 형식에 맞춰 응답하세요:\n"
+        "유저의 행동을 평가하고, 아래 형식에 맞춰 세 줄로 응답하세요:\n"
         "1. 점수: <숫자> (True/False)\n"
         "   점수 기준:\n"
         "   - 0~30점: 매우 비현실적이며 문제 해결에 전혀 기여하지 않습니다.\n"
-        "     예: 상황과 관련 없는 비논리적인 행동이나 의미 없는 무작위 문자열 입력\n"
         "   - 31~50점: 최소한의 논리적 근거는 있지만, 효과적이지 않거나 세계관에 부적합함.\n"
-        "     예: 적과 협상을 시도하지만 설득력이 부족하거나, 잘못된 자원을 사용하는 행동\n"
         "   - 51~70점: 세계관에 적합하며 문제 해결에 기여할 가능성이 있지만, 일부 비현실적이거나 부족한 면이 있음.\n"
-        "     예: 적의 기지를 폭파하려 하지만 정확한 정보를 모른 채 행동\n"
         "   - 71~100점: 현실적이고 세계관 및 캐릭터 설정에 부합하며 창의적이고 효과적인 행동.\n"
-        "     예: 제한된 자원으로 창의적이고 설득력 있는 계획을 세워 적을 물리침\n"
-        "   - 주의: 점수는 반드시 0~100 사이여야 하며 100점을 초과하지 않습니다.\n\n"
+        "2. 이유: 유저의 행동이 캐릭터의 동기와 세계관에 부합하는지, 그리고 서사적으로 긴장감을 높였는지 간결하게 설명하세요.\n"
+        "3. 새로운 문제 상황: 유저의 행동을 중심으로 새로운 문제 상황을 작성하세요. 만약 유저의 행동이 유효하지 않은 경우에도, 세계관 정보(context)를 기반으로 새로운 문제 상황을 구성하세요. 문제 상황은 항상 3가지 선택지를 포함하며, 각 선택지는 서로 다른 방향성을 가져야 합니다.\n\n"
 
-        "2. 이유: <간결하게 작성하며, 다음 기준으로 평가>\n"
-        "- 유저의 행동이 캐릭터의 동기 및 세계관 설정에 부합하는가?\n"
-        "- 유저의 행동이 AI가 제시한 3가지 방향과 다른 경우, 창의성과 서사적 기여도를 우선적으로 평가하세요.\n"
-        "- 이야기의 서사적 전개와 긴장감 형성에 기여했는가?\n\n"
-
-        "3. 새로운 문제 상황: <흥미로운 새로운 전개를 자유롭게 구성>\n"
-        "- 유저의 행동을 중심으로 새로운 문제 상황을 작성하고, 예상되는 결과를 설명하세요.\n"
-        "- AI가 제시하는 3가지 대안은 유저 행동을 보완하거나 새로운 가능성을 제시하는 방향으로 작성하세요.\n"
-        "- AI의 대안은 유저 행동을 대체하지 않으며, 서사를 확장하는 역할을 합니다.\n"
-        "- 각 선택지는 서로 다른 방향성을 가져야 하며, 최소한의 인과관계를 유지하세요.\n\n"
-
-        "## 3. 주의사항\n"
-        "- 각 항목은 줄바꿈 없이 한 줄로 작성하며, 번호로 시작하세요.\n"
-        "- 유저의 행동이 유효하지 않은 경우, 점수는 0점이며 그 이유를 명확히 작성하세요.\n"
-        "- 유효하지 않은 경우에도 새로운 문제 상황은 {context}를 바탕으로 작성하며, 임의 생성되었음을 명시하세요.\n\n"
-
-        "## 참고사항\n"
-        "- 유저의 행동은 항상 중심이며, AI의 대안은 참고용입니다.\n"
+        "## 주의사항\n"
+        "- 모든 응답은 반드시 아래 형식을 따르며, 추가 텍스트를 포함하지 마세요:\n"
+        "1. 점수: <숫자> (True/False)\n"
+        "2. 이유: <간결한 이유>\n"
+        "3. 새로운 문제 상황: <새로운 문제 상황과 3가지 선택지>\n"
+        "- 유효하지 않은 입력이라도 새로운 문제 상황은 반드시 제공되어야 하며, 세계관(context)을 기반으로 생성합니다.\n"
         "- 마지막 라운드(5번째)는 이야기의 결말로 서사적 긴장을 해소하세요.\n"
-        "- 유저의 이름은 '나'으로 변경하여 1인칭 시점으로 작성하세요.\n\n"
 
         "## 예시 응답\n"
-        "### 예시 1: 낮은 점수 (비현실적 입력)\n"
-        "1. 점수: 20 (False)\n"
-        "2. 이유: 유저의 행동은 세계관과 캐릭터 설정에서 벗어났으며, 서사적 긴장감을 훼손하는 비현실적인 선택입니다.\n"
-        "3. 새로운 문제 상황: 주인공이 적의 비밀 연구소를 탈출한 직후, 적이 도시에 바이러스를 퍼뜨리려는 계획을 세운다는 정보를 얻습니다. 유저는 1) 적의 서버를 해킹해 계획을 중단시키려 한다, 2) 적의 주요 병력을 공격해 시민 대피 시간을 번다, 3) 다른 팀원들과 협력해 도시 방어선을 구축한다.\n\n"
+        "### 예시 1: 낮은 점수\n"
+        "1. 점수: 0 (False)\n"
+        "2. 이유: 유저의 행동은 상황과 전혀 무관하며, 비현실적이고 의미 없는 입력입니다.\n"
+        "3. 새로운 문제 상황: 나는 적의 비밀 기지에 잠입한 상태다. 그러나 적의 보안 시스템이 강화되었다. 이제 나는 1) 보안 시스템을 해킹해 내부에 접근한다, 2) 팀원과 협력해 새로운 진입 경로를 찾는다, 3) 보안을 무력화하기 위한 장비를 수집한다.\n\n"
 
-        "### 예시 2: 높은 점수 (현실적이고 창의적인 선택)\n"
+        "### 예시 2: 높은 점수\n"
         "1. 점수: 85 (True)\n"
-        "2. 이유: 유저의 행동은 상황의 긴급성을 고려한 현실적이고 전략적인 선택으로, 서사적 긴장감을 높이며 캐릭터의 능력을 창의적으로 활용한 대응입니다.\n"
-        "3. 새로운 문제 상황: 적의 함정에서 탈출한 주인공은 적이 통신망을 장악하려 한다는 정보를 얻습니다. 유저는 1) 경찰과 협력해 방어선을 구축한다, 2) 적의 통신망 접근을 사전에 방해한다, 3) 팀원들과 통신망을 활용해 적을 역추적한다.\n\n"
+        "2. 이유: 유저의 행동은 긴급 상황에서 현실적이고 창의적인 해결책을 제시했습니다.\n"
+        "3. 새로운 문제 상황: 나는 적의 통신망을 차단하려는 임무를 맡았다. 이제 나는 1) 통신 타워를 해킹해 적의 계획을 방해한다, 2) 팀원들과 협력해 적의 통신망을 역추적한다, 3) 적의 본부를 급습해 통신 장비를 직접 파괴한다.\n\n"
 
-        "### 예시 3: 로맨스 (높은 점수)\n"
+        "### 예시 3: 로맨스 시나리오\n"
         "1. 점수: 90 (True)\n"
-        "2. 이유: 유저의 행동은 주인공의 감정적 동기를 깊이 이해하고, 상대방과의 갈등을 해결하려는 성숙하고 설득력 있는 접근 방식을 보여줍니다. 이는 이야기의 서사적 긴장감을 높이며, 두 인물 간의 관계 발전을 돕는 선택입니다.\n"
-        "3. 새로운 문제 상황: 주인공은 사랑하는 사람이 자신에 대한 오해로 멀어지려는 상황에서, 상대방이 중요한 발표를 앞두고 불안해하고 있다는 사실을 알게 됩니다. 유저는 1) 진심을 담은 편지를 작성해 발표 직전 전달한다, 2) 발표장에서 조용히 상대를 응원하며 발표 후 대화를 시도한다, 3) 상대방의 친구에게 도움을 요청해 오해를 풀기 위한 중재를 시도한다.\n"
+        "2. 이유: 유저의 행동은 상대방의 감정을 이해하고, 갈등을 해결하려는 성숙한 접근 방식입니다.\n"
+        "3. 새로운 문제 상황: 나는 오해로 인해 멀어진 연인과 재회를 준비하고 있다. 이제 나는 1) 진심 어린 편지를 작성해 전달한다, 2) 친구의 도움을 받아 대화를 주선한다, 3) 중요한 이벤트에서 직접 사과하고 화해를 시도한다.\n"
     ),
 )
+
 
 
 
@@ -251,6 +236,10 @@ def process_evaluation_and_next(result):
     """
     AI의 응답을 분석하여 점수, 유효성, 이유, 다음 문제를 추출하는 함수
     """
+    print('결과 ~~~~~~~~~~~~~~~~~~~~~~######################')
+
+    print('겨과',result)
+    print('결과 끝~~~~~~~~~~~~~~~~~~~~~~######################')
     lines = result.split("\n")
     try:
         # 점수를 포함한 텍스트에서 숫자만 추출
@@ -346,232 +335,6 @@ def play_game_round(game_record, user_action):
     game_record.save()
     print("game_record 저장")
 
-    return next_problem, is_game_over, reason, is_valid
-
-
-def play_game_round2(game_record, user_action):
-    # history 초기화
-    if isinstance(game_record.history, str):
-        try:
-            history = json.loads(game_record.history) or []
-        except json.JSONDecodeError:
-            history = []
-    else:
-        history = game_record.history or []
-
-    # 현재 라운드 계산
-    # current_round = len(history) + 1
-    if not history:
-        current_round = 0  # 첫 라운드일 경우 0으로 설정
-    else:
-        current_round += 1
-
-    # 현재 상황 가져오기
-    if history:
-        current_situation = history[-1]["next_situation"]
-    else:
-        # 초기 질문 설정
-        initial_question = game_record.movie.initial_questions.order_by("?").first()
-        if not initial_question:
-            return Response(
-                {"error": "No initial questions available for this movie."}, status=400
-            )
-
-        # 첫 라운드 생성
-        current_situation = initial_question.question
-        round_data = {
-            "round": 1,
-            "situation": current_situation,
-            "user_action": None,
-            "score": 0,
-            "evaluation": None,
-            "reason": None,
-            "next_situation": None,
-        }
-        history.append(round_data)
-
-    # 행동 평가 및 다음 상황 생성
-    evaluation_result = evaluate_and_generate_next(
-        situation=current_situation,
-        user_action=user_action,
-        context=get_movie_context(game_record.movie.id),
-    )
-
-    # 응답 처리
-    score, is_valid, reason, next_problem = process_evaluation_and_next(
-        evaluation_result
-    )
-
-    # 라운드 데이터 생성
-    round_data = {
-        "round": current_round,
-        "situation": current_situation,
-        "user_action": user_action,
-        "score": score,
-        "evaluation": "적절함" if is_valid else "부적절함",
-        "reason": reason,
-        "next_situation": next_problem,
-    }
-
-    # 중복 방지 및 추가
-    if history and any(entry["round"] == current_round for entry in history):
-        print(f"Round {current_round} already exists in history.")
-    else:
-        history.append(round_data)
-
-    # 기록 업데이트
-    game_record.history = json.dumps(history, ensure_ascii=False)
-    game_record.total_score += score
-
-    # 게임 종료 조건 확인
-    is_game_over = len(history) >= 5
-    if is_game_over:
-        game_record.end_time = timezone.now()
-        game_record.end_status = "COMPLETED"
-
-    game_record.save()
-
-    # 디버깅 로그 추가
-    print(f"Current Round: {current_round}")
-    print(f"History Length: {len(history)}")
-    print(f"History Data: {history}")
-    print(f"Next Problem: {next_problem}")
-    print(f"Is Game Over: {is_game_over}")
-
-    return next_problem, is_game_over, reason, is_valid
-
-    # history 초기화
-    if isinstance(game_record.history, str):
-        try:
-            history = json.loads(game_record.history) or []
-        except json.JSONDecodeError:
-            history = []
-    else:
-        history = game_record.history or []
-
-    # 현재 라운드 계산
-    current_round = len(history) + 1
-
-    # 현재 상황 가져오기
-    if history:
-        current_situation = history[-1]["next_situation"]
-    else:
-        # 초기 질문 설정
-        initial_question = game_record.movie.initial_questions.order_by("?").first()
-        if not initial_question:
-            return Response(
-                {"error": "No initial questions available for this movie."}, status=400
-            )
-
-        # 첫 라운드 생성
-        current_situation = initial_question.question
-        first_round_data = {
-            "round": current_round,
-            "situation": current_situation,
-            "user_action": None,
-            "score": 0,
-            "evaluation": None,
-            "reason": None,
-            "next_situation": None,
-        }
-        history.append(first_round_data)
-
-    # 행동 평가 및 다음 상황 생성
-    evaluation_result = evaluate_and_generate_next(
-        situation=current_situation,
-        user_action=user_action,
-        context=get_movie_context(game_record.movie.id),
-    )
-
-    # 응답 처리
-
-
-def play_game_round4(game_record, user_action):
-    # history 초기화
-    if isinstance(game_record.history, str):
-        try:
-            history = json.loads(game_record.history) or []
-        except json.JSONDecodeError:
-            history = []
-    else:
-        history = game_record.history or []
-
-    # 현재 라운드 계산
-    current_round = len(history) + 1
-
-    # 현재 상황 가져오기
-    if history:
-        current_situation = history[-1]["next_situation"]
-    else:
-        # 초기 질문 설정
-        initial_question = game_record.movie.initial_questions.order_by("?").first()
-        if not initial_question:
-            return (
-                None,
-                None,
-                "No initial questions available for this movie.",
-                False,
-            )  # 기본 반환값
-        # 첫 라운드 데이터 추가
-        current_situation = initial_question.question
-        first_round_data = {
-            "round": current_round,
-            "situation": current_situation,
-            "user_action": None,
-            "score": 0,
-            "evaluation": None,
-            "reason": None,
-            "next_situation": None,
-        }
-        history.append(first_round_data)
-
-    # 행동 평가 및 다음 상황 생성
-    try:
-        evaluation_result = evaluate_and_generate_next(
-            situation=current_situation,
-            user_action=user_action,
-            context=get_movie_context(game_record.movie.id),
-        )
-
-        # 응답 처리
-        score, is_valid, reason, next_problem = process_evaluation_and_next(
-            evaluation_result
-        )
-    except Exception as e:
-        return None, None, str(e), False  # 예외 발생 시 기본 반환값
-
-    # 새로운 라운드 데이터 추가
-    round_data = {
-        "round": current_round,
-        "situation": current_situation,
-        "user_action": user_action,
-        "score": score,
-        "evaluation": "적절함" if is_valid else "부적절함",
-        "reason": reason,
-        "next_situation": next_problem,
-    }
-    history.append(round_data)
-
-    # 기록 업데이트
-    game_record.history = json.dumps(history, ensure_ascii=False)
-    game_record.total_score += score
-
-    # 게임 종료 조건 확인
-    is_game_over = len(history) >= 5
-    if is_game_over:
-        game_record.end_time = timezone.now()
-        game_record.end_status = "COMPLETED"
-
-    game_record.save()
-
-    # 디버깅 로그 추가
-    print(f"Current Round: {current_round}")
-    print(f"History Length: {len(history)}")
-    print(f"History Data: {history}")
-    print(f"Next Problem: {next_problem}")
-    print(f"Is Game Over: {is_game_over}")
-
-    # 모든 조건에서 반환
     return next_problem, is_game_over, reason, is_valid
 
 
