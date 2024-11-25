@@ -103,7 +103,7 @@
                             <div class="items-container">
                                 <div class="container">
                                     <button @click.prevent="logOutFunc" class="grey-button-common log-out-button">
-                                        <p style="padding: 0px 0px; margin: 0px" class="log-out">Log Out</p>
+                                        <p style="padding: 0px 0px; margin: 0px" class="log-out">로그아웃</p>
                                     </button>
                                 </div>
                             </div>

@@ -1,329 +1,336 @@
 <template>
-    <div class="container-center-horizontal--profile">
-        <video autoplay loop muted class="background-video">
-            <source src="@/assets/movies/background.mp4" type="video/mp4">
-        </video>
-        <div class="record screen">
-            <div class="flex-col">
-                <button class="invisible button-1" @click.prevent="backToMain">
-                    <!-- <img class="previous" src="@/assets/icons/previous.png" alt="previous" /> -->
-                </button>
-                <div class="overlap-group">
-                    <div class="sub-container-2">
-                        <div class="container">
-                            <div class="sub-container-3">
-                                <h1 class="heading-2 valign-text-middle heading-4 manrope-medium-mountain-mist-24px">
-                                    {{ name }}님의 프로필 페이지
-                                </h1>
-                            </div>
-                        </div>
-                        <div class="container">
-                            <div class="sub-container">
-                                <div class="heading manrope-medium-mountain-mist-16px">닉네임</div>
-                            </div>
-                            <div class="sub-container-1">
-                                <div class="container-1">
-                                    <div class="text manrope-medium-white-14px">{{ name }}</div>
+    <div class="">
+        <div class="container-center-horizontal--profile">
+            <video autoplay loop muted class="background-video">
+                <source src="@/assets/movies/background.mp4" type="video/mp4">
+            </video>
+            <div class="record screen">
+                <div class="flex-col">
+                    <div class="overlap-group">
+                        <div class="sub-container-2">
+                            <div class="container">
+                                <div class="sub-container-3">
+                                    <h1
+                                        class="heading-2 valign-text-middle heading-4 manrope-medium-mountain-mist-24px">
+                                        {{ name }}님의 프로필 페이지
+                                    </h1>
                                 </div>
                             </div>
-                        </div>
-                        <div class="container">
-                            <div class="sub-container">
-                                <div class="heading manrope-medium-mountain-mist-16px">나이</div>
-                            </div>
-                            <div class="sub-container-1">
-                                <div class="container-1">
-                                    <p class="text manrope-medium-white-14px">{{ age !== null ? age : "?" }}</p>
+                            <div class="container">
+                                <div class="sub-container">
+                                    <div class="heading manrope-medium-mountain-mist-16px">닉네임</div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="container">
-                            <div class="sub-container">
-                                <div class="heading manrope-medium-mountain-mist-16px">성별</div>
-                            </div>
-                            <div class="sub-container-1">
-                                <div class="container-1">
-                                    <div class="text manrope-medium-white-14px">{{ sex !== null ? sex : "?" }}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="container">
-                            <div class="sub-container">
-                                <div class="heading manrope-medium-mountain-mist-16px">이메일</div>
-                            </div>
-                            <div class="sub-container-1">
-                                <div class="container-4">
-                                    <div class="text manrope-medium-white-14px">{{ email }}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="container-5">
-                            <div class="sub-container-4">
-                                <div class="heading manrope-medium-mountain-mist-16px">채택률</div>
-                            </div>
-                            <div class="sub-container-5">
-                                <div class="container-6">
-                                    <div class="heading-3 heading-4 manrope-semi-bold-white-16px">
-                                        {{ avg_win_point !== null ? avg_win_point : "0 채택 / 0 폐기" }}
+                                <div class="sub-container-1">
+                                    <div class="container-1">
+                                        <div class="text manrope-medium-white-14px">{{ name }}</div>
                                     </div>
-                                    <div class="sub-container-6">
-                                        <div class="container-7">
-                                            <div v-if="avg_win_rate">
-                                                <img v-for="i in redStars" :key="i" class="star-class"
-                                                    src="@/assets/icons/red-star.png" alt="red-star">
-                                                <img v-if="halfStar" class="star-class"
-                                                    src="@/assets/icons/half-star.png" alt="half-star">
-                                                <img v-for="i in grayStars" :key="i" class="star-class"
-                                                    src="@/assets/icons/gray-star.png" alt="gray-star">
-                                            </div>
-                                            <div v-else>
-                                                <img v-for="i in 5" :key="i" class="star-class"
-                                                    src="@/assets/icons/gray-star.png" alt="gray-star">
+                                </div>
+                            </div>
+                            <div class="container">
+                                <div class="sub-container">
+                                    <div class="heading manrope-medium-mountain-mist-16px">나이</div>
+                                </div>
+                                <div class="sub-container-1">
+                                    <div class="container-1">
+                                        <p class="text manrope-medium-white-14px">{{ age !== null ? age : "?" }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <div class="sub-container">
+                                    <div class="heading manrope-medium-mountain-mist-16px">성별</div>
+                                </div>
+                                <div class="sub-container-1">
+                                    <div class="container-1">
+                                        <div class="text manrope-medium-white-14px">{{ sex !== null ? sex : "?" }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <div class="sub-container">
+                                    <div class="heading manrope-medium-mountain-mist-16px">이메일</div>
+                                </div>
+                                <div class="sub-container-1">
+                                    <div class="container-4">
+                                        <div class="text manrope-medium-white-14px">{{ email }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container-5">
+                                <div class="sub-container-4">
+                                    <div class="heading manrope-medium-mountain-mist-16px">채택률</div>
+                                </div>
+                                <div class="sub-container-5">
+                                    <div class="container-6">
+                                        <div class="heading-3 heading-4 manrope-semi-bold-white-16px">
+                                            {{ avg_win_point !== null ? avg_win_point : "0 채택 / 0 폐기" }}
+                                        </div>
+                                        <div class="sub-container-6">
+                                            <div class="container-7">
+                                                <div v-if="avg_win_rate">
+                                                    <img v-for="i in redStars" :key="i" class="star-class"
+                                                        src="@/assets/icons/red-star.png" alt="red-star">
+                                                    <img v-if="halfStar" class="star-class"
+                                                        src="@/assets/icons/half-star.png" alt="half-star">
+                                                    <img v-for="i in grayStars" :key="i" class="star-class"
+                                                        src="@/assets/icons/gray-star.png" alt="gray-star">
+                                                </div>
+                                                <div v-else>
+                                                    <img v-for="i in 5" :key="i" class="star-class"
+                                                        src="@/assets/icons/gray-star.png" alt="gray-star">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="container-2">
-                            <button class="red-button-common" @click.prevent="handleUpdatePasswordModal">
-                                <p class="option-common">비밀번호 변경</p>
-                            </button>
-                        </div>
-                        <div class="container-2">
-                            <button class="red-button-common" @click.prevent="handleUpdateUserInfoModal">
-                                <p class="option-common">프로필 수정</p>
-                            </button>
-                        </div>
-                    </div>
-                    <button class="game-record-button" @click.prevent="handleGameInfoSearchModal">
-                        <p class="cancel">{{ !isGameInfoSearchModalOpen ? "전적 보기" : "전적 닫기" }}</p>
-                    </button>
-                </div>
-            </div>
-            <form class="form" v-if="isUpdateUserInfoModalOpen && !isUpdatePasswordModalOpen">
-                <div class="items-container">
-                    <div class="container-3">
-                        <div class="heading-1 heading-4 manrope-semi-bold-white-18px">닉네임</div>
-                        <div class="input-field">
-                            <input class="text-2 text-5 input-box manrope-normal-mountain-mist-18px" type="text"
-                                v-model="newNickname" :placeholder="store.userInfo.name">
+                            <div class="container-2">
+                                <button class="game-record-button" @click.prevent="handleGameInfoSearchModal">
+                                    <p class="cancel">{{ !isGameInfoSearchModalOpen ? "전적 보기" : "전적 닫기" }}</p>
+                                </button>
+                            </div>
+                            <div class="container-2">
+                                <button class="red-button-common" @click.prevent="handleUpdatePasswordModal">
+                                    <p class="option-common">비밀번호 변경</p>
+                                </button>
+                            </div>
+                            <div class="container-2">
+                                <button class="red-button-common" @click.prevent="handleUpdateUserInfoModal">
+                                    <p class="option-common">프로필 수정</p>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="items-container">
-                    <div class="container-3">
-                        <div class="heading-1 heading-4 manrope-semi-bold-white-18px">나이</div>
-                        <div class="input-field">
-                            <input class="text-2 text-5 input-box manrope-medium-mountain-mist-18px" v-model="newAge"
-                                :placeholder="store.userInfo.age || '?'">
+                <form class="form" v-if="isUpdateUserInfoModalOpen && !isUpdatePasswordModalOpen">
+                    <div class="items-container">
+                        <div class="container-3">
+                            <div class="heading-1 heading-4 manrope-semi-bold-white-18px">닉네임</div>
+                            <div class="input-field">
+                                <input class="text-2 text-5 input-box manrope-normal-mountain-mist-18px" type="text"
+                                    v-model="newNickname" :placeholder="store.userInfo.name">
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="items-container">
-                    <div class="container-3">
-                        <div class="heading-1 heading-4 manrope-semi-bold-white-18px">성별</div>
-                        <div class="btn-group">
-                            <button class="sex button-sex-select btn btn-secondary btn-lg" type="button">
-                                {{ newSex === 'M' ? '남자' : newSex === 'F' ? '여자' : '?' }}
-                            </button>
-                            <button type="button"
-                                class="dropdown-sex button-sex-select btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="visually-hidden">Toggle Dropdown</span>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><button @click="selectSex('M')" class="dropdown-item" type="button">남자</button></li>
-                                <li><button @click="selectSex('F')" class="dropdown-item" type="button">여자</button></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="container-2">
-                    <button class="red-button-common" @click.prevent="updateUserInfo">
-                        <p class="option-common">수정하기</p>
-                    </button>
-                </div>
-                <div class="container-2">
-                    <button class="cancel-button" @click.prevent="closeUpdateUserInfoModal">
-                        <p class="cancel">취소</p>
-                    </button>
-                </div>
-            </form>
-            <!-- 여기까지가 유저정보 모달 -->
-            <!-- 아래부터는 비밀번호 모달 -->
-            <form class="form" v-if="isUpdatePasswordModalOpen && !isUpdateUserInfoModalOpen">
-                <div class="items-container">
-                    <div class="container-3">
-                        <div class="heading-1 heading-4 manrope-semi-bold-white-18px">이전 비밀번호</div>
-                        <div class="input-field">
-                            <input type="password" class="input-box text-2 text-5 manrope-normal-mountain-mist-18px"
-                                placeholder="이전 비밀번호를 입력해주세요" v-model="currentPassword">
-                        </div>
-                    </div>
-                </div>
-                <div class="items-container">
-                    <div class="container-3">
-                        <div class="heading-1 heading-4 manrope-semi-bold-white-18px">새 비밀번호</div>
-                        <div class="input-field">
-                            <input type="password" class="input-box text-2 text-5 manrope-normal-mountain-mist-18px"
-                                placeholder="새 비밀번호를 입력해주세요" v-model="newPassword1">
-                        </div>
-                    </div>
-                </div>
-                <div class="items-container">
-                    <div class="container-3">
-                        <div class="heading-1 heading-4 manrope-semi-bold-white-18px">비밀번호 확인</div>
-                        <div class="input-field">
-                            <input type="password" class="input-box text-2 text-5 manrope-normal-mountain-mist-18px"
-                                placeholder="비밀번호를 확인해주세요" v-model="newPassword2">
-                        </div>
-                    </div>
-                </div>
-                <div class="container-2">
-                    <button class="red-button-common" @click.prevent="updatePassword">
-                        <p class="option-common manrope-semi-bold-white-18px">변경</p>
-                    </button>
-                </div>
-                <div class="container-2">
-                    <button class="cancel-button" @click.prevent="isUpdatePasswordModalOpen = false">
-                        <p class="cancel manrope-semi-bold-white-18px">취소</p>
-                    </button>
-                </div>
-            </form>
-            <!-- 여기까지가 비밀번호 모달 -->
-            <!-- 아래부터는 전적검색 모달 -->
-            <div class="overlap-group-game-info" v-if="isGameInfoSearchModalOpen">
-                <div class="container-7-game-info">
-
-                    <!-- 영화 필터링 기능 -->
-                    <div class="sub-container-9-game-info">
-                        <div class="text-container">
-                            <p class="game-result">{{ name }}님의 전적</p>
-                        </div>
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle button-4-game-info" type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                {{ SelectedMovies || 'All Movies' }}
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li v-for="(option, index) in playedMovies" :key="index">
-                                    <button class="dropdown-item" type="button" @click="selectMovie(option)">{{ option
-                                        }}</button>
-                                    <div class="dropdown-divider" v-if="index !== playedMovies.length - 1"></div>
-                                </li>
-                            </ul>
+                    <div class="items-container">
+                        <div class="container-3">
+                            <div class="heading-1 heading-4 manrope-semi-bold-white-18px">나이</div>
+                            <div class="input-field">
+                                <input class="text-2 text-5 input-box manrope-medium-mountain-mist-18px"
+                                    v-model="newAge" :placeholder="store.userInfo.age || '?'">
+                            </div>
                         </div>
                     </div>
 
-                    <!-- 전적 띄워주는 기능 -->
-                    <div class="sub-container-10">
-                        <div class="container-8-game-info" v-if="totalGameRecordsFiltered.length > 0">
-                            <div class="number-game-info-summary">요약</div>
-                            <div class="sub-container-2-game-info">
-                                <div class="container-9">
-                                    <div class="sub-container-3"></div>
-                                </div>
-                                <div class="paragraph manrope-normal-mountain-mist-18px">
-                                    <p class="category-heading">플레이한 영화</p>
-                                    <p v-if="totalGameRecordsFiltered[currentPage]">{{
-                                        totalGameRecordsFiltered[currentPage].movie.title }}</p>
-                                    <p v-else>&nbsp;</p> <!-- 빈칸으로 남김 -->
+                    <div class="items-container">
+                        <div class="container-3">
+                            <div class="heading-1 heading-4 manrope-semi-bold-white-18px">성별</div>
+                            <div class="btn-group">
+                                <button class="sex button-sex-select btn btn-secondary btn-lg" type="button">
+                                    {{ newSex === 'M' ? '남자' : newSex === 'F' ? '여자' : '?' }}
+                                </button>
+                                <button type="button"
+                                    class="dropdown-sex button-sex-select btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="visually-hidden">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><button @click="selectSex('M')" class="dropdown-item" type="button">남자</button>
+                                    </li>
+                                    <li><button @click="selectSex('F')" class="dropdown-item" type="button">여자</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
 
-                                    <p class="category-heading">시나리오 요약</p>
-                                    <p v-if="totalGameRecordsFiltered[currentPage]">{{
-                                        totalGameRecordsFiltered[currentPage].total_summary }}</p>
-                                    <p v-else>&nbsp;</p> <!-- 빈칸으로 남김 -->
+                    <div class="container-2">
+                        <button class="red-button-common" @click.prevent="updateUserInfo">
+                            <p class="option-common">수정하기</p>
+                        </button>
+                    </div>
+                    <div class="container-2">
+                        <button class="cancel-button" @click.prevent="closeUpdateUserInfoModal">
+                            <p class="cancel">취소</p>
+                        </button>
+                    </div>
+                </form>
+                <!-- 여기까지가 유저정보 모달 -->
+                <!-- 아래부터는 비밀번호 모달 -->
+                <form class="form" v-if="isUpdatePasswordModalOpen && !isUpdateUserInfoModalOpen">
+                    <div class="items-container">
+                        <div class="container-3">
+                            <div class="heading-1 heading-4 manrope-semi-bold-white-18px">이전 비밀번호</div>
+                            <div class="input-field">
+                                <input type="password" class="input-box text-2 text-5 manrope-normal-mountain-mist-18px"
+                                    placeholder="이전 비밀번호를 입력해주세요" v-model="currentPassword">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="items-container">
+                        <div class="container-3">
+                            <div class="heading-1 heading-4 manrope-semi-bold-white-18px">새 비밀번호</div>
+                            <div class="input-field">
+                                <input type="password" class="input-box text-2 text-5 manrope-normal-mountain-mist-18px"
+                                    placeholder="새 비밀번호를 입력해주세요" v-model="newPassword1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="items-container">
+                        <div class="container-3">
+                            <div class="heading-1 heading-4 manrope-semi-bold-white-18px">비밀번호 확인</div>
+                            <div class="input-field">
+                                <input type="password" class="input-box text-2 text-5 manrope-normal-mountain-mist-18px"
+                                    placeholder="비밀번호를 확인해주세요" v-model="newPassword2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-2">
+                        <button class="red-button-common" @click.prevent="updatePassword">
+                            <p class="option-common manrope-semi-bold-white-18px">변경</p>
+                        </button>
+                    </div>
+                    <div class="container-2">
+                        <button class="cancel-button" @click.prevent="isUpdatePasswordModalOpen = false">
+                            <p class="cancel manrope-semi-bold-white-18px">취소</p>
+                        </button>
+                    </div>
+                </form>
+                <!-- 여기까지가 비밀번호 모달 -->
+                <!-- 아래부터는 전적검색 모달 -->
+                <div class="overlap-group-game-info" v-if="isGameInfoSearchModalOpen">
+                    <div class="container-7-game-info">
 
-                                    <p class="category-heading">{{ name }} 의 감정</p>
-                                    <p v-if="totalGameRecordsFiltered[currentPage]">{{
-                                        totalGameRecordsFiltered[currentPage].emotion }}</p>
-                                    <p v-else>&nbsp;</p> <!-- 빈칸으로 남김 -->
-
-                                    <p class="category-heading">추천하는 영화</p>
-                                    <p v-if="totalGameRecordsFiltered[currentPage]">{{
-                                        totalGameRecordsFiltered[currentPage].recommend_movie }}</p>
-                                    <p v-else>&nbsp;</p> <!-- 빈칸으로 남김 -->
-
-                                    <p class="category-heading">이 영화를 추천하는 이유</p>
-                                    <p v-if="totalGameRecordsFiltered[currentPage]">#{{
-                                        totalGameRecordsFiltered[currentPage].recommend_movie_theme }}</p>
-                                    <p v-else>&nbsp;</p> <!-- 빈칸으로 남김 -->
-
-                                    <p v-if="totalGameRecordsFiltered[currentPage]">{{
-                                        totalGameRecordsFiltered[currentPage].recommend_movie_reason }}</p>
-                                    <p v-else>&nbsp;</p> <!-- 빈칸으로 남김 -->
-                                </div>
+                        <!-- 영화 필터링 기능 -->
+                        <div class="sub-container-9-game-info">
+                            <div class="text-container">
+                                <p class="game-result">{{ name }}님의 전적</p>
+                            </div>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle button-4-game-info" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ SelectedMovies || 'All Movies' }}
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li v-for="(option, index) in playedMovies" :key="index">
+                                        <button class="dropdown-item" type="button" @click="selectMovie(option)">{{
+                                            option
+                                            }}</button>
+                                        <div class="dropdown-divider" v-if="index !== playedMovies.length - 1"></div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
 
-                        <!-- 전적 기록 -->
-                        <div v-if="totalGameRecordsFiltered && totalGameRecordsFiltered[currentPage]"
-                            v-for="(record, index) in totalGameRecordsFiltered[currentPage].history" :key="index"
-                            class="container-8-game-info">
-                            <div class="number-game-info" v-if="record.round > 1">{{ record.round -1 }}</div>
-                            <div class="sub-container-2-game-info" v-if="record.round > 1">
-                                <div class="container-9">
-                                    <div class="sub-container-3">
-                                        <img v-if="record.evaluation === '적절함'" class="selected-or-discarded"
-                                            src="@/assets/icons/selected.png" alt="selected" />
-                                        <img v-else class="selected-or-discarded" src="@/assets/icons/discarded.png"
-                                            alt="discarded" />
+                        <!-- 전적 띄워주는 기능 -->
+                        <div class="sub-container-10">
+                            <div class="container-8-game-info" v-if="totalGameRecordsFiltered.length > 0">
+                                <div class="number-game-info-summary">요약</div>
+                                <div class="sub-container-2-game-info">
+                                    <div class="container-9">
+                                        <div class="sub-container-3"></div>
+                                    </div>
+                                    <div class="paragraph manrope-normal-mountain-mist-18px">
+                                        <p class="category-heading">플레이한 영화</p>
+                                        <p v-if="totalGameRecordsFiltered[currentPage]">{{
+                                            totalGameRecordsFiltered[currentPage].movie.title }}</p>
+                                        <p v-else>&nbsp;</p> <!-- 빈칸으로 남김 -->
+
+                                        <p class="category-heading">시나리오 요약</p>
+                                        <p v-if="totalGameRecordsFiltered[currentPage]">{{
+                                            totalGameRecordsFiltered[currentPage].total_summary }}</p>
+                                        <p v-else>&nbsp;</p> <!-- 빈칸으로 남김 -->
+
+                                        <p class="category-heading">{{ name }} 의 감정</p>
+                                        <p v-if="totalGameRecordsFiltered[currentPage]">{{
+                                            totalGameRecordsFiltered[currentPage].emotion }}</p>
+                                        <p v-else>&nbsp;</p> <!-- 빈칸으로 남김 -->
+
+                                        <p class="category-heading">추천하는 영화</p>
+                                        <p v-if="totalGameRecordsFiltered[currentPage]">{{
+                                            totalGameRecordsFiltered[currentPage].recommend_movie }}</p>
+                                        <p v-else>&nbsp;</p> <!-- 빈칸으로 남김 -->
+
+                                        <p class="category-heading">이 영화를 추천하는 이유</p>
+                                        <p v-if="totalGameRecordsFiltered[currentPage]">#{{
+                                            totalGameRecordsFiltered[currentPage].recommend_movie_theme }}</p>
+                                        <p v-else>&nbsp;</p> <!-- 빈칸으로 남김 -->
+
+                                        <p v-if="totalGameRecordsFiltered[currentPage]">{{
+                                            totalGameRecordsFiltered[currentPage].recommend_movie_reason }}</p>
+                                        <p v-else>&nbsp;</p> <!-- 빈칸으로 남김 -->
                                     </div>
                                 </div>
-                                <div class="paragraph manrope-normal-mountain-mist-18px">
-                                    <p class="category-heading">상황</p>
-                                    <p>{{ record.situation }}</p>
+                            </div>
 
-                                    <p class="category-heading"> 당신의 대답</p>
-                                    <p>{{ record.user_action || '없음' }}</p>
+                            <!-- 전적 기록 -->
+                            <div v-if="totalGameRecordsFiltered && totalGameRecordsFiltered[currentPage]"
+                                v-for="(record, index) in totalGameRecordsFiltered[currentPage].history" :key="index"
+                                class="container-8-game-info">
+                                <div class="number-game-info" v-if="record.round > 1">{{ record.round - 1 }}</div>
+                                <div class="sub-container-2-game-info" v-if="record.round > 1">
+                                    <div class="container-9">
+                                        <div class="sub-container-3">
+                                            <img v-if="record.evaluation === '적절함'" class="selected-or-discarded"
+                                                src="@/assets/icons/selected.png" alt="selected" />
+                                            <img v-else class="selected-or-discarded" src="@/assets/icons/discarded.png"
+                                                alt="discarded" />
+                                        </div>
+                                    </div>
+                                    <div class="paragraph manrope-normal-mountain-mist-18px">
+                                        <p class="category-heading">상황</p>
+                                        <p>{{ record.situation }}</p>
 
-                                    <p class="category-heading">이유</p>
-                                    <p>{{ record.reason || '없음' }}</p>
+                                        <p class="category-heading"> 당신의 대답</p>
+                                        <p>{{ record.user_action || '없음' }}</p>
+
+                                        <p class="category-heading">이유</p>
+                                        <p>{{ record.reason || '없음' }}</p>
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
 
-                    </div>
+                        <!-- 페이지 이동 버튼 -->
+                        <div class="buttons-container-game-info">
+                            <!-- 이전 페이지 버튼 -->
+                            <button class="page-move-button-game-info" @click.prevent="currentPage = 0">
+                                <img class="page-move-game-info" src="@/assets/icons/arrowarrowleft.png" alt="Button" />
+                            </button>
 
-                    <!-- 페이지 이동 버튼 -->
-                    <div class="buttons-container-game-info">
-                        <!-- 이전 페이지 버튼 -->
-                        <button class="page-move-button-game-info" @click.prevent="currentPage = 0">
-                            <img class="page-move-game-info" src="@/assets/icons/arrowarrowleft.png" alt="Button" />
-                        </button>
+                            <!-- 한 페이지 뒤로 가기 버튼 -->
+                            <button class="page-move-button-game-info"
+                                @click.prevent="currentPage === 0 ? currentPage = 0 : currentPage--">
+                                <img class="page-move-game-info" src="@/assets/icons/arrowleft.png" alt="Button" />
+                            </button>
 
-                        <!-- 한 페이지 뒤로 가기 버튼 -->
-                        <button class="page-move-button-game-info"
-                            @click.prevent="currentPage === 0 ? currentPage = 0 : currentPage--">
-                            <img class="page-move-game-info" src="@/assets/icons/arrowleft.png" alt="Button" />
-                        </button>
+                            <!-- 페이지 인디케이터 -->
+                            <div class="indicators-container">
+                                <p class="number-game-info-p">{{ currentPage + 1 }} / {{ totalGameRecordsFilteredPages +
+                                    1
+                                    }}</p>
+                            </div>
 
-                        <!-- 페이지 인디케이터 -->
-                        <div class="indicators-container">
-                            <p class="number-game-info-p">{{ currentPage + 1 }} / {{ totalGameRecordsFilteredPages + 1
-                                }}</p>
+                            <!-- 한 페이지 앞으로 가기 버튼 -->
+                            <button class="page-move-button-game-info" @click.prevent="
+                                currentPage === totalGameRecordsFilteredPages ? currentPage = totalGameRecordsFilteredPages : currentPage++
+                                ">
+                                <img class="page-move-game-info" src="@/assets/icons/arrowright.png" alt="Button" />
+                            </button>
+
+                            <!-- 마지막 페이지로 이동 버튼 -->
+                            <button class="page-move-button-game-info" @click.prevent="
+                                currentPage = totalGameRecordsFilteredPages
+                                ">
+                                <img class="page-move-game-info" src="@/assets/icons/arrowarrowright.png"
+                                    alt="Button" />
+                            </button>
                         </div>
-
-                        <!-- 한 페이지 앞으로 가기 버튼 -->
-                        <button class="page-move-button-game-info" @click.prevent="
-                            currentPage === totalGameRecordsFilteredPages ? currentPage = totalGameRecordsFilteredPages : currentPage++
-                            ">
-                            <img class="page-move-game-info" src="@/assets/icons/arrowright.png" alt="Button" />
-                        </button>
-
-                        <!-- 마지막 페이지로 이동 버튼 -->
-                        <button class="page-move-button-game-info" @click.prevent="
-                            currentPage = totalGameRecordsFilteredPages
-                            ">
-                            <img class="page-move-game-info" src="@/assets/icons/arrowarrowright.png" alt="Button" />
-                        </button>
                     </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </div>
 </template>
@@ -1143,7 +1150,6 @@ const selectSex = (sex) => {
     height: 100%;
     /* left: 4px; */
     padding: 50px;
-    position: absolute;
     top: 0;
     width: 100%;
 }
@@ -1786,15 +1792,9 @@ const selectSex = (sex) => {
     flex: 0 0 auto;
     overflow: hidden;
     padding: 20px;
-    position: absolute;
-    top: 505px;
-    left: 216px;
     width: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
     padding: 0px 0px;
-    width: 159px;
     height: 77px;
     transition: all 0.3s ease;
 }
@@ -1828,6 +1828,9 @@ const selectSex = (sex) => {
     justify-content: center;
     pointer-events: none;
     width: 100%;
+    align-items: center;
+    /* margin-top: 200px; */
+    margin: auto;
 }
 
 .container-center-horizontal--profile>* {
@@ -1867,7 +1870,7 @@ const selectSex = (sex) => {
 }
 
 .sub-container-2 {
-    align-items: flex-start;
+
     background-color: var(--black06);
     border: 1px solid;
     border-color: var(--black15);
@@ -1875,12 +1878,9 @@ const selectSex = (sex) => {
     display: flex;
     flex-direction: column;
     gap: 24px;
-    height: 820px;
-    left: 0;
     padding: 40px;
-    position: absolute;
-    top: 0;
     width: 416px;
+    height: 944px;
 }
 
 .container {
@@ -2036,7 +2036,7 @@ const selectSex = (sex) => {
 }
 
 .record {
-    align-items: flex-start;
+    align-content: center;
     background-color: transparent;
     /* background-color: var(--black10); */
     display: flex;

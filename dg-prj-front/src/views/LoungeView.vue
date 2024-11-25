@@ -10,7 +10,6 @@
                 <i style="font-size: 3rem;color: var(--red45); " class="bi bi-house-fill"></i>
             </button> -->
             <h1 class="title">Type to Ending </h1>
-
             <div class="theater-code">
                 <span class="code-label">Theater Code</span>
                 <span class="code-value">{{ moviestore.roomId.slice(0, 4).toUpperCase() }}</span>
@@ -21,56 +20,59 @@
         <div class="grid-container">
             <!-- 포스터 섹션 -->
             <div class="poster-section" style="text-align: center;">
-                <div class="poster-wrapper">
-                    <img class="poster" :src="`http://127.0.0.1:8000${moviestore.poster_path}`"
-                        v-if="moviestore.poster_path">
-                    <img class="poster" src='@/assets/selectimg.jpeg' v-else>
-                </div>
-                <button class="btn-select" @click="gogoSelect">
-                    <i class="bi bi-film"></i> 영화 선택
-                </button>
+                <img class="poster" :src="`http://127.0.0.1:8000${moviestore.poster_path}`"
+                    v-if="moviestore.poster_path" @click="gogoSelect">
+                <img class="poster" src='@/assets/posters/movieNotSelected.png' v-else @click="gogoSelect">
+
             </div>
 
-            <!-- 설명 섹션 -->
-            <div class="description-section">
+            <div class="sub-container">
+                <!-- 설명 섹션 -->
+
+
                 <div class="description-box" style="font-family: 'Gowun Dodum', serif; font-size: larger;">
+                    <h1 style="margin-bottom: 20px;">영화 줄거리</h1>
                     <p v-if="moviestore.movieId">{{ moviestore.description }}</p>
                     <p v-else>영화 줄거리가 들어갈 공간입니다.</p>
                 </div>
-                <button class="btn-start" @click="startGame" :disabled="moviestore.movieId == null"
-                    :class="{ 'active': moviestore.movieId }">
-                    게임 시작
-                </button>
-            </div>
 
-            <!-- 정보 섹션 -->
-            <div class="info-section">
-                <!-- how to play modal -->
-                <div>
-                    <howToPlay />
-                </div>
-
-                <div class="cast-info">
-                    <h3>Cast Info</h3>
-                    <div class="cast-list">
-                        <div class="cast-item">
-                            <span class="cast-role">주인공</span>
-                            <span class="cast-player" style="font-size: large;"> {{ store.userInfo.name }}</span>
-                        </div>
-                        <div class="cast-item">
-                            <span class="cast-role">조연 1</span>
-                            <span class="cast-player">player X</span>
-                        </div>
-                        <div class="cast-item">
-                            <span class="cast-role">조연 2</span>
-                            <span class="cast-player">player X</span>
-                        </div>
-                        <div class="cast-item">
-                            <span class="cast-role">조연 3</span>
-                            <span class="cast-player">player X</span>
+                <!-- 정보 섹션 -->
+                <div class="info-section">
+                    <!-- how to play modal -->
+                    <div class="cast-info">
+                        <h3>Cast Info</h3>
+                        <div class="cast-list">
+                            <div class="cast-item">
+                                <span class="cast-role">주인공</span>
+                                <span class="cast-player" style="font-size: large;"> {{ store.userInfo.name }}</span>
+                            </div>
+                            <div class="cast-item">
+                                <span class="cast-role">조연 1</span>
+                                <span class="cast-player">타락해버린 히로인</span>
+                            </div>
+                            <div class="cast-item">
+                                <span class="cast-role">조연 2</span>
+                                <span class="cast-player">개과천선한 마왕군 2인자</span>
+                            </div>
+                            <div class="cast-item">
+                                <span class="cast-role">조연 3</span>
+                                <span class="cast-player">모든 일의 원흉이었던 동료</span>
+                            </div>
                         </div>
                     </div>
+
+                    <div>
+                        <howToPlay />
+                    </div>
+                    <button class="btn-select" @click="gogoSelect">
+                        <i class="bi bi-film"></i> 영화 선택
+                    </button>
+                    <button class="btn-start" @click="startGame" :disabled="moviestore.movieId == null"
+                        :class="{ 'active': moviestore.movieId }">
+                        게임 시작
+                    </button>
                 </div>
+
             </div>
         </div>
     </div>
@@ -110,6 +112,25 @@ const gohome = function () {
 </script>
 
 <style scoped>
+.poster-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 3rem 2rem 2rem; /* 위, 오른쪽, 아래, 왼쪽 순서 */
+    border-right: 2px solid var(--black15);
+    text-align: center;
+}
+
+
+
+.sub-container {
+    display: flex;
+    gap: 50px;
+    /* justify-content: space-between; */
+    width: 100%;
+}
+
+
 .background-video {
     position: fixed;
     right: 0;
@@ -134,7 +155,7 @@ const gohome = function () {
 }
 
 .bigbig-container {
-    padding: 5rem 10rem;
+    padding: 5rem 8rem;
     /* background-color: var(--black10); */
     background-color: transparent;
     min-height: 100vh;
@@ -162,6 +183,8 @@ const gohome = function () {
     padding: 0.8rem 1.5rem;
     border-radius: 8px;
     gap: 1rem;
+    align-items: center;
+    justify-content: center;
 }
 
 .code-label {
@@ -177,10 +200,14 @@ const gohome = function () {
 
 /* 그리드 레이아웃 */
 .grid-container {
-    display: grid;
+    border: 2px solid var(--black15);
+    display: flex;
+    border-radius: 8px;
+    padding: 1rem;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
     margin-top: 2rem;
+    height: 700px;
 }
 
 /* 포스터 섹션 */
@@ -189,10 +216,13 @@ const gohome = function () {
 }
 
 .poster {
-    width: 70%;
+    border: 2px solid var(--abbey);
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
 }
 
 .poster:hover {
@@ -200,13 +230,14 @@ const gohome = function () {
 }
 
 .btn-select {
-    background-color: var(--red45);
+    background-color: var(--black10);
     color: white;
     padding: 0.8rem 1.5rem;
-    border: none;
+    border: 2px solid var(--red45);
     border-radius: 8px;
     font-weight: 500;
     transition: all 0.3s ease;
+    height: 64px;
 }
 
 .btn-select:hover {
@@ -217,13 +248,12 @@ const gohome = function () {
 /* 설명 섹션 */
 .description-box {
     background-color: var(--black26);
-    padding: 2rem;
+    padding: 1rem;
     border-radius: 12px;
-    height: 90%;
-    margin-bottom: 1.5rem;
     color: #ffffff;
     line-height: 1.6;
     overflow-y: auto;
+    width: 800px;
 }
 
 .btn-start {
@@ -235,10 +265,12 @@ const gohome = function () {
     font-size: 1.1rem;
     font-weight: 500;
     transition: all 0.3s ease;
+    height: 64px;
 }
 
 .btn-start.active {
-    background-color: var(--red45);
+    background-color: var(--black10);
+    border: 2px solid var(--red45);
 }
 
 .btn-start.active:hover {
@@ -266,10 +298,9 @@ const gohome = function () {
 
 .cast-info {
     background-color: var(--black26);
-    padding: 2rem;
+    padding: 1rem;
     border-radius: 12px;
     color: white;
-    margin-top: 30px;
 }
 
 .cast-info h3 {
@@ -299,6 +330,13 @@ const gohome = function () {
     font-weight: 500;
 }
 
+.info-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 344px;
+}
+
 /* 반응형 디자인 */
 @media (max-width: 1200px) {
     .grid-container {
@@ -312,9 +350,8 @@ const gohome = function () {
 
 @media (max-width: 768px) {
     .bigbig-container {
-        padding: 2rem;
+        padding: 1rem;
     }
-
     .grid-container {
         grid-template-columns: 1fr;
     }
