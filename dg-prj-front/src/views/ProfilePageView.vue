@@ -442,7 +442,7 @@ const fetchGameRecords = () => {
             }
         }).catch(err => {
             window.alert('전적 검색에 실패했습니다.');
-            // console.log(err)
+            console.log(err)
             isGameInfoSearchModalOpen.value = false;
         });
     }

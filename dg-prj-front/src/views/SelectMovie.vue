@@ -116,8 +116,8 @@ const comments = ref([])
 
 onMounted(async () => {
   await moviestore.getMovies()
-  customMovielist.value = moviestore.movies.filter((movie) => movie.creator !== null)
-  originalMovielist.value = moviestore.movies.filter((movie) => movie.creator === null)
+  customMovielist.value = moviestore.movies.filter((movie) => movie.creator !== 1)
+  originalMovielist.value = moviestore.movies.filter((movie) => movie.creator === 1)
   // console.log('커스텀', customMovielist)
   // console.log(originalMovielist)
 
@@ -148,7 +148,7 @@ const getComments = function (movieId) {
     }
   })
   .then(res => {
-    // console.log(res)
+    console.log(res)
     comments.value = res.data
     return res.data
   })
