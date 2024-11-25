@@ -233,6 +233,7 @@ onMounted(() => {
                     }).then(res => {
                         // console.log('ggg', res)
                         recommend_info.value = res.data
+                        console.log(recommend_info)
 
                     })
                 })

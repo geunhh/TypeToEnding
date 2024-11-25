@@ -89,7 +89,7 @@ export const useUserStore = defineStore('user', () => {
 // 영화 정보 및 함수 관리 스토어
 export const useMovieStore = defineStore('movie', () => {
 
-  const movies = ref(null) // 영화 전체 목록 -> 영화 선택에서 사용.
+  const movies = ref([]) // 영화 전체 목록 -> 영화 선택에서 사용.
   const userstore = useUserStore()
   const accountstore = useAccountStore()
   // 선택한 영화 정보
@@ -101,7 +101,7 @@ export const useMovieStore = defineStore('movie', () => {
   const poster_path = ref(null)
 
   // 영화 전체 정보 가져오기.
-  const getMovies = function () {
+  const getMovies = async function () {
     axios({
       method: 'get',
       url: 'http://127.0.0.1:8000/gameApp/movielist/',
