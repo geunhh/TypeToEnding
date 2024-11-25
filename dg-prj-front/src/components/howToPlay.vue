@@ -20,63 +20,63 @@
                                     <h2 class="explanation-title-htp">1. 영화 선택</h2>
                                     <p class="explanation-context-htp">대기실에서 플레이할 영화를 선택합니다</p>
                                 </div>
-                                <img src="@/assets/posters/grave.jpg" class="d-block w-100 howtoimg" alt="...">
+                                <img src="@/assets/tutorials/tutorial1.png" class="d-block w-100 howtoimg" alt="1">
                             </div>
                             <div class="carousel-item carousel-item-htp">
                                 <div>
                                     <h2 class="explanation-title-htp">2. 시나리오 작성</h2>
                                     <p class="explanation-context-htp">AI가 준비해준 시나리오에 이어질 적절한 시나리오를 작성합니다</p>
                                 </div>
-                                <img src="@/assets/posters/avengers.jpg" class="d-block w-100 howtoimg" alt="...">
+                                <img src="@/assets/tutorials/tutorial2.png" class="d-block w-100 howtoimg" alt="2">
                             </div>
                             <div class="carousel-item carousel-item-htp">
                                 <div>
                                     <h2 class="explanation-title-htp">3. AI의 평가</h2>
                                     <p class="explanation-context-htp">AI가 당신이 작성한 시나리오를 평가합니다</p>
                                 </div>
-                                <img src="@/assets/posters/귀멸의칼날.jpg" class="d-block w-100 howtoimg" alt="...">
+                                <img src="@/assets/tutorials/tutorial3.png" class="d-block w-100 howtoimg" alt="3">
                             </div>
                             <div class="carousel-item carousel-item-htp">
                                 <div>
                                     <h2 class="explanation-title-htp">4. 평가 결과 확인</h2>
                                     <p class="explanation-context-htp">AI의 평가결과에 따라 당신의 시나리오가 채택 혹은 폐기됩니다</p>
                                 </div>
-                                <img src="@/assets/posters/귀멸의칼날.jpg" class="d-block w-100 howtoimg" alt="...">
+                                <img src="@/assets/tutorials/tutorial4.png" class="d-block w-100 howtoimg" alt="4">
                             </div>
                             <div class="carousel-item carousel-item-htp">
                                 <div>
                                     <h2 class="explanation-title-htp">5. 최종 결과 확인</h2>
                                     <p class="explanation-context-htp">마지막 라운드가 끝난 후 최종 결과를 확인 할 수 있습니다</p>
                                 </div>
-                                <img src="@/assets/posters/귀멸의칼날.jpg" class="d-block w-100 howtoimg" alt="...">
+                                <img src="@/assets/tutorials/tutorial5.png" class="d-block w-100 howtoimg" alt="5">
                             </div>
                             <div class="carousel-item carousel-item-htp">
                                 <div>
                                     <h2 class="explanation-title-htp">6. 영화 추천</h2>
                                     <p class="explanation-context-htp">당신이 작성한 시나리오를 토대로 감정과 성향을 분석하여 AI가 영화를 추천합니다</p>
                                 </div>
-                                <img src="@/assets/posters/귀멸의칼날.jpg" class="d-block w-100 howtoimg" alt="...">
+                                <img src="@/assets/tutorials/tutorial6.png" class="d-block w-100 howtoimg" alt="6">
                             </div>
                             <div class="carousel-item carousel-item-htp">
                                 <div>
                                     <h2 class="explanation-title-htp">7. 댓글 남기기</h2>
                                     <p class="explanation-context-htp">플레이한 영화의 후기를 댓글로 남길 수 있습니다</p>
                                 </div>
-                                <img src="@/assets/posters/귀멸의칼날.jpg" class="d-block w-100 howtoimg" alt="...">
+                                <img src="@/assets/tutorials/tutorial7.png" class="d-block w-100 howtoimg" alt="7">
                             </div>
                             <div class="carousel-item carousel-item-htp">
                                 <div>
                                     <h2 class="explanation-title-htp">8. 전적 검색</h2>
                                     <p class="explanation-context-htp">플레이한 영화의 결과를 다시 볼 수 있습니다</p>
                                 </div>
-                                <img src="@/assets/posters/귀멸의칼날.jpg" class="d-block w-100 howtoimg" alt="...">
+                                <img src="@/assets/tutorials/tutorial8.png" class="d-block w-100 howtoimg" alt="8">
                             </div>
                             <div class="carousel-item carousel-item-htp">
                                 <div>
                                     <h2 class="explanation-title-htp">9. 영화 제작</h2>
                                     <p class="explanation-context-htp">자신만의 영화도 만들 수 있습니다</p>
                                 </div>
-                                <img src="@/assets/posters/귀멸의칼날.jpg" class="d-block w-100 howtoimg" alt="...">
+                                <img src="@/assets/tutorials/tutorial9.png" class="d-block w-100 howtoimg" alt="9">
                             </div>
                         </div>
                     </div>
@@ -88,7 +88,7 @@
                         <span class="visually-hidden">Previous</span>
                     </button>
                     <div class="carousel-indicators">
-                        <button v-for="(_, index) in 3" :key="index" type="button"
+                        <button v-for="(_, index) in 9" :key="index" type="button"
                             :class="['indicator-btn', { active: currentSlide === index }]"
                             @click="setCurrentSlide(index)" :aria-label="`Slide ${index + 1}`"></button>
                     </div>
@@ -223,5 +223,6 @@ body {
     height: 40rem; */
     width: 50vw;
     height: 50vh;
+    border: 2px solid var(--black15);
 }
 </style>
