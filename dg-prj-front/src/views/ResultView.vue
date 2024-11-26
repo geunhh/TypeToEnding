@@ -166,6 +166,7 @@ import axios from 'axios';
 // import { send } from 'vite';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+const TMDB_API_KEY = import.meta.env.TMDB_API_KEY
 
 const result = ref()
 const router = useRouter()
@@ -181,68 +182,61 @@ const BASE_URL = accountstore.BASE_URL
 
 
 onMounted(() => {
-    
-    axios({
+    // 먼저 game_id 에 해당하는 record 가져와야 해
+    axios({                 
         method: 'get',
         url: `http://127.0.0.1:8000/gameApp/record/${gamestore.game_id}/`,
         headers: {
             Authorization: `Token ${accountstore.token}`,            
         }
     })
-        .then(res => {
-            // console.log(res.data); // 이러면 JSON 문자열 그대로 반환됨. 
-            result.value = res.data;
-            
-            // history가 JSON 문자열인 경우 파싱
-            if (typeof res.data.history === 'string') {
-                res.data.history = JSON.parse(res.data.history); // 그래서 파싱 해줌.
+    // 다음은 record를 분석 및 추천 알고리즘에 보내.
+    .then(res => {
+        result.value = res.data;
+        
+        // history가 JSON 문자열인 경우 파싱
+        if (typeof res.data.history === 'string') {
+            res.data.history = JSON.parse(res.data.history); // 그래서 파싱 해줌.
+        }
+    }).then(res => {
+        // 영화 추천 및 감정분석을 위한 axios 호출.
+        axios({
+            method: 'post',
+            url: `http://127.0.0.1:8000/gameApp/recommend/${gamestore.game_id}/`,
+            headers: {
+                Authorization: `Token ${accountstore.token}`,
+                "Content-Type": "application/json"
+            },
+            data: {
+                result: result.value
             }
-            // result.value = res.data; 
         }).then(res => {
-            // 영화 추천 및 감정분석을 위한 axios 호출.
+            recommend.value = res.data.result
+        }).then(res => {              
+            // 추천 받은 영화 정보를 받아와야 함. 그래서 TMDB에 axios 보낼거임.
             axios({
-                method: 'post',
-                url: `http://127.0.0.1:8000/gameApp/recommend/${gamestore.game_id}/`,
+                method: 'get',
+                url: `https://api.themoviedb.org/3/search/movie`,
                 headers: {
-                    Authorization: `Token ${accountstore.token}`,
-                    "Content-Type": "application/json"
+                    accept: 'application/json',
+                    Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNmFmOGIwNGUyZTI0MTgwZGQ5NTgxMTFhOWIwMzVkOCIsIm5iZiI6MTczMjE3NDI2Ny45MTU4ODEsInN1YiI6IjY3MjEwNWE2NGJlMTU0NjllNzBlNzhkMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Hn679BEcxrEDiQhMZmHkI0oJlM93CpNmgDVxNlUwBWM`
                 },
-                data: {
-                    result: result.value
+                params: {
+                    include_adult: true,
+                    language: "ko-KR",
+                    page: 1,
+                    query: recommend.value.recommended_movie.title,
                 }
             }).then(res => {
-                // console.log(res)
-                recommend.value = res.data.result
+                recommend_info.value = res.data
+                console.log(recommend_info)
             })
-            
-            .then(res => {
-                    
-                
-                // 추천 받은 영화 정보를 받아와야 함. 그래서 TMDB에 axios 보낼거임.
-                axios({
-                    method: 'get',
-                    url: `https://api.themoviedb.org/3/search/movie`,
-                    headers: {
-                        accept: 'application/json',
-                        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNmFmOGIwNGUyZTI0MTgwZGQ5NTgxMTFhOWIwMzVkOCIsIm5iZiI6MTczMjE3NDI2Ny45MTU4ODEsInN1YiI6IjY3MjEwNWE2NGJlMTU0NjllNzBlNzhkMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Hn679BEcxrEDiQhMZmHkI0oJlM93CpNmgDVxNlUwBWM'
-                    },
-                    params: {
-                        include_adult: true,
-                        language: "ko-KR",
-                        page: 1,
-                        query: recommend.value.recommended_movie.title,
-                    }
-                }).then(res => {
-                    console.log('ggg', res)
-                    recommend_info.value = res.data
-                    console.log(recommend_info)
-                })
 
-            })
         })
-        .catch(err => console.log(err))
-    
     })
+    .catch(err => console.log(err))
+
+})
 
 
 // 메인 화면으로 돌아가주는 함수

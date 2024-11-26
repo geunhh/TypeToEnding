@@ -53,9 +53,6 @@ onMounted(() => {
         name: 'roundresult',
         state: { result: res.data }, // 데이터 상태로 전달
       });
-
-
-
     })
     .catch(err => {
       console.log(err)
