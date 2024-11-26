@@ -104,11 +104,11 @@
 
 | 메인 화면 (로그인 전)               | 메인 화면 (로그인 후)            |
 | ----------------------------------- | -------------------------------- |
-| ![스타트](readme_img/mainpage2.PNG) | ![엔딩](readme_img/mainpage.PNG) |
+| ![스타트](readme_img/mainpage2.png) | ![엔딩](readme_img/mainpage.png) |
 
 | 프로필 화면                        | How to play 툴바            |
 | ---------------------------------- | --------------------------- |
-| ![스타트](readme_img/profile0.PNG) | ![엔딩](readme_img/how.PNG) |
+| ![스타트](readme_img/profile0.png) | ![엔딩](readme_img/how.png) |
 
 ### **1. 게임 → 영화 추천**
 
@@ -117,15 +117,15 @@
 
 | 대기실 화면                       | 대기실 화면 (영화 선택 후)      |
 | --------------------------------- | ------------------------------- |
-| ![스타트](readme_img/lounge1.PNG) | ![엔딩](readme_img/lounge2.PNG) |
+| ![스타트](readme_img/lounge1.png) | ![엔딩](readme_img/lounge2.png) |
 
 | 영화 선택 화면                        | 시나리오 작성 화면               |
 | ------------------------------------- | -------------------------------- |
-| ![스타트](readme_img/selectmovie.PNG) | ![엔딩](readme_img/playgame.PNG) |
+| ![스타트](readme_img/selectmovie.png) | ![엔딩](readme_img/playgame.png) |
 
 | 시나리오 결과 화면1              | 시나리오 결과 화면2            |
 | -------------------------------- | ------------------------------ |
-| ![스타트](readme_img/judge1.PNG) | ![엔딩](readme_img/judge2.PNG) |
+| ![스타트](readme_img/judge1.png) | ![엔딩](readme_img/judge2.png) |
 
 ### **2. 무의식 분석 및 영화 추천**
 
@@ -133,7 +133,7 @@
 
 | 시나리오 결과 화면1             | 영화 후기 작성                  |
 | ------------------------------- | ------------------------------- |
-| ![스타트](readme_img/final.png) | ![엔딩](readme_img/comment.PNG) |
+| ![스타트](readme_img/final.png) | ![엔딩](readme_img/comment.png) |
 
 ### **3. 전적 확인 및 커스텀 영화 제작**
 
@@ -142,7 +142,7 @@
 
 | 전적 확인 화면                    | 커스텀 영화 작성               |
 | --------------------------------- | ------------------------------ |
-| ![스타트](readme_img/profile.png) | ![엔딩](readme_img/create.PNG) |
+| ![스타트](readme_img/profile.png) | ![엔딩](readme_img/create.png) |
 
 ---
 
