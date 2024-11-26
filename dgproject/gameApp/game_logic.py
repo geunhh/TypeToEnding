@@ -217,6 +217,7 @@ def anlayze_result(round1, round2, round3, round4, round5, game_id):
 def evaluate_and_generate_next(situation, user_action, context):
     """
     사용자 행동을 평가하고 다음 상황을 생성하는 함수
+    situation, user_action, context 토대로..
     """
     llm_chain = LLMChain(llm=chat, prompt=evaluation_prompt)
     result = llm_chain.run(

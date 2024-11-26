@@ -43,6 +43,10 @@ def movielist(request):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(
+            {"status": "error", "message": serializer.errors},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
 
 
 @api_view(["GET"])
@@ -83,12 +87,14 @@ def start_game(request):
     try:
         movie = Movie.objects.get(id=movie_id)
     except Movie.DoesNotExist:
-        return Response({"error": "Movie not found"}, status=404)
+        return Response({"error": "Movie not found"}, status=status.HTTP_404_NOT_FOUND)
 
     user = user = request.user
     
     # 랜덤 질문 가져오기
     initial_question = movie.initial_questions.order_by("?").first() # order_by("?") : 쿼리셋 결과를 랜덤하게 섞어서 반환
+
+
 
     # 게임 레코드 생성.
     game_record = GameRecord.objects.create(
@@ -109,7 +115,7 @@ def start_game(request):
     # 초기 질문이 없는 경우
     if not initial_question:
         return Response(
-            {"error": "No initial questions available for this movie."}, status=400
+            {"error": "No initial questions available for this movie."}, status=status.HTTP_400_BAD_REQUEST
         )
     
     # 리턴 해주기
@@ -161,7 +167,7 @@ def play_game(request, game_id):
         summary = generate_game_summary(game_record)
         response_data["summary"] = summary
 
-    return Response(response_data)
+    return Response(response_data,status=status.HTTP_200_OK)
 
 
 @api_view(["GET"])
@@ -180,7 +186,7 @@ def get_game_summary(request, game_id):
     """
     game_record = GameRecord.objects.get(id=game_id)
     summary = generate_game_summary(game_record)
-    return Response({"summary": summary, "total_score": game_record.total_score})
+    return Response({"summary": summary, "total_score": game_record.total_score},status=status.HTTP_200_OK)
 
 
 @api_view(["GET"])
@@ -198,7 +204,7 @@ def get_movie(request, game_id):
         Response: 게임 진행 기록
     """
     game_record = GameRecord.objects.get(id=game_id)
-    return Response({"history": game_record.history})
+    return Response({"history": game_record.history},status=status.HTTP_200_OK)
 
 
 @api_view(["POST"])
@@ -217,7 +223,7 @@ def recommend_movie(request, game_id):
         history[1], history[2], history[3], history[4], history[5], game_id
     )
 
-    return Response({"result": result})
+    return Response({"result": result},status=status.HTTP_200_OK)
 
 
 @api_view(["GET"])
@@ -240,7 +246,7 @@ def get_user_game_record(request, user_id):
     # 직렬화
     serializer = GameRecordSerializer(game_records, many=True)
 
-    return Response({"game_records": serializer.data})
+    return Response({"game_records": serializer.data},status=status.HTTP_200_OK)
 
 
 @api_view(["POST"])
@@ -255,6 +261,7 @@ def initial_question(request):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["GET", "POST"])
@@ -267,7 +274,7 @@ def comment_list_create(request, movie_id):
         comments = Comment.objects.filter(movie=movie)
         serializer = CommentSerializer(comments, many=True)
         print("디버깅 ", serializer.data)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     elif request.method == "POST":
         serializer = CommentSerializer(data=request.data)
