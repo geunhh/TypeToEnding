@@ -1,0 +1,211 @@
+[
+    {
+        "model": "gameApp.comment",
+        "pk": 1,
+        "fields": {
+            "movie": 1,
+            "user": 2,
+            "content": "테스트입니다.",
+            "created_at": "2024-11-25T01:22:54.089Z",
+            "updated_at": "2024-11-25T01:22:54.089Z"
+        }
+    },
+    {
+        "model": "gameApp.comment",
+        "pk": 2,
+        "fields": {
+            "movie": 56,
+            "user": 2,
+            "content": "커스텀 댓글테스트.",
+            "created_at": "2024-11-25T01:30:36.047Z",
+            "updated_at": "2024-11-25T01:30:36.047Z"
+        }
+    },
+    {
+        "model": "gameApp.comment",
+        "pk": 3,
+        "fields": {
+            "movie": 56,
+            "user": 2,
+            "content": "커스텀 댓글테스트.222",
+            "created_at": "2024-11-25T01:30:38.318Z",
+            "updated_at": "2024-11-25T01:30:38.318Z"
+        }
+    },
+    {
+        "model": "gameApp.comment",
+        "pk": 5,
+        "fields": {
+            "movie": 1,
+            "user": 3,
+            "content": "완전 재미있어요! 노래도 긴장감 가득~!! 짱~!!",
+            "created_at": "2024-11-25T06:03:45.178Z",
+            "updated_at": "2024-11-25T06:03:45.178Z"
+        }
+    },
+    {
+        "model": "gameApp.comment",
+        "pk": 6,
+        "fields": {
+            "movie": 1,
+            "user": 5,
+            "content": "너무 재밌네요~",
+            "created_at": "2024-11-25T11:41:52.049Z",
+            "updated_at": "2024-11-25T11:41:52.049Z"
+        }
+    },
+    {
+        "model": "gameApp.comment",
+        "pk": 7,
+        "fields": {
+            "movie": 1,
+            "user": 6,
+            "content": "킹노잼 ㅗ",
+            "created_at": "2024-11-25T11:42:08.624Z",
+            "updated_at": "2024-11-25T11:42:08.624Z"
+        }
+    },
+    {
+        "model": "gameApp.comment",
+        "pk": 8,
+        "fields": {
+            "movie": 1,
+            "user": 6,
+            "content": "조련하려는 시도 좋았잖아? 왜 폐기냐고!!",
+            "created_at": "2024-11-25T11:58:38.587Z",
+            "updated_at": "2024-11-25T11:58:38.587Z"
+        }
+    },
+    {
+        "model": "gameApp.comment",
+        "pk": 9,
+        "fields": {
+            "movie": 1,
+            "user": 6,
+            "content": "퉤퉤퉤",
+            "created_at": "2024-11-25T11:58:48.091Z",
+            "updated_at": "2024-11-25T11:58:48.091Z"
+        }
+    },
+    {
+        "model": "gameApp.comment",
+        "pk": 10,
+        "fields": {
+            "movie": 2,
+            "user": 6,
+            "content": "첩장이라니...",
+            "created_at": "2024-11-25T12:00:32.413Z",
+            "updated_at": "2024-11-25T12:00:32.413Z"
+        }
+    },
+    {
+        "model": "gameApp.comment",
+        "pk": 11,
+        "fields": {
+            "movie": 3,
+            "user": 7,
+            "content": "암 토니스타크.. 미쳣따",
+            "created_at": "2024-11-25T12:15:45.709Z",
+            "updated_at": "2024-11-25T12:15:45.709Z"
+        }
+    },
+    {
+        "model": "gameApp.comment",
+        "pk": 12,
+        "fields": {
+            "movie": 57,
+            "user": 7,
+            "content": "싸피.. 갓피..",
+            "created_at": "2024-11-25T12:42:09.371Z",
+            "updated_at": "2024-11-25T12:42:09.371Z"
+        }
+    },
+    {
+        "model": "gameApp.comment",
+        "pk": 13,
+        "fields": {
+            "movie": 57,
+            "user": 7,
+            "content": "대전 2반 정말 멋지네요..!!",
+            "created_at": "2024-11-25T13:07:33.019Z",
+            "updated_at": "2024-11-25T13:07:33.019Z"
+        }
+    },
+    {
+        "model": "gameApp.comment",
+        "pk": 14,
+        "fields": {
+            "movie": 57,
+            "user": 7,
+            "content": "아니 스터디원 걔는 왜 계속 안 나오냐",
+            "created_at": "2024-11-25T13:18:54.926Z",
+            "updated_at": "2024-11-25T13:18:54.926Z"
+        }
+    },
+    {
+        "model": "gameApp.comment",
+        "pk": 15,
+        "fields": {
+            "movie": 7,
+            "user": 2,
+            "content": "재밌고만 껄껄",
+            "created_at": "2024-11-25T17:03:25.128Z",
+            "updated_at": "2024-11-25T17:03:25.128Z"
+        }
+    },
+    {
+        "model": "gameApp.comment",
+        "pk": 16,
+        "fields": {
+            "movie": 57,
+            "user": 6,
+            "content": "무아쌤 최고",
+            "created_at": "2024-11-26T04:07:45.786Z",
+            "updated_at": "2024-11-26T04:07:45.786Z"
+        }
+    },
+    {
+        "model": "gameApp.comment",
+        "pk": 17,
+        "fields": {
+            "movie": 3,
+            "user": 9,
+            "content": "동근스튜디오 게임 너무 재밌었어요. 아이디어 짱이에요~! :)",
+            "created_at": "2024-11-26T04:23:13.745Z",
+            "updated_at": "2024-11-26T04:23:13.745Z"
+        }
+    },
+    {
+        "model": "gameApp.comment",
+        "pk": 18,
+        "fields": {
+            "movie": 7,
+            "user": 2,
+            "content": "키미노 나마에와...",
+            "created_at": "2024-11-26T06:24:22.910Z",
+            "updated_at": "2024-11-26T06:24:22.910Z"
+        }
+    },
+    {
+        "model": "gameApp.comment",
+        "pk": 19,
+        "fields": {
+            "movie": 1,
+            "user": 2,
+            "content": "재밌다.. 근데 쉽지 않구만 all 채택은 어렵겠어",
+            "created_at": "2024-11-26T06:43:14.732Z",
+            "updated_at": "2024-11-26T06:43:14.732Z"
+        }
+    },
+    {
+        "model": "gameApp.comment",
+        "pk": 20,
+        "fields": {
+            "movie": 5,
+            "user": 2,
+            "content": "ㅎㅎㅎㅎㅎㅎㅎㅎㅎ",
+            "created_at": "2024-11-26T07:51:44.210Z",
+            "updated_at": "2024-11-26T07:51:44.210Z"
+        }
+    }
+]

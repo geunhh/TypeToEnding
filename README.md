@@ -323,7 +323,75 @@
 - AI: OpenAI GPT (via LangChain)
 - Deployment: git lab
 
-## 8. 🌟 기타 (느낀점, 후기 등)
+---
+
+## 8. 🚀 **설치 및 실행 방법**
+
+### **Frontend**
+
+1. 프로젝트 디렉토리로 이동:
+   ```bash
+   cd frontend
+   ```
+
+2. 필요한 패키지 설치:
+   ```bash
+   npm install
+   npm install vite
+   npm install bootstrap-vue-3
+   ```
+
+3. Vite 개발 서버 실행:
+   ```bash
+   npm run dev
+   ```
+
+4. 브라우저에서 프로젝트 실행:
+   - 기본적으로 `http://localhost:5173`에서 실행됩니다.
+
+---
+
+### **Backend**
+
+1. **Python 환경 준비**
+   - Python 3.10 이상 설치 확인.
+   - 가상환경 생성 및 활성화:
+     ```bash
+     python -m venv venv
+     source venv/bin/activate  # Windows: venv\Scripts\activate
+     ```
+
+2. **필요한 패키지 설치**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Django 설정**
+   - `.env` 파일 생성 (API 키, SECRET_KEY 등 환경 변수 설정).
+   - 예시:
+     ```bash
+     SECRET_KEY=your_secret_key_here
+     DEBUG=True
+     ALLOWED_HOSTS=127.0.0.1,localhost
+     ```
+
+4. **데이터베이스 마이그레이션**
+   ```bash
+   python manage.py makemigrations
+   python manage.py migrate
+   ```
+
+5. **개발 서버 실행**
+   ```bash
+   python manage.py runserver
+   ```
+
+6. **백엔드 API 테스트**
+   - 기본적으로 `http://127.0.0.1:8000`에서 실행됩니다.
+
+--- 
+
+## 9. 🌟 기타 (느낀점, 후기 등)
 
 ### 포부 (프로젝트 시작 전)
 
