@@ -37,8 +37,8 @@
 
 - **a. 나는 어떤 영화를 보고 싶은걸까????**
   - 모르겠어. 나는 뭘 보고 싶은거지??
-- **b. 어떻게 알 수 있을까??**<br>
-  <img src="readme_img/GPT.png" alt="gpt answer" style="width: 50%; border: 1px solid #ccc; border-radius: 20px;">
+- **b. 어떻게 알 수 있을까??**
+  <br><img src="readme_img/GPT.png" alt="gpt answer" style="width: 50%; border: 1px solid #ccc; border-radius: 20px;">
   - 즉, 원하는 것은 <span style="color : red; font-weight:800">무의식</span>에서 드러나기 마련!!!
    질문을 던졌을 때 그가 원하는 방향으로 사고하고 답변할 것이다..!!
   - <span style="color :blue; font-weight:700">상황, 질문, 답변</span>을 통해 인지하지 못했던 
