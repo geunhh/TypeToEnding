@@ -13,7 +13,7 @@ load_dotenv()
 # API 키 가져오기
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
-
+# 세계관 context 가져오는 함수
 def get_movie_context(movie_id):
     # movie = Movie.objects.get(id=movie_id)
     movie = Movie.objects.get(id=movie_id)
@@ -126,7 +126,7 @@ eval_prompt = PromptTemplate(
 )
 
 
-
+# 분석 및 추천 결과 파싱하는 함수.
 def analyze_parsing(response_text, game_id):
     """
     AI의 응답 텍스트를 분석하여 각 항목을 분리 및 반환하는 함수.
@@ -195,22 +195,21 @@ def analyze_parsing(response_text, game_id):
         return None
 
 
-# 5라운드에 대한 결과 분석
+# 스토리 요약/심리 분석/영화추천 - 결과 분석 
 def anlayze_result(round1, round2, round3, round4, round5, game_id):
 
     llm_chain = LLMChain(llm=chat, prompt=eval_prompt)
     result = llm_chain.run(
         {
-            "round1": round1,
+            "round1": round1, # 라운드별 데이터 history 데이터 1~5 들어옴.
             "round2": round2,
             "round3": round3,
             "round4": round4,
             "round5": round5,
         }
     )
-    print(result)
+    # 파싱 고고
     result1 = analyze_parsing(result, game_id)
-    print(result1)
     return result1
 
 
@@ -235,24 +234,29 @@ def evaluate_and_generate_next(situation, user_action, context):
 def process_evaluation_and_next(result):
     """
     AI의 응답을 분석하여 점수, 유효성, 이유, 다음 문제를 추출하는 함수
-    """
-    print('결과 ~~~~~~~~~~~~~~~~~~~~~~######################')
 
-    print('겨과',result)
-    print('결과 끝~~~~~~~~~~~~~~~~~~~~~~######################')
-    lines = result.split("\n")
+    프롬프트를 작성으로 아래와 같은 양식으로 반한된 result.
+    줄바꿈을 기준으로 line별로 변수에 할당하고 파싱 진행. 
+
+    양식
+    "1. 점수: 90 (True)\n"
+    "2. 이유: 유저의 행동은 상대방의 감정을 이해하고, 갈등을 해결 ... \n"
+    "3. 새로운 문제 상황: 나는 오해로 인해 멀어진 ...
+
+    """
+    # Parsing
+    lines = result.split("\n") # 줄바꿈 기준으로 line 나눠줌. 
     try:
         # 점수를 포함한 텍스트에서 숫자만 추출
-        score_text = lines[0].split(":")[1].split("(")[0].strip()
-        print("디버깅", score_text)
-        score = int(score_text)  # 정수로 변환
-        is_valid = score >= 50
+        score_text = lines[0].split(":")[1].split("(")[0].strip() # 점수 값 찾고
+        score = int(score_text)         # 정수로 변환
+        is_valid = score >= 50          # 점수에 따라 적절함 판단
     except (ValueError, IndexError):
         score = 0  # 오류 발생 시 기본값 설정
 
-    is_valid = "True" in lines[0]
-    reason = lines[1].replace("2. ", "").strip()
-    next_problem = lines[2].replace("3. 새로운 문제 상황: ", "").strip()
+    is_valid = "True" in lines[0]       # 점수에 따라 적절함 판단
+    reason = lines[1].replace("2. ", "").strip()    # 이유 
+    next_problem = lines[2].replace("3. 새로운 문제 상황: ", "").strip()    # 다음 상황(새로운 상황)
 
     return score, is_valid, reason, next_problem
 
@@ -266,9 +270,10 @@ def generate_summary(history):
     result = llm_chain.run({"history": history})
     return result
 
-
+###################################################################
+# 게임 진행 메인 로직
 def play_game_round(game_record, user_action):
-    # history가 문자열일 경우 JSON으로 변환
+    # history가 문자열일 경우 JSON으로 변환 // history 가져오기.
     if isinstance(game_record.history, str):
         try:
             history = json.loads(game_record.history) or []
@@ -280,12 +285,13 @@ def play_game_round(game_record, user_action):
     # 현재 라운드 확인
     current_round = len(history) + 1
 
-    # 현재 상황 가져오기
+    # history에서 현재 상황 가져오기
     if history:
         current_situation = history[-1]["next_situation"]
     else:
-        # 초기 질문 설정
+        # 기록이 없다면 - 초기 질문 가져오기
         initial_question = game_record.movie.initial_questions.order_by("?").first()
+        # 초기 질문이 없다면???
         if not initial_question:
             return Response(
                 {"error": "No initial questions available for this movie."}, status=400
@@ -293,26 +299,30 @@ def play_game_round(game_record, user_action):
         current_situation = initial_question.question
 
     # 행동 평가 및 다음 상황 생성
+    '''
+        현재 상황, 유저 입력(시나리오), 세계관 입력
+    '''
     evaluation_result = evaluate_and_generate_next(
         situation=current_situation,
         user_action=user_action,
-        context=get_movie_context(game_record.movie.id),
+        context=get_movie_context(game_record.movie.id), # 세계관은 즉시 가져오기.
     )
 
-    # 응답 처리
-    score, is_valid, reason, next_problem = process_evaluation_and_next(
-        evaluation_result
-    )
+    # 응답 처리 
+    '''
+        점수, 적절함, 이유, 다음 상황 반환
+    '''
+    score, is_valid, reason, next_problem = process_evaluation_and_next(evaluation_result)
 
-    # 새로운 라운드 데이터 추가
+    # 새로운 라운드 데이터 추가 => history json에 append 될 예정.
     round_data = {
-        "round": current_round,
-        "situation": current_situation,
-        "user_action": user_action,
-        "score": score,
-        "evaluation": "적절함" if is_valid else "부적절함",
-        "reason": reason,
-        "next_situation": next_problem,
+        "round": current_round,             # 현재 라운드
+        "situation": current_situation,     # 현재 상황
+        "user_action": user_action,         # 유저 입력(시나리오)
+        "score": score,                     # 점수 (AI가 판단한 적합성 0~100)
+        "evaluation": "적절함" if is_valid else "부적절함", # 점수에 따른 적절함
+        "reason": reason,                   # 점수에 대한 이유
+        "next_situation": next_problem,     # 다음 상황 (= 입력*현재상황)
     }
     print(round_data)
 
@@ -321,9 +331,7 @@ def play_game_round(game_record, user_action):
         history.append(round_data)
 
     # 기록 업데이트
-    game_record.history = json.dumps(
-        history, ensure_ascii=False
-    )  # 직렬화하여 JSON으로 저장
+    game_record.history = json.dumps(history, ensure_ascii=False)  # 직렬화하여 JSON으로 저장
     game_record.total_score += score
 
     # 게임 종료 조건 확인
@@ -337,7 +345,7 @@ def play_game_round(game_record, user_action):
 
     return next_problem, is_game_over, reason, is_valid
 
-
+# 게임 요약 함수
 def generate_game_summary(game_record):
     history = (
         json.loads(game_record.history)

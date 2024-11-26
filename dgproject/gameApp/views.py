@@ -70,7 +70,6 @@ def test(request):
 def start_game(request):
     """
     새로운 게임을 시작하는 API
-
     Args:
         request: movie_id를 포함한 요청 객체
 
@@ -86,11 +85,12 @@ def start_game(request):
     except Movie.DoesNotExist:
         return Response({"error": "Movie not found"}, status=404)
 
-    # User = get_user_model()         # 유저모델에서
     user = user = request.user
     
-    initial_question = movie.initial_questions.order_by("?").first()
+    # 랜덤 질문 가져오기
+    initial_question = movie.initial_questions.order_by("?").first() # order_by("?") : 쿼리셋 결과를 랜덤하게 섞어서 반환
 
+    # 게임 레코드 생성.
     game_record = GameRecord.objects.create(
         movie=movie,
         user=user,
@@ -106,11 +106,13 @@ def start_game(request):
         total_score=0,
     )
 
+    # 초기 질문이 없는 경우
     if not initial_question:
         return Response(
             {"error": "No initial questions available for this movie."}, status=400
         )
-    print(game_record)
+    
+    # 리턴 해주기
     return Response(
         {
             "game_id": game_record.id,
@@ -120,6 +122,8 @@ def start_game(request):
 
 
 @api_view(["POST"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def play_game(request, game_id):
     """
     게임 진행을 처리하는 API
@@ -131,17 +135,19 @@ def play_game(request, game_id):
     Returns:
         Response: 다음 문제, 게임 종료 여부, 총점, 평가 이유, 유효성 여부
     """
+    # 기존에 진행했던 게임 데이터 찾음.
     game_record = GameRecord.objects.get(
         id=game_id
-    )  # 기존에 진행했던 게임 데이터 찾음.
-
-    user_action = request.data.get("user_action")  # user_acton. 작성한 시나리오 가져옴.
+    )  
+    # user_acton. 작성한 시나리오 가져옴.
+    user_action = request.data.get("user_action")  
 
     # 게임 record와 작성한 시나리오 던지기
     next_problem, is_game_over, reason, is_valid = play_game_round(
         game_record, user_action
     )
 
+    # 반환 데이터 생성.
     response_data = {
         "next_problem": next_problem,
         "is_game_over": is_game_over,
@@ -150,6 +156,7 @@ def play_game(request, game_id):
         "is_valid": is_valid,
     }
 
+    # 게임 종료 시
     if is_game_over:
         summary = generate_game_summary(game_record)
         response_data["summary"] = summary
@@ -158,6 +165,8 @@ def play_game(request, game_id):
 
 
 @api_view(["GET"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def get_game_summary(request, game_id):
     """
     게임 요약을 조회하는 API
@@ -175,6 +184,8 @@ def get_game_summary(request, game_id):
 
 
 @api_view(["GET"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def get_movie(request, game_id):
     """
     게임 히스토리를 조회하는 API
@@ -191,6 +202,8 @@ def get_movie(request, game_id):
 
 
 @api_view(["POST"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def recommend_movie(request, game_id):
     # print(request.data)
     data = request.data
@@ -208,6 +221,8 @@ def recommend_movie(request, game_id):
 
 
 @api_view(["GET"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def get_user_game_record(request, user_id):
     """
     특정 사용자의 게임 기록을 조회하는 API
@@ -229,6 +244,8 @@ def get_user_game_record(request, user_id):
 
 
 @api_view(["POST"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def initial_question(request):
     if request.method == "POST":
         """
@@ -241,6 +258,8 @@ def initial_question(request):
 
 
 @api_view(["GET", "POST"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def comment_list_create(request, movie_id):
 
     movie = get_object_or_404(Movie, id=movie_id)
